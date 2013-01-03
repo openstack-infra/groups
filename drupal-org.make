@@ -1,3 +1,7 @@
+; Drupal Core
+core = 7.x
+api = 2
+
 # inherit Drupal Commons profile
 
 projects[commons][type] = profile
