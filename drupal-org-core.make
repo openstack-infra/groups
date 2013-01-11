@@ -19,3 +19,7 @@ projects[drupal][version] = "7.17"
 ; Allow to specify SCRIPT HTML element attributes through drupal_add_js()
 ; http://drupal.org/node/1664602#comment-6221066
 projects[drupal][patch][] = http://drupal.org/files/1664602-1.patch
+
+; Make install profiles inheritable
+; http://drupal.org/node/1356276
+projects[drupal][patch][] = http://drupal.org/files/1356276-base-profile-d7-39-do-not-test.patch

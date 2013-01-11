@@ -1,0 +1,7 @@
+base = commons
+
+name = OpenStack User groups site
+project = osgroups
+distribution_name = "OpenStack User groups"
+description = Ready-to-use solution for managing OpenStack communities.
+core = 7.x
