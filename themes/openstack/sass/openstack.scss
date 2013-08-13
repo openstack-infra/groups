@@ -1,0 +1,263 @@
+@import "compass/css3";
+@import "compass/layout.scss";
+@import "compass/typography";
+@import "compass/utilities";
+@import "base";
+
+/** COLORS **/
+
+$basicColor:  #535353;
+
+$blue0:       #F2F6F7;
+$blue1:       #E3EDED;
+$blue2:       #c4e0e9;
+$blue3:       #254C7C;
+$blue4:       #264D69;
+  
+$red:         #BC1518;
+
+$green:       #D5EFD4;
+
+
+/** MIXINS **/
+
+@mixin font($size, $color, $weight){
+  font-size: $size;
+  color: $color;
+  font-weight: $weight;
+}
+
+@mixin button($padding, $radius){
+  @include inline-block;
+  padding: $padding;
+  @include border-radius($radius);
+  cursor: pointer;
+}
+
+@mixin buttonGrey{
+  padding: 5px 15px;
+  text-decoration: none;
+  font-family: "PT Sans", serif;
+  border: 1px solid #e2e2e2;
+  border-color: #e2e2e2 #bababa #a0a0a0 #bababa;
+  cursor: pointer;
+  line-height: 1;
+  @include inline-block;
+  @include background-image(linear-gradient(white, #F3F3F3 50%, #EBEBEB));
+  @include box-shadow(rgba(0,0,0, 0.2) 0px 1px 2px);
+  @include text-shadow(rgba(255,255,255, 1) 0px 1px 1px);
+  @include border-radius(3px);
+  @include font(13px, #000, normal);
+  @include transition (color 1s ease-out);
+  &:hover, &:active{
+    @include box-shadow(rgba(0,0,0, 0) 0px 0px 0px);
+    border-color: #636363 #ababab #ababab #ababab;
+    @include background-image(linear-gradient(#bebebe, #eeeeee));
+    -webkit-transition: none;
+  }
+}
+
+@mixin buttonBlue{
+  background: #CEE1E8;
+  color: #325C6B;
+  padding: 4px 15px;
+  margin-right: 5px;
+  font-size: 120%;
+  @include border-radius(5px);
+  @include inline-block;
+  cursor: pointer;
+  &:hover, &:active{
+    background: #A9D6E7;
+    text-decoration: none;
+  }
+}
+
+/** BASIC STLYES **/
+
+a{
+  @include link-colors($red, #000, #000, $red, #000);
+  text-decoration: none;
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
+p{
+  margin: 0 0 1.5em;
+}
+
+h1{
+  @include font(24px, $blue4, normal);
+}
+
+h2{
+  @include font(18px, $blue4, normal);
+}
+
+h3{
+  @include font(16px, $red, normal);
+}
+
+.block{
+  margin: 0px;
+}
+
+
+
+/** LAYOUT **/
+
+body{
+  border-top: 3px solid #255e6e;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  @include font(13px, $basicColor, normal);
+  background: #fff;
+  line-height: 1.5;
+  #message_bar{
+    background: $blue1;
+    border-bottom: 1px solid white;
+    padding: 10px;
+    font-family: 'PT Sans', serif;
+    @include text-shadow(rgba(255,255,255, 1) 0px 1px 1px);
+    @include box-shadow(rgba(#CCCCCC, 1) 1px 1px 1px);
+    @include font(1.3em, $blue4, normal);
+    .block{
+      margin: 0px auto;
+      padding: 0px;
+      max-width: 960px;
+      p{
+        margin: 0px 0px 0px 0px;
+        padding: 0px;
+        @include inline-block;
+        a{
+          @include buttonGrey;
+          margin: 0px 10px;
+        }
+      }
+    }
+  }
+  #page{
+    position: relative;
+    #header{
+      margin-top: 20px;
+      height: 70px;
+      .logoHolder{
+        padding-top: 16px;
+        @include inline-block;
+      }
+      .region-header{
+        background: url("../images/header-line.gif") left bottom repeat-x;
+        @include inline-block;
+        padding-top: 30px;
+        right: 0px;
+        position: absolute;
+        width: 100%;
+        max-width: 75%;
+        min-width: 25%;
+        .block-commons-utility-links{
+          position: absolute;
+          top: 0px;
+          right: 0px;
+          .commons-utility-links{
+            li{
+              a{
+                @include font(12px, #000, normal);
+                padding: 0;
+                &:hover, &.active{
+                  @include font(12px, $red, normal);
+                  border: none;
+                  padding: 0;
+                }
+              }
+            }
+          }
+        }
+        ul{
+          padding: 0;
+          margin: 0;
+          li{
+            list-style: none;
+            @include inline-block;
+            margin-right: 20px;
+            a{
+              display: block;
+              padding: 5px 0;
+              text-decoration: none;
+              @include font(14px, black, normal);
+              &.active{
+                border-bottom: 3px solid $red;
+                padding: 4px 0px 1px 0px;
+                @include font(14px, $red, normal);
+              }
+            }
+          }
+        }
+      }
+    }
+    #main{
+      #content{
+       
+        
+      }
+      aside{
+        .sidebar{
+          ul{
+            padding: 0px;
+            margin: 0px;
+            padding-right: 20px;
+            li{
+              list-style: none;
+              margin-bottom: 5px;
+              padding: 0;
+              a{
+                display: block;
+                padding: 10px 20px;
+                text-decoration: none;
+                @include font(12px, black, normal);
+                background: $blue1;
+                text-align: right;
+                &:hover{
+                  background: $blue2;
+                  @include transition (background-color 0.5s ease-out);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    #footer{
+      margin: 40px 0;
+      padding: 20px 0;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      @include clearfix;
+      .block{
+        float: left;
+        width: 16%;
+        .block-title{
+          @include font(15px, $red, normal);
+          margin-bottom: 20px;
+        }
+        ul{
+          padding: 0;
+          margin: 0px;
+          li{
+            list-style: none;
+          }
+        }
+      }
+      #block-block-6{
+        width: 36%;
+        textarea{
+          width: 90%;
+          height: 80px;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}
+
+button, input[type="button"], input[type="reset"], input[type="submit"]{
+  @include buttonGrey;
+}
