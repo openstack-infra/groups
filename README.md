@@ -37,10 +37,3 @@ make distribution
 $> drush make build-osgroups.make osgroups-dev.local
 ```
 
-Installation steps
-==================
-
-`See` osgroups-dev.local/INSTALL.mysql.txt to create mysql database
-`See` osgroups-dev.local/INSTALL.txt 
-
-
