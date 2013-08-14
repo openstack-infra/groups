@@ -26,7 +26,7 @@ projects[drupal][type] = "core"
 ; Download the OpenStack Groups install profile and recursively build all its dependencies.
 projects[osgroups][type] = "profile"
 projects[osgroups][download][type] = "git"
-projects[osgroups][download][url] = "https://github.com/marton-kiss/openstack-groups.git"
+projects[osgroups][download][url] = "https://github.com/openstack-infra/groups.git"
 projects[osgroups][download][branch] = "master"
 ```
 
