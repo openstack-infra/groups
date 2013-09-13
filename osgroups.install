@@ -1,4 +1,0 @@
-<?php
-
-function osgroups_install() {
-}
