@@ -1,0 +1,45 @@
+<?php
+/**
+ * @file
+ * Install, update, and uninstall functions for the field_group_location module.
+ */
+
+function field_group_location_field_schema($field) {
+  $columns = array(
+    'continent' => array(
+      'description' => 'Stores the two letter continent code',
+      'type' => 'varchar', 
+      'length' => 2, 
+      'not null' => TRUE
+    ),
+    'country' => array(
+      'description' => 'Stores the two letter country code',
+      'type' => 'varchar', 
+      'length' => 2, 
+      'not null' => TRUE
+    ),
+    'location' => array(
+      'description' => 'Stores city or the region of the group',
+      'type' => 'varchar', 
+      'length' => 128, 
+      'not null' => FALSE
+    ),
+    'lat' => array(
+      'description' => 'Stores the latitude value',
+      'type' => 'float',
+      'size' => 'big',
+      'not null' => FALSE,
+      'default' => 0,
+    ),
+    'lng' => array(
+      'description' => 'Stores the longitude value',
+      'type' => 'float',
+      'size' => 'big',
+      'not null' => FALSE,
+      'default' => 0,
+    ),
+  );
+  return array(
+    'columns' => $columns,
+  );
+}

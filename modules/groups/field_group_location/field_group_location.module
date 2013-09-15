@@ -1,0 +1,161 @@
+<?php
+
+/**
+ * @file
+ * A group location selector implementation
+ */
+
+/**
+ * Implements hook_field_info().
+ *
+ * Provides the description of the field.
+ */
+function field_group_location_field_info() {
+  return array(
+    'field_group_location' => array(
+      'label' => t('Group location'),
+      'description' => t('Provide the location of a group defined by country.'),
+      'default_widget' => 'field_group_location',
+      'default_formatter' => 'field_group_location_simple',
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_validate().
+ */
+
+function field_group_location_field_validate($entity_type, $entity, $field,
+  $instance, $langcode, $items, &$errors) {
+  // TODO: implement hook_field_validate
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function field_group_location_field_is_empty($item, $field) {
+  return FALSE;
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function field_group_location_field_formatter_info() {
+  return array(
+    'field_group_location_simple' => array(
+      'label' => t('Simple group location'),
+      'field types' => array('field_group_location'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function field_group_location_field_formatter_view($entity_type, $entity, $field, 
+  $instance, $langcode, $items, $display) {
+  $element = array();
+
+  module_load_include('inc', 'field_group_location', 'field_group_lookup');
+  include_once DRUPAL_ROOT . '/includes/iso.inc';
+
+  $continents = _continent_get_predefined_list();
+  $countries = _country_get_predefined_list();
+
+  switch ($display['type']) {
+    case 'field_group_location_simple':
+      foreach ($items as $delta => $item) {
+        $args = array(
+          '%continent' => $continents[$item['continent']],
+          '%country' => $countries[$item['country']],
+          '%location' => $item['location'],
+          '%lat' => $item['lat'],
+          '%lng' => $item['lng'],
+        );
+        $element[$delta] = array(
+          '#type' => 'html_tag',
+          '#tag' => 'div',
+          '#value' => format_string('%continent / %country / %location (%lat,%lng)',
+            $args),
+        );
+      }
+      break;
+  }
+  return $element;
+}
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function field_group_location_field_widget_info() {
+  return array(
+    'field_group_location' => array(
+      'label' => t('Field group location'),
+      'field types' => array('field_group_location'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_form().
+ *
+ */
+function field_group_location_field_widget_form(&$form, &$form_state, $field,
+  $instance, $langcode, $items, $delta, $element) {
+  include_once DRUPAL_ROOT . '/includes/iso.inc';
+  $countries = _country_get_predefined_list();
+
+  $country = isset($items[$delta]['country']) ? $items[$delta]['country'] : null;
+  $location = isset($items[$delta]['location']) ? $items[$delta]['location'] : null;
+
+  $widget = array(
+    '#theme_wrappers' => array('container', 'form_element'),
+    '#attributes' => array('class' => array('location-group-field-elements')),
+  );
+
+  switch ($instance['widget']['type']) {
+    case 'field_group_location':
+      $widget['country'] = array(
+        '#type' => 'select',
+        '#title' => t('Country'),
+        '#default_value' => $country,
+        '#options' => $countries,
+      );
+      $widget['location'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Location'),
+        '#default_value' => $location,
+        '#description' => 'Enter city, region here.',
+      );
+      break;
+  }
+
+  return $element + $widget;
+}
+
+function field_group_location_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  module_load_include('inc', 'field_group_location', 'field_group_lookup');
+  $continent_lookup = _country_by_continent_predefined_list();
+  foreach ($items as $delta => &$item) {
+    $item['continent'] = $continent_lookup[$item['country']];
+    // lookup long, lat values
+    $query = array(
+      'address' => $item['location'],
+      'components' => 'country:'.$item['country'],
+      'sensor' => 'false',
+    );
+    $url = 'http://maps.googleapis.com/maps/api/geocode/json?' . drupal_http_build_query($query);
+    $response = drupal_http_request($url);
+    if (empty($response->error)) {
+      $data = json_decode($response->data);
+      if ($data->status == 'OK') {
+        foreach ($data->results as $result) {
+          if (!empty($result->formatted_address)) {
+            $item['lat'] = $result->geometry->location->lat;
+            $item['lng'] = $result->geometry->location->lng;
+          }
+        }
+      }
+    }
+  }
+}
