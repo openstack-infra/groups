@@ -1,0 +1,19 @@
+<?php
+/**
+ * @file
+ * Install, update, and uninstall functions for the field_property_list module.
+ */
+
+function field_property_list_field_schema($field) {
+  $columns = array(
+    'key' => array('type' => 'varchar', 'length' => 32, 'not null' => TRUE),
+    'value' => array('type' => 'varchar', 'length' => 128, 'not null' => FALSE),
+  );
+  $indexes = array(
+    'key' => array('key'),
+  );
+  return array(
+    'columns' => $columns,
+    'indexes' => $indexes,
+  );
+}

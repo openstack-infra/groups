@@ -100,3 +100,9 @@ dependencies[] = commons_location
 dependencies[] = commons_wysiwyg
 dependencies[] = commons_social_sharing
 dependencies[] = commons_trusted_contacts
+
+; Custom modules
+dependencies[] = field_property_list
+
+; Features
+dependencies[] = groups_groups
