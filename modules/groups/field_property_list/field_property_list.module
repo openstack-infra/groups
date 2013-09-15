@@ -1,0 +1,151 @@
+<?php
+/**
+ * @file
+ * A key/value field implementation where the key is selectable from a 
+ * drop-down list.
+ */
+ 
+ function field_property_list_key_lookup() {
+   return array(
+    0 => t('Website'),
+    1 => t('IRC Channel'),
+    2 => t('Twitter (handle)'),
+    3 => t('Twitter hashtag'),
+    4 => t('Blog'),
+    5 => t('Meetup'),
+    6 => t('Google groups'),
+    7 => t('Linkedin group'),
+    8 => t('Google group'),
+    9 => t('Facebook'),
+    10 => t('Facebook group'),
+    11 => t('Forum'),
+    12 => t('E-mail'),
+    13 => t('Calendar'),
+    14 => t('Weibo'),
+    15 => t('Slideshare'),
+    16 => t('Mailing list'),
+    17 => t('Launchpad)'),
+    18 => t('Google plus'),
+  );
+ }
+
+/**
+ * Implements hook_field_info().
+ *
+ * Provides the description of the field.
+ */
+function field_property_list_field_info() {
+  return array(
+    'field_property_list' => array(
+      'label' => t('Property list'),
+      'description' => t('Provide a key/value field implementation.'),
+      'default_widget' => 'field_property_list',
+      'default_formatter' => 'field_property_list_raw',
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_validate().
+ */
+
+function field_property_list_field_validate($entity_type, $entity, $field,
+  $instance, $langcode, $items, &$errors) {
+  // TODO: implement hook_field_validate
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function field_property_list_field_is_empty($item, $field) {
+  return empty($item['value']);
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function field_property_list_field_formatter_info() {
+  return array(
+    'field_property_list_raw' => array(
+      'label' => t('Raw property list'),
+      'field types' => array('field_property_list'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function field_property_list_field_formatter_view($entity_type, $entity, $field, 
+  $instance, $langcode, $items, $display) {
+  $element = array();
+
+  $key_lookup = field_property_list_key_lookup();
+
+  switch ($display['type']) {
+    // This formatter simply outputs the field as text and with a color.
+    case 'field_property_list_raw':
+      foreach ($items as $delta => $item) {
+        $element[$delta] = array(
+          '#type' => 'html_tag',
+          '#tag' => 'div',
+          '#value' => $key_lookup[$item['key']].': '.$item['value'],
+        );
+      }
+      break;
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function field_property_list_field_widget_info() {
+  return array(
+    'field_property_list' => array(
+      'label' => t('Field property list'),
+      'field types' => array('field_property_list'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_form().
+ *
+ */
+function field_property_list_field_widget_form(&$form, &$form_state, $field, 
+  $instance, $langcode, $items, $delta, $element) {
+  
+  $key = isset($items[$delta]['key']) ? $items[$delta]['key'] : null;
+  $value = isset($items[$delta]['value']) ? $items[$delta]['value'] : null;
+  
+  $widget = array(
+    '#theme_wrappers' => array('container', 'form_element'),
+    '#attributes' => array('class' => array('property-list-field-elements', 'container-inline')),
+  );
+  
+  switch ($instance['widget']['type']) {
+    case 'field_property_list':
+      $widget += array(
+        '#type' => 'fieldset',
+        '#delta' => $delta,
+      );
+      $widget['key'] = array(
+        '#type' => 'select',
+        /*'#title' => t('Key'),*/
+        /*'#description' => 'Key of the property',*/
+        '#default_value' => $key,
+        '#options' => field_property_list_key_lookup(),
+      );
+      $widget['value'] = array(
+        '#type' => 'textfield',
+        /*'#title' => t('Value'),*/
+        '#default_value' => $value,
+        /*'#description' => 'Property value',*/
+      );
+      break;
+  }
+  return $element + $widget;
+}
+

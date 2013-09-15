@@ -110,6 +110,7 @@ function groups_set_language_negotiation() {
 function groups_install_finished(&$install_state) {
   // BEGIN copy/paste from install_finished().
   // Remove the bookmarks flag
+  include_once DRUPAL_ROOT . '/profiles/groups/modules/contrib/flag/includes/flag.admin.inc';
   $flag = flag_get_flag('bookmarks');
   if($flag) {
     $flag->delete();
