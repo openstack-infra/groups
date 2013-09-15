@@ -1,7 +1,8 @@
 api = 2
 core = 7.x
 
-includes[] = "commons.make"
+includes[commons] = "commons.make"
+includes[translations] = "groups-translations.make"
 
 ; Contributed modules.
 

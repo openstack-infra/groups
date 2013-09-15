@@ -50,7 +50,58 @@ function groups_install_tasks() {
     'groups_revert_features' => array(
       'display' => FALSE,
     ),
+    'groups_import_locales' => array(
+      'display_name' => 'Install additional languages',
+      'display' => TRUE,
+      'type' => 'batch',
+      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
+    ),
   );
+}
+
+/**
+ * Import translation files and languages from profile directory
+ *
+ */
+function groups_import_locales(&$install_state) {
+  include_once DRUPAL_ROOT . '/includes/locale.inc';
+  include_once DRUPAL_ROOT . '/includes/iso.inc';
+
+  $batch = array(
+    'title' => t('Importing interface translations'),
+    'init_message' => t('Starting import'),
+    'error_message' => t('Error importing interface translations'),
+    'file' => 'includes/locale.inc',
+    'operations' => array(),
+  );
+
+  $predefined = _locale_get_predefined_list();
+  $path = drupal_get_path('profile', drupal_get_profile()) . '/translations';
+  $translations = file_scan_directory($path, '/.*\.po$/');
+  foreach ($translations as $file) {
+    $langcode = pathinfo($file->name, PATHINFO_EXTENSION);
+    if (isset($predefined[$langcode])) {
+      locale_add_language($langcode);
+      $batch['operations'][] = array('_locale_import_po', array($file,
+        $langcode, LOCALE_IMPORT_OVERWRITE, 'default'));
+    }
+  }
+  
+  return $batch;
+}
+
+/**
+ * Set language negotiation to URL based.
+ *
+ */
+function groups_set_language_negotiation() {
+  require_once DRUPAL_ROOT . '/includes/language.inc';
+  require_once DRUPAL_ROOT . '/includes/locale.inc';
+  $negotation = array(
+    LOCALE_LANGUAGE_NEGOTIATION_URL => 2,
+    LANGUAGE_NEGOTIATION_DEFAULT => 10,
+  );
+  language_negotiation_set(LANGUAGE_TYPE_INTERFACE, $negotation);
 }
 
 /**
@@ -65,6 +116,9 @@ function groups_install_finished(&$install_state) {
     $flag->disable();
     _flag_clear_cache();
   }
+
+  // set language negotation
+  groups_set_language_negotiation();
 
   // Flush all caches to ensure that any full bootstraps during the installer
   // do not leave stale cached data, and that any content types or other items
