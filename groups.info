@@ -103,6 +103,7 @@ dependencies[] = commons_trusted_contacts
 
 ; Custom modules
 dependencies[] = field_property_list
+dependencies[] = field_group_location
 
 ; Features
 dependencies[] = groups_groups
