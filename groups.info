@@ -107,3 +107,4 @@ dependencies[] = field_group_location
 
 ; Features
 dependencies[] = groups_groups
+dependencies[] = groups_language_switcher
