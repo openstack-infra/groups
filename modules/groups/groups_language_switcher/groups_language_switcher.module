@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function groups_language_switcher_theme() {
+  return array(
+    'groups_language_switcher' => array(
+      'variables' => array(
+        'links' => NULL,
+        'attributes' => NULL,
+        'langcode' => NULL,
+      ),
+    ),
+  );
+}
+
+/**
+ * Build dropdown output from language links.
+ */
+function theme_groups_language_switcher($variables) {
+  $language_names = locale_language_list('native');
+  $output = '<span>'.$language_names[$variables['langcode']].'</span>';
+  $output .= theme('links__groups_language_switcher', $variables);
+  return $output;
+}
+
+/**
+ * Implement hook_commons_utility_links_alter
+ */
+function groups_language_switcher_commons_utility_links_alter(&$links) {
+  global $language;
+  if (drupal_multilingual()) {
+    $path = drupal_is_front_page() ? '<front>' : $_GET['q'];
+    $language_links = language_negotiation_get_switch_links('language', $path);
+    $variables = array(
+      'links' => $language_links->links, 
+      'attributes' => array('class' => array('language-dropdown')),
+      'langcode' => $language->language,
+    );
+    $links['languageswitcher']= array(
+      'title' => theme('groups_language_switcher', $variables),
+      'html' => TRUE,
+    );
+
+    $module_path = drupal_get_path('module', 'groups_language_switcher');
+    drupal_add_css($module_path . '/groups_language_switcher.css');
+  }
+}

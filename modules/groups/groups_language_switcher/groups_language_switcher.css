@@ -1,0 +1,36 @@
+.block-content ul.language-dropdown,
+ul.language-dropdown {
+  list-style:none;
+  position:absolute;
+  padding: 0px;
+  margin: 0px;
+  left: -9999px;
+  background: #336699;
+  overflow: auto;
+  z-index: 5;
+}
+
+ul.commons-utility-links ul.language-dropdown li {
+  display: block;
+  padding: 0.5em;
+  margin-left: 0;
+  text-align: left;
+}
+
+ul.commons-utility-links li.last ul a {
+  margin-left: 0;
+}
+
+li.languageswitcher {
+  position:relative;
+  z-index: 5;
+}
+
+ul.commons-utility-links li.languageswitcher {
+  padding-left: 9px;
+}
+
+li.languageswitcher:hover ul.language-dropdown {
+  left: 0;
+}
+
