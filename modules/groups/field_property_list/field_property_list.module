@@ -80,16 +80,32 @@ function field_property_list_field_formatter_view($entity_type, $entity, $field,
   $instance, $langcode, $items, $display) {
   $element = array();
 
+  $module_path = drupal_get_path('module', 'field_property_list');
+  drupal_add_css($module_path . '/field_property_list.css');
+
   $key_lookup = field_property_list_key_lookup();
 
   switch ($display['type']) {
     // This formatter simply outputs the field as text and with a color.
     case 'field_property_list_raw':
       foreach ($items as $delta => $item) {
+        $value = preg_replace('@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.-]*'.
+          '(\?\S+)?)?)?)@', '<a href="$1">$1</a>', $item['value']);
+
         $element[$delta] = array(
-          '#type' => 'html_tag',
-          '#tag' => 'div',
-          '#value' => $key_lookup[$item['key']].': '.$item['value'],
+          'title' => array(
+            '#type' => 'html_tag',
+            '#tag' => 'div',
+            '#value' => $key_lookup[$item['key']],
+            '#attributes' => array('class' => array('property-title',
+              'property-type-'.$item['key'])),
+          ),
+          'value' => array(
+            '#type' => 'html_tag',
+            '#tag' => 'div',
+            '#value' => $value,
+            '#attributes' => array('class' => array('property-value')),
+          ),
         );
       }
       break;

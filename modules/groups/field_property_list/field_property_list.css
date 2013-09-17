@@ -1,0 +1,12 @@
+.field-type-field-property-list .field-item {
+  width: 50%;
+  float: left;
+  padding-bottom: 0.5em;
+}
+
+.field-type-field-property-list .field-item .property-title {
+  font-size: 80%;
+  font-weight: bold;
+  text-transform:uppercase;
+  color: #333333;
+}
