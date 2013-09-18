@@ -50,12 +50,15 @@ function groups_install_tasks() {
     'groups_revert_features' => array(
       'display' => FALSE,
     ),
-    'groups_import_locales' => array(
-      'display_name' => 'Install additional languages',
-      'display' => TRUE,
-      'type' => 'batch',
-      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
-    ),
+/*
+ * NOTICE: disabled due groups-dev mysql performance issue
+ *   'groups_import_locales' => array(
+ *     'display_name' => 'Install additional languages',
+ *     'display' => TRUE,
+ *     'type' => 'batch',
+ *     'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
+ *   ),
+ */
   );
 }
 
