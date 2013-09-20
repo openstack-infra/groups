@@ -1,5 +1,16 @@
 <?php
 /**
  * @file
- * Drupal needs this blank file.
+ * Groups groups content type related extensions.
  */
+
+/**
+ * Implement hook_node_prepare
+ *
+ * Add a default published status to group content type.
+ */
+function groups_groups_node_prepare($node) {
+  if (($node->type == 'group') && (empty($node->nid))) {
+    $node->status = NODE_PUBLISHED;
+  }
+}
