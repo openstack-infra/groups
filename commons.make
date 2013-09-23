@@ -60,6 +60,10 @@ projects[commons_groups][subdir] = "commons"
 projects[commons_groups][download][url] = "http://git.drupal.org/project/commons_groups.git"
 projects[commons_groups][download][branch] = "7.x-3.x"
 
+; Error notice when creating or updating groups with locale module enabled
+; https://drupal.org/node/2039619#comment-7854797
+projects[commons_groups][patch][] = "patches/2039619-remove-privacy-settings-wrapper-4.patch"
+
 projects[commons_pages][type] = "module"
 projects[commons_pages][subdir] = "commons"
 projects[commons_pages][download][url] = "http://git.drupal.org/project/commons_pages.git"
