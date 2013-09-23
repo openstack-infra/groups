@@ -149,19 +149,82 @@ function field_property_list_field_widget_form(&$form, &$form_state, $field,
       );
       $widget['key'] = array(
         '#type' => 'select',
-        /*'#title' => t('Key'),*/
-        /*'#description' => 'Key of the property',*/
         '#default_value' => $key,
         '#options' => field_property_list_key_lookup(),
       );
       $widget['value'] = array(
         '#type' => 'textfield',
-        /*'#title' => t('Value'),*/
         '#default_value' => $value,
-        /*'#description' => 'Property value',*/
+      );
+      $element['field_remove_item'] = array(
+        '#type' => 'button',
+        '#value' => t('Remove'),
+        '#weight' => 10,
+        '#name' => drupal_html_class('op-remove-'. $field['field_name'].'-'.
+          $langcode.'-'.$delta),
+        '#ajax' => array(
+          'callback' => 'field_property_list_field_ajax_callback',
+        ),
+        '#limit_validation_errors' => array(),
       );
       break;
   }
   return $element + $widget;
 }
 
+function field_property_list_field_ajax_callback(&$form, $form_state) {
+  $wrapper = '.' . $form['#field_remove_item']['wrapper'];
+  $field_name = $form['#field_remove_item']['field_name'];
+
+  return array(
+    '#type' => 'ajax',
+    '#commands' => array(
+      ajax_command_replace($wrapper, render($form[$field_name])),
+    ),
+  );
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Remove field item.
+ *
+ */
+
+function field_property_list_form_alter(&$form, &$form_state, $form_id) {
+  if (isset($form_state['triggering_element']['#parents'][3]) &&
+    $form_state['triggering_element']['#parents'][3] == 'field_remove_item') {
+
+    $field_name = $form_state['triggering_element']['#parents'][0];
+    $field_language = $form_state['triggering_element']['#parents'][1];
+    $field_delta = $form_state['triggering_element']['#parents'][2];
+
+    if ($form[$field_name][$field_language]['#cardinality'] == FIELD_CARDINALITY_UNLIMITED) {
+      $form['#field_remove_item'] = array(
+        'wrapper' => $form[$field_name]['#attributes']['class'][1],
+        'field_name' => $field_name,
+      );
+      // Remove field item.
+      unset($form[$field_name][$field_language][$field_delta]);
+
+      if (!isset($form_state['#field_remove_item'])) {
+        $form_state['#field_remove_item'] = array();
+      }
+      // Memorize this removal.
+      $form_state['#field_remove_item'][$field_name][$field_language][] = $field_delta;
+    }
+  }
+
+  // Remove all items again in case the form submission fails validation.
+  if (!empty($form_state['#field_remove_item'])) {
+    foreach ($form_state['#field_remove_item'] as $field_name => $field_values) {
+      foreach ($field_values as $field_language => $field_deltas) {
+        foreach ($field_deltas as $field_delta) {
+          if (isset($form[$field_name][$field_language][$field_delta])) {
+            unset($form[$field_name][$field_language][$field_delta]);
+          }
+        }
+      }
+    }
+  }
+}
