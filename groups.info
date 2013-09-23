@@ -84,7 +84,6 @@ dependencies[] = commons_search
 dependencies[] = commons_search_core
 dependencies[] = commons_groups
 dependencies[] = commons_groups_pages
-dependencies[] = commons_groups_directory
 dependencies[] = commons_notify
 dependencies[] = commons_posts
 dependencies[] = commons_pages
@@ -108,3 +107,4 @@ dependencies[] = field_group_location
 ; Features
 dependencies[] = groups_groups
 dependencies[] = groups_language_switcher
+dependencies[] = groups_directory
