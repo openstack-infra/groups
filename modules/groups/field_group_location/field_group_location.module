@@ -46,6 +46,10 @@ function field_group_location_field_formatter_info() {
       'label' => t('Simple group location'),
       'field types' => array('field_group_location'),
     ),
+    'field_group_location_continent' => array(
+      'label' => t('Group location - Continent'),
+      'field types' => array('field_group_location'),
+    ),
   );
 }
 
@@ -77,6 +81,15 @@ function field_group_location_field_formatter_view($entity_type, $entity, $field
           '#tag' => 'div',
           '#value' => format_string('%continent / %country / %location (%lat,%lng)',
             $args),
+        );
+      }
+      break;
+    case 'field_group_location_continent':
+      foreach ($items as $delta => $item) {
+        $element[$delta] = array(
+          '#type' => 'html_tag',
+          '#tag' => 'div',
+          '#value' => $continents[$item['continent']],
         );
       }
       break;
