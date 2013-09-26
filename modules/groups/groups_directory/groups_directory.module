@@ -5,3 +5,18 @@
  */
 
 include_once 'groups_directory.features.inc';
+
+function groups_directory_views_pre_render(&$view) {
+  if ($view->name == 'groups_groups_directory') {
+    /*echo "<pre>";print_r($view);
+    die('-z-');*/
+    foreach($view->result as $r => &$result) {
+      $result->title = 'XXXX';
+      $result->field_data_field_group_location_field_group_location_continent_value =
+        'XXXX';
+      //echo "<pre>";print_r($result);
+    }
+  }
+  //print_r($view->name);
+  //die("-z-");
+}
