@@ -94,5 +94,89 @@ function groups_directory_views_default_views() {
   );
   $export['groups_groups_directory'] = $view;
 
+  $view = new view();
+  $view->name = 'groups_map';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'node';
+  $view->human_name = 'Groups map';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'leaflet';
+  $handler->display->display_options['style_options']['data_source'] = 'field_geofield';
+  $handler->display->display_options['style_options']['name_field'] = 'title';
+  $handler->display->display_options['style_options']['description_field'] = '#rendered_entity';
+  $handler->display->display_options['style_options']['map'] = 'mapbox-warden';
+  $handler->display->display_options['style_options']['icon'] = array(
+    'iconUrl' => '',
+    'shadowUrl' => '',
+    'iconSize' => array(
+      'x' => '',
+      'y' => '',
+    ),
+    'iconAnchor' => array(
+      'x' => '',
+      'y' => '',
+    ),
+    'shadowAnchor' => array(
+      'x' => '',
+      'y' => '',
+    ),
+    'popupAnchor' => array(
+      'x' => '',
+      'y' => '',
+    ),
+  );
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: geofield */
+  $handler->display->display_options['fields']['field_geofield']['id'] = 'field_geofield';
+  $handler->display->display_options['fields']['field_geofield']['table'] = 'field_data_field_geofield';
+  $handler->display->display_options['fields']['field_geofield']['field'] = 'field_geofield';
+  $handler->display->display_options['fields']['field_geofield']['label'] = '';
+  $handler->display->display_options['fields']['field_geofield']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_geofield']['click_sort_column'] = 'geom';
+  $handler->display->display_options['fields']['field_geofield']['settings'] = array(
+    'data' => 'full',
+  );
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+
+  /* Display: Content pane */
+  $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
+  $translatables['groups_map'] = array(
+    t('Master'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Content pane'),
+    t('View panes'),
+  );
+  $export['groups_map'] = $view;
+
   return $export;
 }

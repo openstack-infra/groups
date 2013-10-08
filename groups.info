@@ -99,6 +99,13 @@ dependencies[] = commons_location
 dependencies[] = commons_wysiwyg
 dependencies[] = commons_social_sharing
 dependencies[] = commons_trusted_contacts
+dependencies[] = geophp
+dependencies[] = geocoder
+dependencies[] = geofield
+dependencies[] = leaflet
+dependencies[] = leaflet_views
+dependencies[] = leaflet_mapbox
+dependencies[] = leaflet_more_maps
 
 ; Custom modules
 dependencies[] = field_property_list

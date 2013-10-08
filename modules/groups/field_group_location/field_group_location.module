@@ -106,6 +106,10 @@ function field_group_location_field_widget_info() {
       'label' => t('Field group location'),
       'field types' => array('field_group_location'),
     ),
+    'geofield_group_location' => array(
+      'label' => t('Geocode from group location field'),
+      'field types' => array('geofield'),
+    ),
   );
 }
 
@@ -140,6 +144,8 @@ function field_group_location_field_widget_form(&$form, &$form_state, $field,
         '#default_value' => $location,
         '#description' => 'Enter city, region here.',
       );
+      break;
+    case 'geofield_group_location':
       break;
   }
 

@@ -14,3 +14,26 @@ function groups_groups_node_prepare($node) {
     $node->status = NODE_PUBLISHED;
   }
 }
+
+/**
+ * Implements hook node presave
+ *
+ * Update geofield from group location values.
+ */
+
+function groups_groups_node_presave($node) {
+  if ($node->type == 'group') {
+    if ((isset($node->field_group_location['und'][0]['lat']) &&
+      (isset($node->field_group_location['und'][0]['lng'])))) {
+      geophp_load();
+      $latitude = $node->field_group_location['und'][0]['lat'];
+      $longitude = $node->field_group_location['und'][0]['lng'];
+      $geom = new Point($longitude, $latitude);
+      $geofield = geofield_get_values_from_geometry($geom);
+      $geofield['geom'] = 'POINT (' . $longitude . ' ' . $latitude . ')';
+      $node->field_geofield = array('und'=>array($geofield));
+    } else {
+      $node->field_geofield = array();
+    }
+  }
+}

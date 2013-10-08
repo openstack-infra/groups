@@ -429,6 +429,30 @@ projects[registry_rebuild][version] = "1.10"
 projects[registry_rebuild][type] = "module"
 projects[registry_rebuild][subdir] = "contrib"
 
+projects[geophp][version] = "1.7"
+projects[geophp][type] = "module"
+projects[geophp][subdir] = "contrib"
+
+projects[geocoder][version] = "1.2"
+projects[geocoder][type] = "module"
+projects[geocoder][subdir] = "contrib"
+
+projects[geofield][version] = "2.0"
+projects[geofield][type] = "module"
+projects[geofield][subdir] = "contrib"
+
+projects[leaflet][version] = "1.0-beta3"
+projects[leaflet][type] = "module"
+projects[leaflet][subdir] = "contrib"
+
+projects[leaflet_mapbox][version] = "1.2"
+projects[leaflet_mapbox][type] = "module"
+projects[leaflet_mapbox][subdir] = "contrib"
+
+projects[leaflet_more_maps][version] = "1.6"
+projects[leaflet_more_maps][type] = "module"
+projects[leaflet_more_maps][subdir] = "contrib"
+
 ; Contributed themes.
 
 projects[adaptivetheme][type] = "theme"
@@ -467,3 +491,9 @@ libraries[placeholder][download][url] = "https://github.com/mathiasbynens/jquery
 libraries[timeago][download][type] = "get"
 libraries[timeago][type] = "libraries"
 libraries[timeago][download][url] = "https://raw.github.com/rmm5t/jquery-timeago/v1.3.0/jquery.timeago.js"
+
+; leaflet module, need to repackage with proper internal directory structure
+libraries[dist][download][type] = "get"
+libraries[dist][type] = "libraries"
+libraries[dist][download][url] = "http://leaflet-cdn.s3.amazonaws.com/build/leaflet-0.6.4.zip"
+libraries[dist][destination] = "libraries/leaflet"
