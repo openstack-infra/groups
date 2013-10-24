@@ -49,6 +49,8 @@ projects[commons_utility_links][type] = "module"
 projects[commons_utility_links][subdir] = "commons"
 projects[commons_utility_links][download][url] = "http://git.drupal.org/project/commons_utility_links.git"
 projects[commons_utility_links][download][branch] = "7.x-3.x"
+; add utility links block to openstack theme instead of commons_origins
+projects[commons_utility_links][patch][] = "patches/0001-utility-links-block-install-theme.patch"
 
 projects[commons_bw][type] = "module"
 projects[commons_bw][subdir] = "commons"
