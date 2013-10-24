@@ -1,11 +1,11 @@
     <hr>
     <div class="span-8">
-      <h3>My Feedback About This Page</h3>
-<form enctype="application/x-www-form-urlencoded" method="post" action="/software/FeedbackForm" id="FeedbackForm_FeedbackForm">
-  <textarea cols="20" rows="5" name="Content" id="FeedbackForm_FeedbackForm_Content"></textarea>
-  <input type="submit" title="Tell Us" value="Tell Us" name="action_submitFeedback" id="FeedbackForm_FeedbackForm_action_submitFeedback" class="action  button">
-</form>
-
+      <h3>Contribute to the Groups Portal</h3>
+	<ul>
+	  <li><a href="https://bugs.launchpad.net/openstack-ci">Report Issues</a></li>
+	  <li><a href="https://TODO">Join a Group</a></li>
+	  <li><a href="https://TODO">Establish a New Group</a></li>
+	</ul>
     </div>
     <div class="span-4">
       <h3>OpenStack</h3>
@@ -45,4 +45,4 @@
       </ul>
     </div>
     <hr>
-    <p>The OpenStack project is provided under the Apache 2.0 license. Openstack.org is powered by <a href="http://www.rackspacecloud.com/">Rackspace Cloud Computing</a>.</p>
+    <p>OpenStack is a trademark of OpenStack Foundation. This site is powered by <a href="https://drupal.org/project/commons">Drupal Commons</a> - <a href="http://git.openstack.org/cgit/openstack-infra/groups/">source</a>). Content on this site is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">CC-BY 3.0</a> license.</p>
