@@ -115,3 +115,4 @@ dependencies[] = field_group_location
 dependencies[] = groups_groups
 dependencies[] = groups_language_switcher
 dependencies[] = groups_directory
+dependencies[] = groups_footer

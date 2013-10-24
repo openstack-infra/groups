@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * Implements hook_block_info().
+ */
+function groups_footer_block_info() {
+  $blocks['groups_footer'] = array(
+    'info' => t('Groups footer'),
+    'visibility' => 0,
+    'status' => 1,
+    'pages' => 0,
+    'weight' => 1,
+  );
+  return $blocks;
+}
+
+function groups_footer_theme() {
+  $module_path = drupal_get_path('module', 'groups_footer');
+  $base = array(
+    'path' => "$module_path/templates",
+  );
+  return array(
+    'groups_footer' => $base + array(
+      'template' => 'groups_footer',
+      'variables' => array('items' => NULL,),
+    ),
+  );
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function groups_footer_block_view() {
+  $block['subject'] = '';
+  $block['content'] = theme('groups_footer');
+  return $block;
+}
