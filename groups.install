@@ -38,7 +38,7 @@ function groups_requirements($phase) {
  */
 function groups_install() {
   // Enable the Origins theme and set it as the default.
-  theme_enable(array('adaptivetheme', 'commons_origins', 'adaptivetheme_admin'));
+  theme_enable(array('adaptivetheme', 'commons_origins', 'adaptivetheme_admin', 'openstack'));
 
     // The Bartik theme is automatically enabled during installation. Disable it.
   db_update('system')
@@ -48,7 +48,7 @@ function groups_install() {
     ->execute();
 
   // Set the default and administration themes.
-  variable_set('theme_default', 'commons_origins');
+  variable_set('theme_default', 'openstack');
   // Set a default administrative theme:
   variable_set('admin_theme', 'adaptivetheme_admin');
   variable_set('node_admin_theme', FALSE);
@@ -59,23 +59,10 @@ function groups_install() {
   // Set a default user avatar.
   /*commons_set_default_avatar();*/
 
-  // Place site blocks in the menu_bar and header regions.
-  $menu_block = array(
-    'module' => 'system',
-    'delta' => 'main-menu',
-    'theme' => 'commons_origins',
-    'visibility' => 0,
-    'region' => 'menu_bar',
-    'status' => 1,
-    'pages' => '',
-    'title' => '<none>',
-  );
-  drupal_write_record('block', $menu_block);
-
   $search_block = array(
     'module' => 'search',
     'delta' => 'form',
-    'theme' => 'commons_origins',
+    'theme' => 'openstack',
     'visibility' => 0,
     'region' => 'header',
     'status' => 1,

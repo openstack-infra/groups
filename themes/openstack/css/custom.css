@@ -1,0 +1,200 @@
+/**
+ * @file
+ * Common scss rules
+ *
+ */
+/** COLORS **/
+/** BASIC STLYES **/
+/* line 34, ../sass/custom.scss */
+body {
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  color: #535353;
+  font-weight: normal;
+}
+
+/* line 39, ../sass/custom.scss */
+a {
+  color: #bc1518;
+  text-decoration: none;
+}
+/* line 18, ../../../../../../../../usr/lib/ruby/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+a:visited {
+  color: #bc1518;
+}
+/* line 21, ../../../../../../../../usr/lib/ruby/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+a:focus {
+  color: black;
+}
+/* line 24, ../../../../../../../../usr/lib/ruby/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+a:hover {
+  color: black;
+}
+/* line 27, ../../../../../../../../usr/lib/ruby/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+a:active {
+  color: black;
+}
+/* line 42, ../sass/custom.scss */
+a:hover {
+  text-decoration: underline;
+}
+
+/* line 47, ../sass/custom.scss */
+p {
+  margin: 0 0 1.5em;
+}
+
+/* line 51, ../sass/custom.scss */
+h1 {
+  font-size: 24px;
+  color: #264d69;
+  font-weight: normal;
+}
+
+/* line 55, ../sass/custom.scss */
+h2 {
+  font-size: 18px;
+  color: #264d69;
+  font-weight: normal;
+}
+
+/* line 59, ../sass/custom.scss */
+h3 {
+  font-size: 16px;
+  color: #bc1518;
+  font-weight: normal;
+}
+
+/* line 63, ../sass/custom.scss */
+.block {
+  margin: 0px;
+}
+
+/* line 67, ../sass/custom.scss */
+.blueline {
+  background: url('../images/header-line.gif?1371823728') repeat-x scroll 0 bottom rgba(0, 0, 0, 0);
+}
+
+/* line 71, ../sass/custom.scss */
+#logo {
+  line-height: 24px;
+  verical-align: baseline;
+}
+/* line 74, ../sass/custom.scss */
+#logo img {
+  padding-top: 8px;
+}
+
+/** PRIMARY MENU **/
+/* line 81, ../sass/custom.scss */
+#navigation {
+  height: auto;
+  line-height: 24px;
+}
+/* line 84, ../sass/custom.scss */
+#navigation * {
+  padding: 0;
+  margin: 0;
+}
+/* line 88, ../sass/custom.scss */
+#navigation nav {
+  margin-left: 30px;
+}
+/* line 91, ../sass/custom.scss */
+#navigation .links li {
+  padding: 0;
+}
+/* line 94, ../sass/custom.scss */
+#navigation li {
+  vertical-align: baseline;
+  margin-right: 20px;
+}
+/* line 97, ../sass/custom.scss */
+#navigation li a {
+  display: block;
+  color: #353535;
+  padding: 20px 0 5px;
+  font-size: 14px;
+  text-decoration: none;
+}
+/* line 106, ../sass/custom.scss */
+#navigation li.active a {
+  border-bottom: 3px solid #CF2F19;
+  color: #CF2F19;
+}
+
+/** UTILITY LINKS **/
+/* line 116, ../sass/custom.scss */
+.block-commons-utility-links ul {
+  float: right;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+}
+/* line 121, ../sass/custom.scss */
+.block-commons-utility-links ul li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: inline-block;
+  padding-left: 0.5em;
+}
+/* line 127, ../sass/custom.scss */
+.block-commons-utility-links ul li a {
+  color: #1F7A95;
+}
+
+/** BLOCK SEARCH FORM **/
+/* line 136, ../sass/custom.scss */
+#header #block-search-form {
+  float: right;
+}
+/* line 138, ../sass/custom.scss */
+#header #block-search-form .form-type-textfield {
+  border: 1px solid #c5e2ea;
+  display: inline-block;
+}
+/* line 141, ../sass/custom.scss */
+#header #block-search-form .form-type-textfield input {
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+/* line 147, ../sass/custom.scss */
+#header #block-search-form .form-submit {
+  background: #CF2F19;
+  color: #ffffff;
+  border: none;
+  height: 24px;
+}
+
+/** FOOTER **/
+/* line 158, ../sass/custom.scss */
+#footer hr {
+  height: 1px;
+  background: none repeat scroll 0 0 #DDDDDD;
+  border: medium none;
+  clear: both;
+  color: #DDDDDD;
+  float: none;
+  height: 0.1em;
+  margin: 0 0 1.45em;
+  width: 100%;
+}
+/* line 169, ../sass/custom.scss */
+#footer .span-8, #footer .span-4 {
+  float: left;
+  margin-right: 10px;
+}
+/* line 173, ../sass/custom.scss */
+#footer .span-8 {
+  width: 310px;
+}
+/* line 176, ../sass/custom.scss */
+#footer .span-4 {
+  width: 150px;
+}
+/* line 179, ../sass/custom.scss */
+#footer .span-4.last {
+  margin-right: 0px;
+}

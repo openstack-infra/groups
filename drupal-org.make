@@ -455,6 +455,10 @@ projects[leaflet_more_maps][subdir] = "contrib"
 
 ; Contributed themes.
 
+projects[zen][type] = "theme"
+projects[zen][subdir] = "contrib"
+projects[zen][version] = "5.4"
+
 projects[adaptivetheme][type] = "theme"
 projects[adaptivetheme][subdir] = "contrib"
 projects[adaptivetheme][download][type] = "git"

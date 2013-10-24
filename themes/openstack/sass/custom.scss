@@ -1,0 +1,182 @@
+/**
+ * @file
+ * Common scss rules
+ *
+ */
+
+@import "compass/css3";
+@import "compass/layout.scss";
+@import "compass/typography";
+@import "compass/utilities";
+
+/** COLORS **/
+
+$basicColor:  #535353;
+
+$blue0:       #F2F6F7;
+$blue1:       #E3EDED;
+$blue2:       #c4e0e9;
+$blue3:       #254C7C;
+$blue4:       #264D69;
+
+$red:         #BC1518;
+
+$green:       #D5EFD4;
+
+@mixin font($size, $color, $weight){
+  font-size: $size;
+  color: $color;
+  font-weight: $weight;
+}
+
+/** BASIC STLYES **/
+
+body {
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  @include font(13px, $basicColor, normal);
+}
+
+a{
+  @include link-colors($red, #000, #000, $red, #000);
+  text-decoration: none;
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
+p{
+  margin: 0 0 1.5em;
+}
+
+h1{
+  @include font(24px, $blue4, normal);
+}
+
+h2{
+  @include font(18px, $blue4, normal);
+}
+
+h3{
+  @include font(16px, $red, normal);
+}
+
+.block{
+  margin: 0px;
+}
+
+.blueline {
+  background: image-url("header-line.gif") repeat-x scroll 0 bottom rgba(0, 0, 0, 0);
+}
+
+#logo {
+  line-height: 24px;
+  verical-align: baseline;
+  img {
+    padding-top: 8px;
+  }
+}
+
+/** PRIMARY MENU **/
+
+#navigation {
+  height: auto;
+  line-height: 24px;
+  * {
+    padding: 0;
+    margin: 0;
+  }
+  nav {
+    margin-left: 30px;
+  }
+  .links li {
+    padding: 0;
+  }
+  li {
+    vertical-align: baseline;
+    margin-right: 20px;
+    a {
+      display: block;
+      color: #353535;
+      padding: 20px 0 5px;
+      font-size: 14px;
+      text-decoration: none;
+    }
+  }
+  li.active {
+    a {
+      border-bottom: 3px solid #CF2F19;
+      color: #CF2F19;
+    }
+  }
+}
+
+/** UTILITY LINKS **/
+
+.block-commons-utility-links {
+  ul {
+    float: right;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    li {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      display: inline-block;
+      padding-left: 0.5em;
+      a {
+        color: #1F7A95;
+      }
+    }
+  }
+}
+
+/** BLOCK SEARCH FORM **/
+
+#header #block-search-form {
+  float: right;
+  .form-type-textfield {
+      border: 1px solid #c5e2ea;
+      display: inline-block;
+      input {
+        border: none;
+        outline: none;
+        font-size: 16px;
+      }
+  }
+  .form-submit {
+    background: #CF2F19;
+    color: #ffffff;
+    border: none;
+    height: 24px;
+  }
+}
+
+/** FOOTER **/
+
+#footer {
+  hr {
+    height: 1px;
+    background: none repeat scroll 0 0 #DDDDDD;
+    border: medium none;
+    clear: both;
+    color: #DDDDDD;
+    float: none;
+    height: 0.1em;
+    margin: 0 0 1.45em;
+    width: 100%;
+  }
+  .span-8, .span-4 {
+    float: left;
+    margin-right: 10px;
+  }
+  .span-8 {
+    width: 310px;
+  }
+  .span-4 {
+    width: 150px;
+  }
+  .span-4.last {
+    margin-right: 0px;
+  }
+}

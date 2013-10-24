@@ -1,0 +1,58 @@
+/**
+ * @file
+ *
+ * Layout of inner page elements.
+ *
+ */
+/* line 17, ../sass/page-layouts.scss */
+#header #logo {
+  /*background: #00ff00;*/
+}
+/* line 20, ../sass/page-layouts.scss */
+#header #navigation {
+  /*background: #e0e0e0;*/
+  /*position: static;
+  width: auto;
+  height: 56px;*/
+}
+
+/* line 46, ../sass-extensions/zen-grids/stylesheets/zen/_grids.scss */
+#branding:before, #branding:after {
+  content: "";
+  display: table;
+}
+/* line 50, ../sass-extensions/zen-grids/stylesheets/zen/_grids.scss */
+#branding:after {
+  clear: both;
+}
+
+/* line 32, ../sass/page-layouts.scss */
+#logo {
+  float: left;
+  width: 196px;
+  margin-left: 0px;
+  margin-right: -196px;
+  padding-left: 10px;
+  padding-right: 10px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+
+/* line 36, ../sass/page-layouts.scss */
+#navigation {
+  float: left;
+  width: 784px;
+  margin-left: 196px;
+  margin-right: -980px;
+  padding-left: 10px;
+  padding-right: 10px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  position: static;
+}
