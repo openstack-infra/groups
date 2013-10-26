@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Groups Home feature.
+ */
+
+include_once 'groups_homepage.features.inc';
