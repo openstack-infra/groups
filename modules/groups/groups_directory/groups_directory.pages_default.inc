@@ -19,7 +19,7 @@ function groups_directory_default_page_manager_pages() {
   $page->access = array();
   $page->menu = array(
     'type' => 'normal',
-    'title' => 'Groups',
+    'title' => 'User Groups',
     'name' => 'main-menu',
     'weight' => '-1',
     'parent' => array(
