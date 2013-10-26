@@ -5,3 +5,23 @@
  */
 
 include_once 'groups_homepage.features.inc';
+
+/**
+ * Implements hook_block_info().
+ */
+function groups_homepage_block_info() {
+  $blocks['groups_homepage_welcome'] = array(
+    'info' => t('Groups welcome block'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function groups_homepage_block_view($delta='') {
+  $block['content'] = variable_get('groups_welcome_body', "Can't find one nearby? Want to start one? The <a href='https://wiki.openstack.org/wiki/Teams#Community_team'>OpenStack International Community team</a> is your main contact point. Join the <a href='http://lists.openstack.org/cgi-bin/mailman/listinfo/community'>mailing list</a> and read the <a href='https://wiki.openstack.org/wiki/OpenStackUserGroups/HowTo'>HowTo page</a> if you are hosting or want to start a user group with meetups, hackathons and other social events talking about OpenStack and free/libre open source software for the cloud.");
+  $block['subject'] = variable_get('groups_welcome_title', 'Welcome to OpenStack User Groups!');
+  return $block;
+}

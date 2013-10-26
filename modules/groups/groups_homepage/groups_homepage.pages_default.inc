@@ -72,6 +72,28 @@ function groups_homepage_default_page_manager_pages() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
+    $pane->pid = 'new-dd6ca3f4-3444-af04-f1e2-47c9f488ed53';
+    $pane->panel = 'two_brick_left_above';
+    $pane->type = 'block';
+    $pane->subtype = 'groups_homepage-groups_homepage_welcome';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'override_title' => 0,
+      'override_title_text' => '',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $pane->uuid = 'dd6ca3f4-3444-af04-f1e2-47c9f488ed53';
+    $display->content['new-dd6ca3f4-3444-af04-f1e2-47c9f488ed53'] = $pane;
+    $display->panels['two_brick_left_above'][0] = 'new-dd6ca3f4-3444-af04-f1e2-47c9f488ed53';
+    $pane = new stdClass();
     $pane->pid = 'new-1a23fada-1c8b-2cf4-2978-e8aa64e28877';
     $pane->panel = 'two_brick_right_above';
     $pane->type = 'views_panes';
