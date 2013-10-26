@@ -59,6 +59,15 @@ function groups_install() {
   // Set a default user avatar.
   /*commons_set_default_avatar();*/
 
+  // Create openstack.org menu item
+  $item = array(
+    'link_title' => st('OpenStack.org'),
+    'link_path' => 'http://openstack.org',
+    'menu_name' => 'main-menu',
+    'weight' => -5,
+  );
+  menu_link_save($item);
+
   $search_block = array(
     'module' => 'search',
     'delta' => 'form',
