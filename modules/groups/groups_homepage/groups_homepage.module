@@ -25,3 +25,11 @@ function groups_homepage_block_view($delta='') {
   $block['subject'] = variable_get('groups_welcome_title', 'Welcome to OpenStack User Groups!');
   return $block;
 }
+
+/**
+ * Implements hook_menu_alter()
+ * remove search main menu item
+ */
+function groups_homepage_menu_alter(&$items) {
+  unset($items['search']);
+}
