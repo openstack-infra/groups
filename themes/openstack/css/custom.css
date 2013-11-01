@@ -18,19 +18,19 @@ a {
   color: #bc1518;
   text-decoration: none;
 }
-/* line 18, ../../../../../../../../usr/lib/ruby/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 18, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
 a:visited {
   color: #bc1518;
 }
-/* line 21, ../../../../../../../../usr/lib/ruby/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 21, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
 a:focus {
   color: black;
 }
-/* line 24, ../../../../../../../../usr/lib/ruby/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 24, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
 a:hover {
   color: black;
 }
-/* line 27, ../../../../../../../../usr/lib/ruby/gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 27, ../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
 a:active {
   color: black;
 }
@@ -72,7 +72,7 @@ h3 {
 
 /* line 67, ../sass/custom.scss */
 .blueline {
-  background: url('../images/header-line.gif?1371823728') repeat-x scroll 0 bottom rgba(0, 0, 0, 0);
+  background: url('../images/header-line.gif?1383246258') repeat-x scroll 0 bottom rgba(0, 0, 0, 0);
 }
 
 /* line 71, ../sass/custom.scss */
@@ -197,4 +197,29 @@ h3 {
 /* line 179, ../sass/custom.scss */
 #footer .span-4.last {
   margin-right: 0px;
+}
+
+/** Groups Page **/
+/* line 186, ../sass/custom.scss */
+.view-groups-groups-directory {
+  margin-top: 1em;
+  margin-bottom: 2em;
+  -webkit-column-count: 6;
+  -moz-column-count: 6;
+  -ms-column-count: 6;
+  -o-column-count: 6;
+  column-count: 6;
+}
+/* line 190, ../sass/custom.scss */
+.view-groups-groups-directory h3 {
+  margin-top: 0px;
+  margin-bottom: 0.5em;
+}
+/* line 194, ../sass/custom.scss */
+.view-groups-groups-directory .views-row-last {
+  padding-bottom: 1em;
+}
+/* line 197, ../sass/custom.scss */
+.view-groups-groups-directory a {
+  color: #1F7A95;
 }
