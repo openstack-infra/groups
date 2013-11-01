@@ -322,3 +322,33 @@ function groups_demo_content() {
     node_save($node);
   }
 }
+
+/**
+ * Set a default user avatar as a managed file object.
+ * Load image from file directly instead http download.
+ */
+function groups_set_default_avatar() {
+  global $base_url;
+  $picture_directory =  file_default_scheme() . '://' . variable_get('user_picture_path', 'pictures');
+  if(file_prepare_directory($picture_directory, FILE_CREATE_DIRECTORY)){
+    $filename = DRUPAL_ROOT . '/profiles/groups/images/avatars/user-avatar.png';
+    $picture_data = file_get_contents($filename);
+    $picture_path = file_stream_wrapper_uri_normalize($picture_directory . '/picture-default.jpg');
+    $picture_file = file_save_data($picture_data, $picture_path, FILE_EXISTS_REPLACE);
+
+    // Check to make sure the picture isn't too large for the site settings.
+    $validators = array(
+        'file_validate_is_image' => array(),
+        'file_validate_image_resolution' => array(variable_get('user_picture_dimensions', '85x85')),
+        'file_validate_size' => array(variable_get('user_picture_file_size', '30') * 1024),
+    );
+
+    // attach photo to user's account.
+    $errors = file_validate($picture_file, $validators);
+    if (empty($errors)) {
+      // Update the user record.
+      $picture_file = file_save($picture_file);
+      variable_set('user_picture_default', $picture_path);
+    }
+  }
+}

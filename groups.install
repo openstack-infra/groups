@@ -57,7 +57,7 @@ function groups_install() {
   variable_set('node_admin_theme', '0');
 
   // Set a default user avatar.
-  /*commons_set_default_avatar();*/
+  groups_set_default_avatar();
 
   // Create openstack.org menu item
   $item = array(
