@@ -1,0 +1,10 @@
+<?php
+
+function groups_common_form_alter(&$form, &$form_state, $form_id) {
+
+  if ($form_id == 'search_block_form') {
+    // remove content selector from search block
+    $form['custom_search_types']['#type'] = 'hidden';
+    $form['custom_search_types']['#default_value'] = 'o-search_facetapi';
+  }
+}
