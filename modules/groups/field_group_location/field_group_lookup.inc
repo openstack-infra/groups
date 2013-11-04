@@ -22,6 +22,7 @@ function _continent_get_predefined_list() {
     'SA' => $t('South America'),
     'OC' => $t('Oceania'),
     'AN' => $t('Antarctica'),
+    'ME' => $t('Middle East'),
   );
   return $continents;
 }
