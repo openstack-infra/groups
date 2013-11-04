@@ -4,6 +4,8 @@ core = 7.x
 ; Download Drupal core and apply core patches if needed.
 projects[drupal][type] = "core"
 projects[drupal][version] = "7.23"
+projects[drupal][download][type] = get
+projects[drupal][download][url] = http://ftp.drupal.org/files/projects/drupal-7.23.tar.gz
 
 ; Hide the profiles under /profiles, so Commons is the only one. This allows
 ; the installation to start at the Language selection screen, bypassing a
