@@ -21,6 +21,8 @@ function openstack_page_alter(&$page) {
   }
 }
 
+
+
 /**
  * Override or insert variables into the maintenance page template.
  *
@@ -79,8 +81,7 @@ function STARTERKIT_preprocess_page(&$variables, $hook) {
  * @param $hook
  *   The name of the template being rendered ("node" in this case.)
  */
-/* -- Delete this line if you want to use this function
-function STARTERKIT_preprocess_node(&$variables, $hook) {
+function openstack_preprocess_node(&$variables, $hook) {
   $variables['sample_variable'] = t('Lorem ipsum.');
 
   // Optionally, run node-type-specific preprocess functions, like
@@ -90,7 +91,31 @@ function STARTERKIT_preprocess_node(&$variables, $hook) {
     $function($variables, $hook);
   }
 }
-// */
+
+function openstack_preprocess_node_event(&$variables, $hook) {
+  if ($variables['teaser']) {
+    $variables['theme_hook_suggestions'][] = 'node__' . $variables['node']->type . '__teaser';
+    $variables['display_submitted'] = False;
+    $variables['user_picture'] = '';
+    $variables['content']['links'] = '';
+//     unset($variables['submitted']);
+//     $variables['submitted'] = 'XXX';
+  }
+
+//     echo "<pre>";print_r($variables['display_submitted']);
+//     die('-y-');
+}
+
+function openstack_preprocess_views_view(&$variables) {
+  $view = $variables['view'];
+  if ($view->name == 'commons_events_upcoming') {
+    $view->display_handler->set_option('filters', array());
+    $view->display[$view->current_display]->handler->options["title"] = t('Upcoming events');
+//     $filters = $view->display_handler->get_option('filters');
+//      echo "<pre>";print_r($filters);
+//      die('-x-');
+  }
+}
 
 /**
  * Override or insert variables into the comment templates.

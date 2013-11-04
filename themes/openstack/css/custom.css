@@ -5,7 +5,7 @@
  */
 /** COLORS **/
 /** BASIC STLYES **/
-/* line 34, ../sass/custom.scss */
+/* line 37, ../sass/custom.scss */
 body {
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   font-size: 13px;
@@ -13,7 +13,7 @@ body {
   font-weight: normal;
 }
 
-/* line 39, ../sass/custom.scss */
+/* line 42, ../sass/custom.scss */
 a {
   color: #bc1518;
   text-decoration: none;
@@ -34,82 +34,82 @@ a:hover {
 a:active {
   color: black;
 }
-/* line 42, ../sass/custom.scss */
+/* line 45, ../sass/custom.scss */
 a:hover {
   text-decoration: underline;
 }
 
-/* line 47, ../sass/custom.scss */
+/* line 50, ../sass/custom.scss */
 p {
   margin: 0 0 1.5em;
 }
 
-/* line 51, ../sass/custom.scss */
+/* line 54, ../sass/custom.scss */
 h1 {
   font-size: 24px;
   color: #264d69;
   font-weight: normal;
 }
 
-/* line 55, ../sass/custom.scss */
+/* line 58, ../sass/custom.scss */
 h2 {
   font-size: 18px;
   color: #264d69;
   font-weight: normal;
 }
 
-/* line 59, ../sass/custom.scss */
+/* line 62, ../sass/custom.scss */
 h3 {
   font-size: 16px;
   color: #bc1518;
   font-weight: normal;
 }
 
-/* line 63, ../sass/custom.scss */
+/* line 66, ../sass/custom.scss */
 .block {
   margin: 0px;
 }
 
-/* line 67, ../sass/custom.scss */
+/* line 70, ../sass/custom.scss */
 .blueline {
   background: url('../images/header-line.gif?1383246258') repeat-x scroll 0 bottom rgba(0, 0, 0, 0);
 }
 
-/* line 71, ../sass/custom.scss */
+/* line 74, ../sass/custom.scss */
 #logo {
   line-height: 24px;
   verical-align: baseline;
 }
-/* line 74, ../sass/custom.scss */
+/* line 77, ../sass/custom.scss */
 #logo img {
   padding-top: 8px;
 }
 
 /** PRIMARY MENU **/
-/* line 81, ../sass/custom.scss */
+/* line 84, ../sass/custom.scss */
 #navigation {
   height: auto;
   line-height: 24px;
 }
-/* line 84, ../sass/custom.scss */
+/* line 87, ../sass/custom.scss */
 #navigation * {
   padding: 0;
   margin: 0;
 }
-/* line 88, ../sass/custom.scss */
+/* line 91, ../sass/custom.scss */
 #navigation nav {
   margin-left: 30px;
 }
-/* line 91, ../sass/custom.scss */
+/* line 94, ../sass/custom.scss */
 #navigation .links li {
   padding: 0;
 }
-/* line 94, ../sass/custom.scss */
+/* line 97, ../sass/custom.scss */
 #navigation li {
   vertical-align: baseline;
   margin-right: 20px;
 }
-/* line 97, ../sass/custom.scss */
+/* line 100, ../sass/custom.scss */
 #navigation li a {
   display: block;
   color: #353535;
@@ -117,21 +117,21 @@ h3 {
   font-size: 14px;
   text-decoration: none;
 }
-/* line 106, ../sass/custom.scss */
+/* line 109, ../sass/custom.scss */
 #navigation li.active a {
   border-bottom: 3px solid #CF2F19;
   color: #CF2F19;
 }
 
 /** UTILITY LINKS **/
-/* line 116, ../sass/custom.scss */
+/* line 119, ../sass/custom.scss */
 .block-commons-utility-links ul {
   float: right;
   padding: 0;
   margin: 0;
   display: inline-block;
 }
-/* line 121, ../sass/custom.scss */
+/* line 124, ../sass/custom.scss */
 .block-commons-utility-links ul li {
   margin: 0;
   padding: 0;
@@ -139,28 +139,33 @@ h3 {
   display: inline-block;
   padding-left: 0.5em;
 }
-/* line 127, ../sass/custom.scss */
+/* line 130, ../sass/custom.scss */
 .block-commons-utility-links ul li a {
   color: #1F7A95;
 }
 
 /** BLOCK SEARCH FORM **/
-/* line 136, ../sass/custom.scss */
+/* line 139, ../sass/custom.scss */
 #header #block-search-form {
   float: right;
 }
-/* line 138, ../sass/custom.scss */
+/* line 141, ../sass/custom.scss */
+#header #block-search-form .form-item {
+  margin: 0px;
+  margin-top: 0.5em;
+}
+/* line 145, ../sass/custom.scss */
 #header #block-search-form .form-type-textfield {
   border: 1px solid #c5e2ea;
   display: inline-block;
 }
-/* line 141, ../sass/custom.scss */
+/* line 148, ../sass/custom.scss */
 #header #block-search-form .form-type-textfield input {
   border: none;
   outline: none;
   font-size: 16px;
 }
-/* line 147, ../sass/custom.scss */
+/* line 154, ../sass/custom.scss */
 #header #block-search-form .form-submit {
   background: #CF2F19;
   color: #ffffff;
@@ -169,7 +174,7 @@ h3 {
 }
 
 /** FOOTER **/
-/* line 158, ../sass/custom.scss */
+/* line 165, ../sass/custom.scss */
 #footer hr {
   height: 1px;
   background: none repeat scroll 0 0 #DDDDDD;
@@ -181,26 +186,26 @@ h3 {
   margin: 0 0 1.45em;
   width: 100%;
 }
-/* line 169, ../sass/custom.scss */
+/* line 176, ../sass/custom.scss */
 #footer .span-8, #footer .span-4 {
   float: left;
   margin-right: 10px;
 }
-/* line 173, ../sass/custom.scss */
+/* line 180, ../sass/custom.scss */
 #footer .span-8 {
   width: 310px;
 }
-/* line 176, ../sass/custom.scss */
+/* line 183, ../sass/custom.scss */
 #footer .span-4 {
   width: 150px;
 }
-/* line 179, ../sass/custom.scss */
+/* line 186, ../sass/custom.scss */
 #footer .span-4.last {
   margin-right: 0px;
 }
 
 /** Groups Page **/
-/* line 186, ../sass/custom.scss */
+/* line 193, ../sass/custom.scss */
 .view-groups-groups-directory {
   margin-top: 1em;
   margin-bottom: 2em;
@@ -210,16 +215,200 @@ h3 {
   -o-column-count: 6;
   column-count: 6;
 }
-/* line 190, ../sass/custom.scss */
+/* line 197, ../sass/custom.scss */
 .view-groups-groups-directory h3 {
   margin-top: 0px;
   margin-bottom: 0.5em;
 }
-/* line 194, ../sass/custom.scss */
+/* line 201, ../sass/custom.scss */
 .view-groups-groups-directory .views-row-last {
   padding-bottom: 1em;
 }
-/* line 197, ../sass/custom.scss */
+/* line 204, ../sass/custom.scss */
 .view-groups-groups-directory a {
   color: #1F7A95;
+}
+
+/** Activity stream **/
+/* line 211, ../sass/custom.scss */
+.view-commons-activity-streams-activity {
+  background: #f2f6f7;
+  padding: 10px;
+  margin-bottom: 20px;
+  line-height: 1em;
+  /* activity stream row */
+}
+/* line 217, ../sass/custom.scss */
+.view-commons-activity-streams-activity .views-row {
+  overflow: hidden;
+  padding-left: 58px;
+  padding-bottom: 0.5em;
+  min-height: 50px;
+}
+/* line 222, ../sass/custom.scss */
+.view-commons-activity-streams-activity .views-row div.user-picture {
+  position: absolute;
+  float: left;
+  margin-left: -58px;
+}
+/* line 227, ../sass/custom.scss */
+.view-commons-activity-streams-activity .views-row .user-picture img {
+  width: 40px;
+}
+/* line 230, ../sass/custom.scss */
+.view-commons-activity-streams-activity .views-row .views-field-timestamp {
+  font-size: 0.85em;
+  margin-top: 0.5em;
+}
+/* line 234, ../sass/custom.scss */
+.view-commons-activity-streams-activity .views-row a {
+  color: #1f7a95;
+}
+
+/** Breadcrumb **/
+/* line 243, ../sass/custom.scss */
+nav.breadcrumb {
+  display: none;
+}
+
+/** Panel templates **/
+/* line 46, ../sass-extensions/zen-grids/stylesheets/zen/_grids.scss */
+.two-brick.at-panel:before, .two-brick.at-panel:after {
+  content: "";
+  display: table;
+}
+/* line 50, ../sass-extensions/zen-grids/stylesheets/zen/_grids.scss */
+.two-brick.at-panel:after {
+  clear: both;
+}
+/* line 254, ../sass/custom.scss */
+.two-brick.at-panel .region-two-brick-left-above {
+  float: left;
+  width: 50%;
+  margin-left: 0%;
+  margin-right: -50%;
+  padding-left: 5px;
+  padding-right: 5px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+/* line 257, ../sass/custom.scss */
+.two-brick.at-panel .region-two-brick-right-above {
+  float: left;
+  width: 50%;
+  margin-left: 50%;
+  margin-right: -100%;
+  padding-left: 5px;
+  padding-right: 5px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+
+/* line 46, ../sass-extensions/zen-grids/stylesheets/zen/_grids.scss */
+.three-50-25-25:before, .three-50-25-25:after {
+  content: "";
+  display: table;
+}
+/* line 50, ../sass-extensions/zen-grids/stylesheets/zen/_grids.scss */
+.three-50-25-25:after {
+  clear: both;
+}
+/* line 266, ../sass/custom.scss */
+.three-50-25-25 .region-three-50-25-25-first {
+  float: left;
+  width: 50%;
+  margin-left: 0%;
+  margin-right: -50%;
+  padding-left: 5px;
+  padding-right: 5px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+/* line 269, ../sass/custom.scss */
+.three-50-25-25 .region-three-50-25-25-second {
+  float: left;
+  width: 25%;
+  margin-left: 50%;
+  margin-right: -75%;
+  padding-left: 5px;
+  padding-right: 5px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+/* line 272, ../sass/custom.scss */
+.three-50-25-25 .region-three-50-25-25-third {
+  float: left;
+  width: 25%;
+  margin-left: 75%;
+  margin-right: -100%;
+  padding-left: 5px;
+  padding-right: 5px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+
+/** Landing page upcoming events **/
+/* line 279, ../sass/custom.scss */
+.view-commons-events-upcoming {
+  background: #f2f6f7;
+  padding: 10px;
+  line-height: 1em;
+}
+/* line 284, ../sass/custom.scss */
+.view-commons-events-upcoming .attachment-before,
+.view-commons-events-upcoming .view-filters {
+  display: none;
+}
+/* line 288, ../sass/custom.scss */
+.view-commons-events-upcoming .field-items, .view-commons-events-upcoming .field,
+.view-commons-events-upcoming .field-item {
+  display: inline;
+}
+/* line 291, ../sass/custom.scss */
+.view-commons-events-upcoming article {
+  padding-bottom: 1em;
+}
+/* line 294, ../sass/custom.scss */
+.view-commons-events-upcoming header {
+  margin-bottom: 0.5em;
+}
+/* line 297, ../sass/custom.scss */
+.view-commons-events-upcoming header a {
+  color: #1f7a95;
+}
+/* line 300, ../sass/custom.scss */
+.view-commons-events-upcoming .field-item {
+  font-size: 0.85em;
+}
+
+/** Group page **/
+/* line 312, ../sass/custom.scss */
+.node-type-group .pane-commons-contributors-group-panel-pane-2,
+.node-type-group article .links,
+.node-type-group .rate-widget,
+.node-type-group .field-type-geofield,
+.node-type-group .field-name-field-group-location {
+  display: none;
+}
+/* line 315, ../sass/custom.scss */
+.node-type-group #quicktabs-commons_bw {
+  background: #f2f6f7;
+  padding: 10px;
+  margin-top: 2em;
+  margin-bottom: 2em;
 }

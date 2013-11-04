@@ -8,6 +8,7 @@
 @import "compass/layout.scss";
 @import "compass/typography";
 @import "compass/utilities";
+@import "init";
 
 /** COLORS **/
 
@@ -18,6 +19,8 @@ $blue1:       #E3EDED;
 $blue2:       #c4e0e9;
 $blue3:       #254C7C;
 $blue4:       #264D69;
+$blue5:       #1D395E;
+$blue6:       #1F7A95;
 
 $red:         #BC1518;
 
@@ -135,6 +138,10 @@ h3{
 
 #header #block-search-form {
   float: right;
+  .form-item {
+    margin: 0px;
+    margin-top: 0.5em;
+  }
   .form-type-textfield {
       border: 1px solid #c5e2ea;
       display: inline-block;
@@ -196,5 +203,119 @@ h3{
   }
   a {
     color: #1F7A95;
+  }
+}
+
+/** Activity stream **/
+
+.view-commons-activity-streams-activity {
+  background: $blue0;
+  padding: 10px;
+  margin-bottom: 20px;
+  line-height: 1em;
+  /* activity stream row */
+  .views-row {
+    @include clearfix();
+    padding-left: 58px;
+    padding-bottom: 0.5em;
+    min-height: 50px;
+    div.user-picture {
+      position: absolute;
+      float: left;
+      margin-left: -58px;
+    }
+    .user-picture img {
+      width: 40px;
+    }
+    .views-field-timestamp {
+      font-size: 0.85em;
+      margin-top: 0.5em;
+    }
+    a {
+      color: $blue6;
+    }
+  }
+
+}
+
+/** Breadcrumb **/
+
+nav.breadcrumb {
+  display: none;
+}
+
+/** Panel templates **/
+
+.two-brick.at-panel {
+  $zen-column-count: 6;
+  $zen-gutter-width: 10px;
+  @include zen-grid-container;
+  //background: #00ff00;
+  .region-two-brick-left-above {
+    @include zen-grid-item(3, 1);
+  }
+  .region-two-brick-right-above {
+    @include zen-grid-item(3, 4);
+  }
+}
+
+.three-50-25-25 {
+  $zen-column-count: 12;
+  $zen-gutter-width: 10px;
+  @include zen-grid-container;
+  .region-three-50-25-25-first {
+     @include zen-grid-item(6, 1);
+  }
+  .region-three-50-25-25-second {
+     @include zen-grid-item(3, 7);
+  }
+  .region-three-50-25-25-third {
+     @include zen-grid-item(3, 10);
+  }
+}
+
+/** Landing page upcoming events **/
+
+.view-commons-events-upcoming {
+  background: $blue0;
+  padding: 10px;
+  line-height: 1em;
+  .attachment-before,
+  .view-filters {
+    display: none;
+  }
+  .field-items, .field,
+  .field-item {
+    display: inline;
+  }
+  article {
+    padding-bottom: 1em;
+  }
+  header {
+    margin-bottom: 0.5em;
+  }
+  header a {
+    color: $blue6;
+  }
+  .field-item {
+    font-size: 0.85em;
+  }
+}
+
+/** Group page **/
+
+.node-type-group {
+  .pane-commons-contributors-group-panel-pane-2,
+  article .links,
+  .rate-widget,
+  .field-type-geofield,
+  .field-name-field-group-location {
+    display: none;
+  }
+  #quicktabs-commons_bw {
+    background: $blue0;
+    padding: 10px;
+    margin-top: 2em;
+    margin-bottom: 2em;
   }
 }
