@@ -196,10 +196,36 @@ function groups_clear_messages() {
   drupal_get_messages('ok', TRUE);
 }
 
+function field_property_list_reverse_lookup() {
+  return array(
+      'website' => 0,
+      'irc' => 1,
+      'twitter' => 2,
+      'blog' => 4,
+      'meetup' => 5,
+      'google-groups' => 6,
+      'linkedin' => 7,
+      'facebook' => 9,
+      'facebook-group' => 10,
+      'forum' => 11,
+      'email' => 12,
+      'calendar' => 13,
+      'weibo' => 14,
+      'slideshare' => 15,
+      'mailing-list' => 16,
+      'launchpad' => 17,
+      'google-plus' => 18
+  );
+}
+
 /**
  * Create demo group
  */
-function groups_demo_create_group($title, $location) {
+function groups_demo_create_group($title, $location, $attributes = null) {
+  static $list_lookup;
+  if ($list_lookup == null) {
+    $list_lookup = field_property_list_reverse_lookup();
+  }
   $group = new stdClass();
   $group->type = 'group';
   node_object_prepare($group);
@@ -210,104 +236,19 @@ function groups_demo_create_group($title, $location) {
   $group->created = time() - 604800;
   $group->status = 1;
   $group->field_group_location[LANGUAGE_NONE][0] = $location;
+  if (isset($attributes)) {
+    $attr = array();
+    foreach ($attributes as $attribute) {
+      $key = key($attribute);
+      $value = $attribute[$key];
+      $attr[] = array(
+        'key' => $list_lookup[$key],
+        'value' => $value
+      );
+    }
+    $group->field_resource_links['und'] = $attr;
+  }
   return $group;
-}
-
-/**
- * Demo content
- */
-function groups_demo_groups() {
-  return array(
-    // EU Groups
-    array(
-      'title' => 'Switzerland',
-      'location' => array('country' => 'CH','continent' => 'EU',
-        'lat' => '46.818188','lng' => '8.227512'),
-    ),
-    array(
-      'title' => 'Hungary',
-      'location' => array('country' => 'HU','continent' => 'EU',
-        'location' => 'Budapest', 'lat' => '47.497912','lng' => '19.040235'),
-    ),
-    array(
-      'title' => 'Czech Republic',
-      'location' => array('country' => 'CZ','continent' => 'EU',
-        'location' => 'Prague', 'lat' => '50.0755381','lng' => '14.4378005'),
-    ),
-    array(
-      'title' => 'Italy',
-      'location' => array('country' => 'IT','continent' => 'EU',
-        'lat' => '41.87194','lng' => '12.56738'),
-    ),
-    array(
-      'title' => 'France',
-      'location' => array('country' => 'FR','continent' => 'EU',
-        'lat' => '46.227638','lng' => '2.213749'),
-    ),
-    array(
-      'title' => 'Germany',
-      'location' => array('country' => 'DE','continent' => 'EU',
-        'location' => 'Berlin', 'lat' => '52.519171','lng' => '13.4060912'),
-    ),
-    // North America Groups
-    array(
-      'title' => 'Atlanta',
-      'location' => array('country' => 'US','continent' => 'NA',
-        'location' => 'Atlanta, GA', 'lat' => '33.7489954','lng' => '-84.3879824'),
-    ),
-    array(
-      'title' => 'Austin',
-      'location' => array('country' => 'US','continent' => 'NA',
-        'location' => 'Austin, TX', 'lat' => '30.267153','lng' => '-97.7430608'),
-    ),
-    array(
-      'title' => 'San Francisco',
-      'location' => array('country' => 'US','continent' => 'NA',
-        'location' => 'San Francisco, CA', 'lat' => '37.7749295','lng' => '-122.4194155'),
-    ),
-    array(
-      'title' => 'Boston',
-      'location' => array('country' => 'US','continent' => 'NA',
-        'location' => 'Boston, MA', 'lat' => '42.3584308','lng' => '-71.0597732'),
-    ),
-    array(
-      'title' => 'Canada',
-      'location' => array('country' => 'CA','continent' => 'NA',
-        'location' => 'Toronto', 'lat' => '43.653226','lng' => '-79.3831843'),
-    ),
-    // Asia, Pacific groups
-    array(
-      'title' => 'Australia',
-      'location' => array('country' => 'AU','continent' => 'OC',
-        'lat' => '-25.274398','lng' => '133.775136'),
-    ),
-    array(
-      'title' => 'Singapore',
-      'location' => array('country' => 'SG','continent' => 'AS',
-        'lat' => '1.352083','lng' => '103.819836'),
-    ),
-    array(
-      'title' => 'Hong Kong',
-      'location' => array('country' => 'HK','continent' => 'AS',
-        'lat' => '22.396428','lng' => '114.109497'),
-    ),
-    array(
-      'title' => 'Japan',
-      'location' => array('country' => 'JP','continent' => 'AS',
-        'lat' => '35.6894875','lng' => '139.6917064'),
-    ),
-    // Latin America Groups
-    array(
-      'title' => 'Argentina',
-      'location' => array('country' => 'AR','continent' => 'SA',
-        'lat' => '-38.416097','lng' => '-63.616672'),
-    ),
-    array(
-      'title' => 'Brazil',
-      'location' => array('country' => 'BR','continent' => 'SA',
-        'lat' => '-14.235004','lng' => '-51.92528'),
-    ),
-  );
 }
 
 /**
@@ -316,9 +257,11 @@ function groups_demo_groups() {
 function groups_demo_content() {
   // Reset the Flag cache.
   flag_get_flags(NULL, NULL, NULL, TRUE);
-  $groups = groups_demo_groups();
-  foreach ($groups as $group) {
-    $node = groups_demo_create_group($group['title'], $group['location']);
+  $groups_raw = file_get_contents(DRUPAL_ROOT . '/profiles/groups/groups.json');
+  $groups = json_decode($groups_raw, TRUE);
+  foreach ($groups['groups'] as $group) {
+    $node = groups_demo_create_group($group['title'], $group['location'],
+      $group['attributes']);
     node_save($node);
   }
 }
