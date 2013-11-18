@@ -8,3 +8,16 @@ function groups_common_form_alter(&$form, &$form_state, $form_id) {
     $form['custom_search_types']['#default_value'] = 'o-search_facetapi';
   }
 }
+
+/**
+ * Implements hook_leaflet_map_info_alter().
+ * Disable scrollWheelZoom feature for all leaflet maps.
+ *
+ * @param unknown $map_info
+ */
+
+function groups_common_leaflet_map_info_alter(&$map_info) {
+  foreach ($map_info as $map_id => $info) {
+    $map_info[$map_id]['settings']['scrollWheelZoom'] = FALSE;
+  }
+}
