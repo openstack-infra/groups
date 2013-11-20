@@ -251,6 +251,48 @@ function groups_demo_create_group($title, $location, $attributes = null) {
   return $group;
 }
 
+/*
+ * Create event node.
+*/
+
+function groups_demo_create_event($title, $date_from, $date_to = NULL,
+    $location) {
+  $event = new stdClass();
+  $event->type = 'event';
+  $event->uid = 1;
+  $event->language = LANGUAGE_NONE;
+  $event->created = time() - 604800;
+  $event->status = 1;
+  $event->title = $title;
+  $event->body[LANGUAGE_NONE][0]['value'] = 'Lorem ipsum...';
+  list($country, $locality, $postal_code, $street_address) = explode('/', $location);
+  $event->field_address[LANGUAGE_NONE][0] = array(
+      'element_key' => 'node|event|field_address|und|0',
+      'thoroughfare' => $street_address,
+      'postal_code' => $postal_code,
+      'locality' => $locality,
+      'country' => $country,
+  );
+  $event->field_date[LANGUAGE_NONE][0] = array(
+      'value' => $date_from,
+      'show_todate' => FALSE,
+      'timezone' => 'Europe/Berlin',
+      'offset' => 3600,
+      'offset2' => 3600,
+      'timezone_db' => UTC,
+      'date_type' => 'datetime',
+  );
+  if (!empty($date_to)) {
+    $event->field_date[LANGUAGE_NONE][0]['value2'] = $date_to;
+    $event->field_date[LANGUAGE_NONE][0]['show_todate'] = TRUE;
+  }
+
+  $event->field_location[LANGUAGE_NONE][0] = array(
+      'value' => 'physical',
+  );
+  return $event;
+}
+
 /**
  * This function generate a demo content
  */
@@ -262,6 +304,14 @@ function groups_demo_content() {
   foreach ($groups['groups'] as $group) {
     $node = groups_demo_create_group($group['title'], $group['location'],
       $group['attributes']);
+    node_save($node);
+  }
+  // import events
+  $events_raw = file_get_contents(DRUPAL_ROOT . '/profiles/groups/events.json');
+  $events = json_decode($events_raw, TRUE);
+  foreach ($events['events'] as $event) {
+    $node = groups_demo_create_event($event['title'], $event['date_from'],
+        $event['date_to'], $event['location']);
     node_save($node);
   }
 }
