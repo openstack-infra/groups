@@ -14,6 +14,18 @@ function groups_homepage_block_info() {
     'info' => t('Groups welcome block'),
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
+  $blocks['groups_community_map'] = array(
+    'info' => t('Groups community map'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  $blocks['groups_community_stats']= array(
+    'info' => t('Groups community stats'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  $blocks['groups_find_nearby']= array(
+    'info' => t('Groups find nearby'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
   return $blocks;
 }
 
@@ -21,8 +33,33 @@ function groups_homepage_block_info() {
  * Implements hook_block_view().
  */
 function groups_homepage_block_view($delta='') {
-  $block['content'] = variable_get('groups_welcome_body', "Can't find one nearby? Want to start one? The <a href='https://wiki.openstack.org/wiki/Teams#Community_team'>OpenStack International Community team</a> is your main contact point. Join the <a href='http://lists.openstack.org/cgi-bin/mailman/listinfo/community'>mailing list</a> and read the <a href='https://wiki.openstack.org/wiki/OpenStackUserGroups/HowTo'>HowTo page</a> if you are hosting or want to start a user group with meetups, hackathons and other social events talking about OpenStack and free/libre open source software for the cloud.");
-  $block['subject'] = variable_get('groups_welcome_title', 'Welcome to OpenStack User Groups!');
+  $block = array();
+  switch ($delta) {
+    case 'groups_homepage_welcome':
+      $block['content'] = variable_get('groups_welcome_body', "Can't find one nearby? Want to start one? The <a href='https://wiki.openstack.org/wiki/Teams#Community_team'>OpenStack International Community team</a> is your main contact point. Join the <a href='http://lists.openstack.org/cgi-bin/mailman/listinfo/community'>mailing list</a> and read the <a href='https://wiki.openstack.org/wiki/OpenStackUserGroups/HowTo'>HowTo page</a> if you are hosting or want to start a user group with meetups, hackathons and other social events talking about OpenStack and free/libre open source software for the cloud.");
+      $block['subject'] = variable_get('groups_welcome_title', 'Welcome to OpenStack User Groups!');
+      break;
+    case 'groups_community_map':
+      $block['content'] = theme('community_map', array());
+      $block['subject'] = 'Community map';
+      drupal_add_css(drupal_get_path('module', 'groups_homepage') . '/groups_homepage.css');
+      drupal_add_js(drupal_get_path('module', 'groups_homepage'). '/groups_homepage.js');
+      break;
+    case 'groups_community_stats':
+      // TODO: fetch community stats from remote service
+      $stats = array(
+        'people' => 12593,
+        'countries' => 131,
+        'user-groups' => 58,
+      );
+      $block['subject'] = 'Community stats';
+      $block['content'] = theme('community_stats', array('stats' => $stats));
+      break;
+    case 'groups_find_nearby':
+      $block['content'] = theme('groups_find_nearby', array());
+      $block['subject'] = 'Find nearby groups';
+      break;
+  }
   return $block;
 }
 
@@ -32,4 +69,30 @@ function groups_homepage_block_view($delta='') {
  */
 function groups_homepage_menu_alter(&$items) {
   unset($items['search']);
+}
+
+/**
+ * Implements hook_theme()
+ * @return multitype:number
+ */
+
+function groups_homepage_theme() {
+  $module_path = drupal_get_path('module', 'groups_homepage');
+  $base = array(
+      'path' => "$module_path/templates",
+  );
+  return array(
+    'community_stats' => $base + array(
+      'template' => 'community_stats',
+      'variables' => array('stats' => NULL,),
+    ),
+    'groups_find_nearby' => $base + array(
+      'template' => 'groups_find_nearby',
+      'variables' => array(),
+    ),
+    'community_map' => $base + array(
+      'template' => 'community_map',
+      'variables' => array(),
+    )
+  );
 }

@@ -1,0 +1,8 @@
+#panels-dnd-main .region {margin-bottom: 5px}
+#panels-dnd-main .region-openstack-front-first {float: left; width: 50%}
+#panels-dnd-main .region-openstack-front-second {float: left; width: 24.5%; margin-left: 0.5%}
+#panels-dnd-main .region-openstack-front-third {float: right; width: 24.5%}
+#panels-dnd-main .region-openstack-front-bottom-first {float: left; width: 50%}
+#panels-dnd-main .region-openstack-front-bottom-second {float: left; width: 49.5%; margin-left: 0.5%}
+#panels-dnd-main .region-openstack-front-bottom {clear: both}
+#panels-dnd-main .region-openstack-front-middle {clear: both}

@@ -1,0 +1,23 @@
+#community-map {
+  background: url(world-map.png);
+  width: 450px;
+  height: 250px;
+  overflow: hidden;
+  margin-bottom: 2em;
+}
+
+#community-map .community-map-pin {
+  position: relative;
+}
+
+#community-map .community-map-pin span.latitude,
+#community-map .community-map-pin span.longitude {
+  display: none;
+}
+
+#community-map .content {
+  background: #E0E0E0;
+  font-size: 80%;
+  display: inline;
+  padding: 2px;
+}

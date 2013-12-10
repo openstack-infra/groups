@@ -105,7 +105,8 @@ regions[bottom]         = Page bottom
 regions[page_top]       = Page top
 regions[page_bottom]    = Page bottom
 
-
+; Panels Module layouts
+plugins[panels][layouts] = layouts/panels
 
 ; Various page elements output by the theme can be toggled on and off. The
 ; "features" control which of these check boxes display on the
@@ -128,7 +129,7 @@ features[] = secondary_menu
 ; Set the default values of settings on the theme-settings.php form.
 
 settings[zen_breadcrumb]           = yes
-settings[zen_breadcrumb_separator] = ' › '
+settings[zen_breadcrumb_separator] = ' ��� '
 settings[zen_breadcrumb_home]      = 1
 settings[zen_breadcrumb_trailing]  = 0
 settings[zen_breadcrumb_title]     = 0

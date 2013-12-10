@@ -274,6 +274,29 @@ nav.breadcrumb {
   }
 }
 
+.openstack-front {
+  $zen-column-count: 12;
+  $zen-gutter-width: 10px;
+  .openstack-front-container {
+    @include zen-grid-container;
+  }
+  .region-openstack-front-first {
+     @include zen-grid-item(6, 1);
+  }
+  .region-openstack-front-second {
+     @include zen-grid-item(3, 7);
+  }
+  .region-openstack-front-third {
+     @include zen-grid-item(3, 10);
+  }
+  .region-openstack-front-bottom-first {
+    @include zen-grid-item(6, 1);
+  }
+  .region-openstack-front-bottom-second {
+    @include zen-grid-item(6, 7);
+  }
+}
+
 /** Landing page upcoming events **/
 
 .view-commons-events-upcoming {
@@ -318,4 +341,23 @@ nav.breadcrumb {
     margin-top: 2em;
     margin-bottom: 2em;
   }
+}
+
+/** Community stats block **/
+
+.pane-groups-homepage-groups-community-stats {
+  h2 {
+    display: none;
+  }
+  em {
+    font-weight: bold;
+  }
+  font-size: 130%;
+  text-align: center;
+  color: #7F7F7F;
+  /*border: 3px solid #D5D5D5;*/
+  border-bottom: 2px solid #D5D5D5;
+  border-top: 2px solid #D5D5D5;
+  font-family: 'PT Sans',serif;
+  padding: 5px;
 }
