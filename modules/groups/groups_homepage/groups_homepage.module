@@ -46,11 +46,10 @@ function groups_homepage_block_view($delta='') {
       drupal_add_js(drupal_get_path('module', 'groups_homepage'). '/groups_homepage.js');
       break;
     case 'groups_community_stats':
-      // TODO: fetch community stats from remote service
       $stats = array(
-        'people' => 12593,
-        'countries' => 131,
-        'user-groups' => 58,
+        'people' => variable_get('groups_stat_members', 0),
+        'countries' => variable_get('groups_stat_countries', 0),
+        'user-groups' => variable_get('groups_stat_groups', 0),
       );
       $block['subject'] = 'Community stats';
       $block['content'] = theme('community_stats', array('stats' => $stats));
@@ -95,4 +94,72 @@ function groups_homepage_theme() {
       'variables' => array(),
     )
   );
+}
+
+/**
+ * Implements of hook_cron()
+ *
+ * Update community statistics, defaults to 1 hour run.
+ */
+
+function groups_homepage_cron() {
+  $time = REQUEST_TIME;
+  $last_cron = variable_get('groups_stat_last_cron', 0);
+  $cron_schedule = variable_get('groups_stat_schedule_cron', 3600);
+  if ($time - $last_cron > $cron_schedule) {
+    groups_homepage_update_stats();
+    variable_set('groups_stat_last_cron', $time);
+  }
+}
+
+/**
+ * Extract a stat element from openstack.org html source.
+ * @param DOMDocument $doc
+ * @param String $elementName
+ * @return value of stat element, if processing fails, return null.
+ */
+
+function groups_homepage_get_stat_element($doc, $elementName) {
+  $memberDiv = $doc->getElementById($elementName);
+  if (isset($memberDiv)) {
+    $element = $memberDiv->getElementsByTagName('p')->item(0);
+    if (isset($element)) {
+      return intval($element->nodeValue);
+    }
+  }
+  return null;
+}
+
+/**
+ * Update groups statistics. Number of members and countries coming from
+ * openstack.org, and user group number comes from internal content.
+ */
+
+function groups_homepage_update_stats() {
+  try {
+    // extract stats from openstack.org
+    $payload = file_get_contents('http://www.openstack.org');
+    $doc = new DOMDocument();
+    @$doc->loadHTML($payload);
+    $members = groups_homepage_get_stat_element($doc, 'members');
+    $countries = groups_homepage_get_stat_element($doc, 'countries');
+    if (($members != null) && ($members > 0)) {
+      variable_set('groups_stat_members', $members);
+    }
+    if (($countries != null) && ($countries > 0)) {
+      variable_set('groups_stat_countries', $countries);
+    }
+    // count group nodes
+    $query = 'SELECT COUNT(*) amount FROM {node} n '.
+             'WHERE n.type = :type';
+    $result = (db_query($query, array(':type' => 'group'))->fetch());
+    $groups = (int)$result->amount;
+    if (($groups != null) && ($groups > 0)) {
+      variable_set('groups_stat_groups', $groups);
+    }
+    watchdog('update community stats', 'members:%members countries:%countries groups:%groups',
+      array('%members' => $members, '%countries' => $countries, '%groups'=> $groups));
+  } catch (Exception $e) {
+    watchdog_exception('update community stats', $e);
+  }
 }
