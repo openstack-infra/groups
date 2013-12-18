@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * Implement hook_menu()
+ *
+ * @return multitype:string
+ */
+
+function groups_auth_menu() {
+  $items['login'] = array(
+    'title' => 'OpenID Login',
+    'page callback' => 'groups_auth_login',
+    'access callback' => 'user_is_anonymous',
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Openid login callback.
+ *
+ */
+
+function groups_auth_login() {
+  $return_to = url('openid/authenticate',
+    array('absolute' => TRUE, 'query' => array('destination' => '<front>')));
+  openid_begin("https://login.ubuntu.com", $return_to, array());
+}
+
+/**
+ * Implement hook_form_user_profile_form_alter
+ *
+ * Disable password and email address override on user profile.
+ *
+ * @param unknown $form
+ * @param unknown $form_state
+ */
+
+function groups_auth_form_user_profile_form_alter( &$form, $form_state ) {
+  $form['account']['name']['#disabled'] = TRUE;
+  $form['account']['name']['#description'] = t('The username for this account cannot be changed');
+  $form['account']['mail']['#disabled'] = TRUE;
+  $form['account']['mail']['#description'] = t('This e-mail address for this account cannot be changed.');
+  $form['account']['current_pass']['#disabled'] = TRUE;
+  $form['account']['current_pass']['#description'] = t('Neither the email address or password for this account can be changed.');
+  $form['account']['pass']['#disabled'] = TRUE;
+  $form['account']['pass']['#description'] = t('The password for this account cannot be changed.');
+}
+
+/**
+ * Implement hook_commons_utility_links_alter()
+ *
+ * Override login href to provide openid one.
+ */
+
+function groups_auth_commons_utility_links_alter(&$links) {
+  if (isset($links['login'])) {
+    $links['login']['href'] = 'login';
+  }
+}
