@@ -21,9 +21,8 @@ GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER
 EOF
 
 # build distribution tarball
-cd groups
-drush make --tar build-groups.make ../groups-snapshot.tar.gz
-cd ..
+drush make build-groups.make dist
+tar -czf groups-snapshot.tar.gz dist/
 
 # drush alias template
 cat >~/.drush/aliases.drushrc.php <<EOF
