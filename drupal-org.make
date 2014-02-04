@@ -102,7 +102,7 @@ projects[email_registration][version] = "1.1"
 
 projects[entity][type] = "module"
 projects[entity][subdir] = "contrib"
-projects[entity][version] = "1.2"
+projects[entity][version] = "1.3"
 
 ; Force LANGUAGE_NONE entities to still display within rendered entities.
 ; http://drupal.org/node/1782134
@@ -243,7 +243,7 @@ projects[oauthconnector][download][revision] = "0ce7ac9614710c0f68d0a58cb4ae4667
 
 projects[og][type] = "module"
 projects[og][subdir] = "contrib"
-projects[og][version] = "2.3"
+projects[og][version] = "2.4"
 
 ; Auto-assign role to group manager broken on groups with overridden roles.
 ; https://drupal.org/node/2005800#comment-7684873
@@ -254,7 +254,7 @@ projects[og][patch][] = "http://drupal.org/files/og-default-role-member-2005800-
 projects[og][patch][] = "http://drupal.org/files/og_ui-group_node_add_theme-1800208-5.patch"
 
 ; _og_access_verify_access_field_existence() assumes node group type, throws an exception rebuilding node access.
-projects[og][patch][] = "http://drupal.org/files/og-access-rebuild-exception-group-type.patch"
+;projects[og][patch][] = "http://drupal.org/files/og-access-rebuild-exception-group-type.patch"
 
 projects[panelizer][type] = "module"
 projects[panelizer][subdir] = "contrib"
@@ -441,7 +441,7 @@ projects[geofield][version] = "2.0"
 projects[geofield][type] = "module"
 projects[geofield][subdir] = "contrib"
 
-projects[leaflet][version] = "1.0-beta3"
+projects[leaflet][version] = "1.1"
 projects[leaflet][type] = "module"
 projects[leaflet][subdir] = "contrib"
 
