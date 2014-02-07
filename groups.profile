@@ -107,11 +107,11 @@ function groups_import_locales(&$install_state) {
 function groups_set_language_negotiation() {
   require_once DRUPAL_ROOT . '/includes/language.inc';
   require_once DRUPAL_ROOT . '/includes/locale.inc';
-  $negotation = array(
+  $negotiation = array(
     LOCALE_LANGUAGE_NEGOTIATION_URL => 2,
     LANGUAGE_NEGOTIATION_DEFAULT => 10,
   );
-  language_negotiation_set(LANGUAGE_TYPE_INTERFACE, $negotation);
+  language_negotiation_set(LANGUAGE_TYPE_INTERFACE, $negotiation);
 }
 
 /**
@@ -128,7 +128,7 @@ function groups_install_finished(&$install_state) {
     _flag_clear_cache();
   }
 
-  // set language negotation
+  // set language negotiation
   groups_set_language_negotiation();
 
   // Flush all caches to ensure that any full bootstraps during the installer
