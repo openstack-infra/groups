@@ -13,27 +13,25 @@ Build distribution
 make stub file
 ---------------
 
-Create build-osgroups.make file with following content:
+Create build-groups.make file with following content:
 ```
-api = "2"
-core = "7.x"
+api = 2
+core = 7.x
 
 ; Include the definition of how to build Drupal core directly, including patches.
-;includes[] = "drupal-org-core.make"
+includes[] = "drupal-org-core.make"
 
-projects[drupal][type] = "core"
-
-; Download the OpenStack Groups install profile and recursively build all its dependencies.
-projects[osgroups][type] = "profile"
-projects[osgroups][download][type] = "git"
-projects[osgroups][download][url] = "https://github.com/marton-kiss/openstack-groups.git"
-projects[osgroups][download][branch] = "master"
+; Download the Groups install profile and recursively build all its dependencies.
+projects[groups][type] = "profile"
+projects[groups][download][type] = "git"
+projects[groups][download][url] = "https://github.com/openstack-infra/groups.git"
+projects[groups][download][branch] = "master"
 ```
 
 make distribution
 -----------------
 
 ```bash
-$> drush make build-osgroups.make osgroups-dev.local
+$> drush make build-groups.make groups-dev.local
 ```
 
