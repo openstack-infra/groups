@@ -24,7 +24,7 @@ function groups_auth_menu() {
 function groups_auth_login() {
   $return_to = url('openid/authenticate',
     array('absolute' => TRUE, 'query' => array('destination' => '<front>')));
-  openid_begin("https://login.ubuntu.com", $return_to, array());
+  openid_begin("https://openstackid-dev.openstack.org", $return_to, array());
 }
 
 /**
