@@ -8,7 +8,7 @@ includes[translations] = "groups-translations.make"
 
 projects[addressfield][type] = "module"
 projects[addressfield][subdir] = "contrib"
-projects[addressfield][version] = "1.0-beta4"
+projects[addressfield][version] = "1.0-beta5"
 
 projects[addressfield_tokens][type] = "module"
 projects[addressfield_tokens][subdir] = "contrib"
@@ -58,14 +58,7 @@ projects[ckeditor][version] = "1.13"
 
 projects[ctools][type] = "module"
 projects[ctools][subdir] = "contrib"
-projects[ctools][download][type] = "git"
-projects[ctools][download][url] = "http://git.drupal.org/project/ctools.git"
-projects[ctools][download][branch] = "7.x-1.x"
-projects[ctools][download][revision] = "e81da7a57f63ca95d2c713afcec65a5659aada9e"
-
-; Introduce UUIDs onto panes & displays.
-; http://drupal.org/node/1277908#comment-7216356
-projects[ctools][patch][] = "http://drupal.org/files/ctools-uuids_for_exported_objects-1277908-118.patch"
+projects[ctools][version] = "1.4"
 
 projects[custom_search][type] = "module"
 projects[custom_search][subdir] = "contrib"
@@ -81,7 +74,7 @@ projects[custom_search][patch][] = "http://drupal.org/files/commons_search_js_en
 
 projects[date][type] = "module"
 projects[date][subdir] = "contrib"
-projects[date][version] = "2.6"
+projects[date][version] = "2.7"
 
 projects[date_facets][type] = "module"
 projects[date_facets][subdir] = "contrib"
@@ -494,7 +487,7 @@ libraries[placeholder][download][url] = "https://github.com/mathiasbynens/jquery
 
 libraries[timeago][download][type] = "get"
 libraries[timeago][type] = "libraries"
-libraries[timeago][download][url] = "https://raw.github.com/rmm5t/jquery-timeago/v1.3.0/jquery.timeago.js"
+libraries[timeago][download][url] = "https://raw.github.com/rmm5t/jquery-timeago/v1.4.0/jquery.timeago.js"
 
 ; leaflet module, need to repackage with proper internal directory structure
 libraries[dist][download][type] = "get"
