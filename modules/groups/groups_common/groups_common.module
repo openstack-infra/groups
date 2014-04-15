@@ -21,3 +21,18 @@ function groups_common_leaflet_map_info_alter(&$map_info) {
     $map_info[$map_id]['settings']['scrollWheelZoom'] = FALSE;
   }
 }
+
+/**
+ * Implement hook_commons_utility_links_alter()
+ *
+ * Rename login link link to "Signup or Login"
+ */
+
+function groups_common_commons_utility_links_alter(&$links) {
+  if (isset($links['login'])) {
+    $links['login']['title'] = t('Sign up or Login');
+  }
+  if (isset($links['signup'])) {
+    unset($links['signup']);
+  }
+}
