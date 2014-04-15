@@ -489,8 +489,7 @@ libraries[timeago][download][type] = "get"
 libraries[timeago][type] = "libraries"
 libraries[timeago][download][url] = "https://raw.github.com/rmm5t/jquery-timeago/v1.4.0/jquery.timeago.js"
 
-; leaflet module, need to repackage with proper internal directory structure
-libraries[dist][download][type] = "get"
-libraries[dist][type] = "libraries"
-libraries[dist][download][url] = "http://leaflet-cdn.s3.amazonaws.com/build/leaflet-0.6.4.zip"
-libraries[dist][destination] = "libraries/leaflet"
+libraries[leaflet][download][type] = "get"
+libraries[leaflet][type] = "libraries"
+libraries[leaflet][download][url] = "http://leaflet-cdn.s3.amazonaws.com/build/leaflet-0.6.4.zip"
+libraries[leaflet][destination] = "libraries"
