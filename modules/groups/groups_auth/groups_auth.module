@@ -74,6 +74,10 @@ function groups_auth_form_user_register_form_alter(&$form, &$form_state) {
       // Use the email returned by Simple Registration if available.
       $form['account']['mail']['#default_value'] = $response['openid.sreg.email'];
     }
+    if (isset($form['group_access'])) {
+       // set default to: Public - accessible to all site users
+      $form['group_access'][LANGUAGE_NONE]['#default_value'] = array(0 => 0);
+    }
   } else {
     // Redirect to openstack.org profile registration page
     drupal_goto("https://www.openstack.org/join/register");
