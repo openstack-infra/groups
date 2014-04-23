@@ -446,6 +446,24 @@ projects[leaflet_more_maps][version] = "1.6"
 projects[leaflet_more_maps][type] = "module"
 projects[leaflet_more_maps][subdir] = "contrib"
 
+projects[feeds][type] = "module"
+projects[feeds][subdir] = "contrib"
+projects[feeds][version] = "2.0-alpha8"
+
+projects[job_scheduler][type] = "module"
+projects[job_scheduler][subdir] = "contrib"
+projects[job_scheduler][version] = "2.0-alpha3"
+
+projects[drush_feeds_import][type] = "module"
+projects[drush_feeds_import][subdir] = "contrib"
+projects[drush_feeds_import][download][type] = "git"
+projects[drush_feeds_import][download][url] = "http://git.drupal.org/sandbox/enzo/1865202.git"
+projects[drush_feeds_import][download][branch] = "master"
+projects[drush_feeds_import][download]revision] = "bd7efd4e46d51d40b97a2954771e08cd669a3410"
+; $feed->feed_nid check in _feed_import
+; https://drupal.org/node/1888356
+projects[drush_feeds_import][patch][] = "https://drupal.org/files/drush_feeds_import-nofeednidfix-1888356-3.patch"
+
 ; Contributed themes.
 
 projects[zen][type] = "theme"

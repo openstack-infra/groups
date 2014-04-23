@@ -105,6 +105,10 @@ dependencies[] = leaflet
 dependencies[] = leaflet_views
 dependencies[] = leaflet_mapbox
 dependencies[] = leaflet_more_maps
+dependencies[] = job_scheduler
+dependencies[] = feeds
+dependencies[] = drush_feeds_import
+dependencies[] = feeds_ui
 
 ; Custom modules
 dependencies[] = field_property_list
