@@ -194,21 +194,39 @@ h3 {
   float: left;
   margin-right: 10px;
 }
-/* line 180, ../sass/custom.scss */
+/* line 179, ../sass/custom.scss */
+#footer .span-8 h3, #footer .span-4 h3 {
+  margin-bottom: 10px;
+}
+/* line 182, ../sass/custom.scss */
+#footer .span-8 ul, #footer .span-4 ul {
+  margin-top: 10px;
+  list-style: none;
+  padding: 0px;
+}
+/* line 186, ../sass/custom.scss */
+#footer .span-8 ul li, #footer .span-4 ul li {
+  line-height: 18px;
+}
+/* line 188, ../sass/custom.scss */
+#footer .span-8 ul li a, #footer .span-8 ul li a.hover, #footer .span-4 ul li a, #footer .span-4 ul li a.hover {
+  color: #000000;
+}
+/* line 194, ../sass/custom.scss */
 #footer .span-8 {
   width: 310px;
 }
-/* line 183, ../sass/custom.scss */
+/* line 197, ../sass/custom.scss */
 #footer .span-4 {
   width: 150px;
 }
-/* line 186, ../sass/custom.scss */
+/* line 200, ../sass/custom.scss */
 #footer .span-4.last {
   margin-right: 0px;
 }
 
 /** Groups Page **/
-/* line 193, ../sass/custom.scss */
+/* line 207, ../sass/custom.scss */
 .view-groups-groups-directory {
   margin-top: 1em;
   margin-bottom: 2em;
@@ -218,22 +236,22 @@ h3 {
   -o-column-count: 6;
   column-count: 6;
 }
-/* line 197, ../sass/custom.scss */
+/* line 211, ../sass/custom.scss */
 .view-groups-groups-directory h3 {
   margin-top: 0px;
   margin-bottom: 0.5em;
 }
-/* line 201, ../sass/custom.scss */
+/* line 215, ../sass/custom.scss */
 .view-groups-groups-directory .views-row-last {
   padding-bottom: 1em;
 }
-/* line 204, ../sass/custom.scss */
+/* line 218, ../sass/custom.scss */
 .view-groups-groups-directory a {
   color: #1F7A95;
 }
 
 /** Activity stream **/
-/* line 211, ../sass/custom.scss */
+/* line 225, ../sass/custom.scss */
 .view-commons-activity-streams-activity {
   background: #f2f6f7;
   padding: 10px;
@@ -241,35 +259,35 @@ h3 {
   line-height: 1em;
   /* activity stream row */
 }
-/* line 217, ../sass/custom.scss */
+/* line 231, ../sass/custom.scss */
 .view-commons-activity-streams-activity .views-row {
   overflow: hidden;
   padding-left: 58px;
   padding-bottom: 0.5em;
   min-height: 50px;
 }
-/* line 222, ../sass/custom.scss */
+/* line 236, ../sass/custom.scss */
 .view-commons-activity-streams-activity .views-row div.user-picture {
   position: absolute;
   float: left;
   margin-left: -58px;
 }
-/* line 227, ../sass/custom.scss */
+/* line 241, ../sass/custom.scss */
 .view-commons-activity-streams-activity .views-row .user-picture img {
   width: 40px;
 }
-/* line 230, ../sass/custom.scss */
+/* line 244, ../sass/custom.scss */
 .view-commons-activity-streams-activity .views-row .views-field-timestamp {
   font-size: 0.85em;
   margin-top: 0.5em;
 }
-/* line 234, ../sass/custom.scss */
+/* line 248, ../sass/custom.scss */
 .view-commons-activity-streams-activity .views-row a {
   color: #1f7a95;
 }
 
 /** Breadcrumb **/
-/* line 243, ../sass/custom.scss */
+/* line 257, ../sass/custom.scss */
 nav.breadcrumb {
   display: none;
 }
@@ -284,7 +302,7 @@ nav.breadcrumb {
 .two-brick.at-panel:after {
   clear: both;
 }
-/* line 254, ../sass/custom.scss */
+/* line 268, ../sass/custom.scss */
 .two-brick.at-panel .region-two-brick-left-above {
   float: left;
   width: 50%;
@@ -298,7 +316,7 @@ nav.breadcrumb {
   box-sizing: border-box;
   word-wrap: break-word;
 }
-/* line 257, ../sass/custom.scss */
+/* line 271, ../sass/custom.scss */
 .two-brick.at-panel .region-two-brick-right-above {
   float: left;
   width: 50%;
@@ -322,7 +340,7 @@ nav.breadcrumb {
 .three-50-25-25:after {
   clear: both;
 }
-/* line 266, ../sass/custom.scss */
+/* line 280, ../sass/custom.scss */
 .three-50-25-25 .region-three-50-25-25-first {
   float: left;
   width: 50%;
@@ -336,7 +354,7 @@ nav.breadcrumb {
   box-sizing: border-box;
   word-wrap: break-word;
 }
-/* line 269, ../sass/custom.scss */
+/* line 283, ../sass/custom.scss */
 .three-50-25-25 .region-three-50-25-25-second {
   float: left;
   width: 25%;
@@ -350,7 +368,7 @@ nav.breadcrumb {
   box-sizing: border-box;
   word-wrap: break-word;
 }
-/* line 272, ../sass/custom.scss */
+/* line 286, ../sass/custom.scss */
 .three-50-25-25 .region-three-50-25-25-third {
   float: left;
   width: 25%;
@@ -374,7 +392,7 @@ nav.breadcrumb {
 .openstack-front .openstack-front-container:after {
   clear: both;
 }
-/* line 283, ../sass/custom.scss */
+/* line 297, ../sass/custom.scss */
 .openstack-front .region-openstack-front-first {
   float: left;
   width: 50%;
@@ -388,7 +406,7 @@ nav.breadcrumb {
   box-sizing: border-box;
   word-wrap: break-word;
 }
-/* line 286, ../sass/custom.scss */
+/* line 300, ../sass/custom.scss */
 .openstack-front .region-openstack-front-second {
   float: left;
   width: 25%;
@@ -402,7 +420,7 @@ nav.breadcrumb {
   box-sizing: border-box;
   word-wrap: break-word;
 }
-/* line 289, ../sass/custom.scss */
+/* line 303, ../sass/custom.scss */
 .openstack-front .region-openstack-front-third {
   float: left;
   width: 25%;
@@ -416,7 +434,7 @@ nav.breadcrumb {
   box-sizing: border-box;
   word-wrap: break-word;
 }
-/* line 292, ../sass/custom.scss */
+/* line 306, ../sass/custom.scss */
 .openstack-front .region-openstack-front-bottom-first {
   float: left;
   width: 50%;
@@ -430,7 +448,7 @@ nav.breadcrumb {
   box-sizing: border-box;
   word-wrap: break-word;
 }
-/* line 295, ../sass/custom.scss */
+/* line 309, ../sass/custom.scss */
 .openstack-front .region-openstack-front-bottom-second {
   float: left;
   width: 50%;
@@ -446,41 +464,41 @@ nav.breadcrumb {
 }
 
 /** Landing page upcoming events **/
-/* line 302, ../sass/custom.scss */
+/* line 316, ../sass/custom.scss */
 .view-commons-events-upcoming {
   background: #f2f6f7;
   padding: 10px;
   line-height: 1em;
 }
-/* line 307, ../sass/custom.scss */
+/* line 321, ../sass/custom.scss */
 .view-commons-events-upcoming .attachment-before,
 .view-commons-events-upcoming .view-filters {
   display: none;
 }
-/* line 311, ../sass/custom.scss */
+/* line 325, ../sass/custom.scss */
 .view-commons-events-upcoming .field-items, .view-commons-events-upcoming .field,
 .view-commons-events-upcoming .field-item {
   display: inline;
 }
-/* line 314, ../sass/custom.scss */
+/* line 328, ../sass/custom.scss */
 .view-commons-events-upcoming article {
   padding-bottom: 1em;
 }
-/* line 317, ../sass/custom.scss */
+/* line 331, ../sass/custom.scss */
 .view-commons-events-upcoming header {
   margin-bottom: 0.5em;
 }
-/* line 320, ../sass/custom.scss */
+/* line 334, ../sass/custom.scss */
 .view-commons-events-upcoming header a {
   color: #1f7a95;
 }
-/* line 323, ../sass/custom.scss */
+/* line 337, ../sass/custom.scss */
 .view-commons-events-upcoming .field-item {
   font-size: 0.85em;
 }
 
 /** Group page **/
-/* line 335, ../sass/custom.scss */
+/* line 349, ../sass/custom.scss */
 .node-type-group .pane-commons-contributors-group-panel-pane-2,
 .node-type-group article .links,
 .node-type-group .rate-widget,
@@ -488,7 +506,7 @@ nav.breadcrumb {
 .node-type-group .field-name-field-group-location {
   display: none;
 }
-/* line 338, ../sass/custom.scss */
+/* line 352, ../sass/custom.scss */
 .node-type-group #quicktabs-commons_bw {
   background: #f2f6f7;
   padding: 10px;
@@ -497,7 +515,7 @@ nav.breadcrumb {
 }
 
 /** Community stats block **/
-/* line 348, ../sass/custom.scss */
+/* line 362, ../sass/custom.scss */
 .pane-groups-homepage-groups-community-stats {
   font-size: 130%;
   text-align: center;
@@ -508,11 +526,11 @@ nav.breadcrumb {
   font-family: 'PT Sans',serif;
   padding: 5px;
 }
-/* line 349, ../sass/custom.scss */
+/* line 363, ../sass/custom.scss */
 .pane-groups-homepage-groups-community-stats h2 {
   display: none;
 }
-/* line 352, ../sass/custom.scss */
+/* line 366, ../sass/custom.scss */
 .pane-groups-homepage-groups-community-stats em {
   font-weight: bold;
 }

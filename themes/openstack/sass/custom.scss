@@ -176,6 +176,20 @@ h3{
   .span-8, .span-4 {
     float: left;
     margin-right: 10px;
+    h3 {
+      margin-bottom: 10px;
+    }
+    ul {
+      margin-top: 10px;
+      list-style: none;
+      padding: 0px;
+      li {
+        line-height: 18px;
+        a, a.hover {
+          color: #000000;
+        }
+      }
+    }
   }
   .span-8 {
     width: 310px;
