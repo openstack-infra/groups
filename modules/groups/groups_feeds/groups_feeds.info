@@ -1,0 +1,8 @@
+name = Groups feeds
+description = Community portal Feeds module extension
+core = 7.x
+package = groups
+version = 7.x-1.0
+project = groups_feeds
+
+dependencies[] = feeds

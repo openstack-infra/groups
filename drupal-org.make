@@ -464,6 +464,13 @@ projects[drush_feeds_import][download]revision] = "bd7efd4e46d51d40b97a2954771e0
 ; https://drupal.org/node/1888356
 projects[drush_feeds_import][patch][] = "https://drupal.org/files/drush_feeds_import-nofeednidfix-1888356-3.patch"
 
+projects[feeds_fetcher_directory][type] = "module"
+projects[feeds_fetcher_directory][subdir] = "contrib"
+projects[feeds_fetcher_directory][version] = "2.0-beta5"
+; fix configFormValidate() errors
+; https://drupal.org/node/2023775
+projects[feeds_fetcher_directory][patch][] = "https://drupal.org/files/feeds_fetcher_directory-config-form-validate-errors.patch"
+
 ; Contributed themes.
 
 projects[zen][type] = "theme"

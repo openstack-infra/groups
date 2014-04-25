@@ -122,3 +122,4 @@ dependencies[] = groups_footer
 dependencies[] = groups_homepage
 dependencies[] = groups_common
 dependencies[] = groups_auth
+dependencies[] = groups_feeds
