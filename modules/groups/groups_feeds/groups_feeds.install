@@ -7,3 +7,30 @@ function groups_feeds_enable() {
   //clear the cache to display in Feeds as available plugin.
   cache_clear_all('plugins:feeds:plugins', 'cache');
 }
+
+/**
+ * Implement hook_install()
+ *
+ */
+
+function groups_feeds_install() {
+  // Create markdown fetcher source
+  $feed = 'static_page_import';
+  $feedSource = feeds_source($feed);
+  $config = $feedSource->getConfig();
+  $config['feeds_fetcher_directory_fetcher']['source'] =
+    variable_get('groups_feeds_markdown_directory', 'public://feeds');
+  $config['feeds_fetcher_directory_fetcher']['reset'] = 0;
+  $config['feeds_fetcher_directory_fetcher']['feed_files_fetched'] = "";
+  $feedSource->setConfig($config);
+  $feedSource->save();
+}
+
+/**
+ * Implement hook_uninstall()
+ *
+ */
+
+function groups_feeds_uninstall() {
+  // TODO: remove static_page_import feeds source
+}
