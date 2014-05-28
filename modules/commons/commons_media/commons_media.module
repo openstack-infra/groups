@@ -1,0 +1,293 @@
+<?php
+/**
+ * @file
+ * Code for the Commons Media feature.
+ */
+
+include_once 'commons_media.features.inc';
+
+// Functions to ensure that the private file system is used when embedding files in private group content.
+include_once 'commons_media.private_files.inc';
+
+/**
+ * Implements hook_system_info_alter().
+ */
+function commons_media_system_info_alter(&$info, $file, $type) {
+  if ($file->name == 'commons_media') {
+    $entity_integrations = commons_entity_integration_info();
+
+    if (!empty($entity_integrations)) {
+      foreach ($entity_integrations as $entity_type => $bundles) {
+        foreach ($bundles as $bundle => $integrations) {
+          if (!empty($integrations['media'])) {
+            $info['features']['field_instance'][] = "$entity_type-$bundle-field_media";
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function commons_media_menu_alter(&$items) {
+  // Use a tweaked AJAX page callback for managed_file and media elements in
+  // order to bypass a core issue that occurs when more than one browsing widget
+  // tab contains a managed_file or media file field widget.
+  if (isset($items['file/ajax'])) {
+    $items['file/ajax']['page callback'] = 'commons_ajax_upload';
+  }
+  if (isset($items['media/ajax'])) {
+    $items['media/ajax']['page callback'] = 'commons_ajax_upload';
+  }
+}
+
+/**
+ * Menu callback; Shared Ajax callback for managed_file and media elements.
+ *
+ * Identical to the Ajax callback used by file.module and media.module except
+ * with the $form_build_id != $_POST['form_build_id'] check removed in order to
+ * prevent errors when more than one browsing widget tab contains a managed_file
+ * or media file field widget.
+ *
+ * @see file_ajax_upload()
+ * @see media_ajax_upload()
+ */
+function commons_ajax_upload() {
+  $form_parents = func_get_args();
+  $form_build_id = (string) array_pop($form_parents);
+
+  if (empty($_POST['form_build_id'])) {
+    // Invalid request.
+    drupal_set_message(t('An unrecoverable error occurred. The uploaded file likely exceeded the maximum file size (@size) that this server supports.', array('@size' => format_size(file_upload_max_size()))), 'error');
+    $commands = array();
+    $commands[] = ajax_command_replace(NULL, theme('status_messages'));
+    return array('#type' => 'ajax', '#commands' => $commands);
+  }
+
+  list($form, $form_state, $form_id, $form_build_id, $commands) = ajax_get_form();
+
+  if (!$form) {
+    // Invalid form_build_id.
+    drupal_set_message(t('An unrecoverable error occurred. Use of this form has expired. Try reloading the page and submitting again.'), 'error');
+    $commands = array();
+    $commands[] = ajax_command_replace(NULL, theme('status_messages'));
+    return array('#type' => 'ajax', '#commands' => $commands);
+  }
+
+  // Get the current element and count the number of files.
+  $current_element = $form;
+  foreach ($form_parents as $parent) {
+    $current_element = $current_element[$parent];
+  }
+  $current_file_count = isset($current_element['#file_upload_delta']) ? $current_element['#file_upload_delta'] : 0;
+
+  // Process user input. $form and $form_state are modified in the process.
+  drupal_process_form($form['#form_id'], $form, $form_state);
+
+  // Retrieve the element to be rendered.
+  foreach ($form_parents as $parent) {
+    $form = $form[$parent];
+  }
+
+  // Add the special Ajax class if a new file was added.
+  if (isset($form['#file_upload_delta']) && $current_file_count < $form['#file_upload_delta']) {
+    $form[$current_file_count]['#attributes']['class'][] = 'ajax-new-content';
+  }
+  // Otherwise just add the new content class on a placeholder.
+  else {
+    $form['#suffix'] .= '<span class="ajax-new-content"></span>';
+  }
+
+  $output = theme('status_messages') . drupal_render($form);
+  $js = drupal_add_js();
+  $settings = call_user_func_array('array_merge_recursive', $js['settings']['data']);
+
+  $commands[] = ajax_command_replace(NULL, $output, $settings);
+  return array('#type' => 'ajax', '#commands' => $commands);
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function commons_media_element_info_alter(&$type) {
+  $type['media']['#process'][] = 'commons_media_simplify_media_buttons';
+}
+
+/**
+ * Extra #process callback which simplifies the media element buttons.
+ */
+function commons_media_simplify_media_buttons($element, $edit, &$form_state) {
+  // Remove extraneous elements.
+  $element['#title_display'] = 'invisible';
+
+  return $element;
+}
+
+/**
+ * Implements hook_page_build().
+ */
+function commons_media_page_build(&$page) {
+  $page['page_bottom']['commons_media']['#attached']['css'] = array(
+    drupal_get_path('module', 'commons_media') . '/commons_media.css' => array(
+      'every_page' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Implements hook_filter_default_formats_alter().
+ */
+function commons_media_filter_default_formats_alter(&$formats) {
+  if (module_exists('media_wysiwyg')) {
+    // Allow markup from remote media.
+    $formats['filtered_html']['filters']['filter_html']['settings']['allowed_html'] = '<a> <em> <strong> <u> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd> <h4> <h5> <h6>  <p> <br> <img> <strike> <iframe></iframe>';
+
+    // Enable the media filter.
+    $formats['filtered_html']['filters'] += array(
+      'media_filter' => array(
+        'status' => 1,
+        'weight' => 2,
+      ),
+    );
+  }
+}
+
+/**
+ * Implements hook_ckeditor_profile_defaults().
+ */
+function commons_media_ckeditor_profile_defaults_alter(&$profiles) {
+  if (module_exists('media_wysiwyg')) {
+    // Disable the advanced content filter.
+    $profiles['Advanced']['settings']['allowed_content'] = 'f';
+
+    // Add the media button.
+    $profiles['Advanced']['settings']['toolbar'] = '[
+    [\'Format\'],
+    [\'Bold\',\'Italic\',\'Strike\'],
+    [\'NumberedList\',\'BulletedList\',\'Indent\',\'Outdent\',\'Blockquote\'],
+    [\'Link\',\'Unlink\',\'Media\']
+    ]';
+
+    // Load the media plugin.
+    $profiles['Advanced']['settings']['loadPlugins'] += array(
+      'media' => array(
+        'default' => 'f',
+        'desc' => 'Plugin for inserting images from Drupal media module',
+        'name' => 'media',
+        'path' => '%plugin_dir%media/',
+      ),
+    );
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function commons_media_form_file_entity_add_upload_alter(&$form, &$form_state, $form_id) {
+  // Automatically upload selected files.
+  if ($form['#step'] == 1) {
+    $form['#attached']['js'][] = drupal_get_path('module', 'commons_media') . '/commons_media_autoupload.js';
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function commons_media_form_media_internet_add_alter(&$form, &$form_state, $form_id) {
+  if (isset($form['embed_code'])) {
+    $form['embed_code']['#description'] = t('Enter a URL or link to the media you would like to embed, such as a video or image. You can upload video from a range of providers, such as YouTube, Flickr or Vimeo.');
+  }
+}
+
+/**
+ * Implements hook_media_format_form_prepare_alter().
+ */
+function commons_media_media_wysiwyg_format_form_prepare_alter(&$form, &$form_state, $media) {
+  // Remove the ability to override field values through WYSIWYG.
+  $form['options']['fields']['#access'] = FALSE;
+
+  // Attach JavaScript to automatically embed files.
+  $form['#attached']['js'][] = drupal_get_path('module', 'commons_media') . '/commons_media_autoembed.js';
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function commons_media_entity_presave($entity, $type) {
+  // Only proceed if the private file system has been configured.
+  if (!variable_get('file_private_path', FALSE)) {
+    return;
+  }
+
+  list($entity_id, $entity_vid, $entity_bundle) = entity_extract_ids($type, $entity);
+
+  // Only proceed if the entity has been configured as group content.
+  if (!og_is_group_content_type($type, $entity_bundle)) {
+    return;
+  }
+
+  // Loop over all the file and image fields attached to this entity.
+  foreach (_commons_media_get_file_and_image_fields($entity, $type) as $field_name) {
+    // Iterate over the items arrays for each language.
+    foreach (array_keys($entity->{$field_name}) as $langcode) {
+      $items = isset($entity->{$field_name}[$langcode]) ? $entity->{$field_name}[$langcode] : array();
+
+      // Ensure that the private file system is used when attaching files to
+      // private group content.
+      foreach ($items as $delta => $item) {
+        // Move files to the private file system if the content is private.
+        if ($entity->group_content_access[LANGUAGE_NONE][0]['value'] == 2) {
+          $source_file = file_load($item['fid']);
+
+          // Only move public files.
+          if (file_uri_scheme($source_file->uri) == 'public') {
+            $usage = file_usage_list($source_file);
+
+            // Only move files that aren't currently in use.
+            if (empty($usage)) {
+              $scheme = 'private://';
+              $uri = file_stream_wrapper_uri_normalize($scheme . $source_file->filename);
+              file_move($source_file, $uri, FILE_EXISTS_RENAME);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Returns an array of image field names from a specific entity.
+ *
+ * @param $entity
+ *   The entity variable passed through hook_entity_presave().
+ * @param $type
+ *   The entity type variable passed through hook_entity_presave().
+ *
+ * @return array
+ *   An array of file and image field names or an empty array if none are found.
+ */
+function _commons_media_get_file_and_image_fields($entity, $type) {
+  $collected_fields = array();
+
+  // Determine the list of instances to iterate on.
+  list(, , $bundle) = entity_extract_ids($type, $entity);
+  $instances = field_info_instances($type, $bundle);
+  $fields = field_info_fields();
+
+  // Iterate through the instances and collect results.
+  foreach ($instances as $instance) {
+    $field_name = $instance['field_name'];
+
+    // Only collect file and image fields.
+    if ($fields[$field_name]['type'] == 'file' || $fields[$field_name]['type'] == 'image') {
+      if (isset($entity->{$field_name})) {
+        $collected_fields[] = $field_name;
+      }
+    }
+  }
+
+  return $collected_fields;
+}

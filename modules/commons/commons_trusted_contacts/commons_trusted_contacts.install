@@ -1,0 +1,87 @@
+<?php
+
+/**
+ * Implements hook_requirements().
+ *
+ * After install, make sure that all users are set as group.
+ */
+function commons_trusted_contacts_requirements($phase) {
+  $requirements = array();
+
+  if ($phase == 'runtime') {
+
+    // Count the current number of users.
+    $query = new EntityFieldQuery;
+    $user_count = $query->entityCondition('entity_type', 'user')
+      // Ignore the anonymous user.
+      ->propertyCondition('uid', 0, '<>')
+      ->count()
+      ->execute();
+
+    // Count the current number of user groups.
+    $query = new EntityFieldQuery();
+    $group_count = $query
+      ->entityCondition('entity_type', 'user')
+      ->fieldCondition(OG_GROUP_FIELD, 'value', 1, '=')
+      ->count()
+      ->execute();
+
+    // Check if there are more users than "group" users.
+    if ($user_count > $group_count) {
+      $requirements['commons_trusted_contacts_users_updated']['title'] = t('Trusted contacts');
+      $requirements['commons_trusted_contacts_users_updated']['severity'] = REQUIREMENT_ERROR;
+      $requirements['commons_trusted_contacts_users_updated']['description'] = t('Some users need an update. !link.', array('!link' => l(t('Upgrade users'), 'admin/people/trusted-contacts-upgrade')));
+      $requirements['commons_trusted_contacts_users_updated']['value'] = t('Users upgrade needed');
+    }
+  }
+
+  return $requirements;
+}
+
+
+/**
+ * Implements hook_install().
+ */
+function commons_trusted_contacts_install() {
+  // Do not inform the user about new messages on login.
+  variable_set('privatemsg_display_loginmessage', FALSE);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function commons_trusted_contacts_uninstall() {
+  variable_delete('commons_trusted_contacts_restrict_messaging');
+}
+
+/**
+ * Use absolute URLs for pending invitation emails.
+ */
+function commons_trusted_contacts_update_3100() {
+  $revert = array(
+    'commons_trusted_contacts' => array('message_type'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Change the background options widget to use autocomplete instead
+ * See https://drupal.org/node/2151637 for more info
+ */
+function commons_trusted_contacts_update_3101() {
+  $revert = array(
+    'commons_trusted_contacts' => array('field_instance', 'field_base'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Set the limit for trusted contacts to unlimited for existing sites.
+ */
+function commons_trusted_contacts_update_3102() {
+
+  variable_set('commons_trusted_contacts_limit', 0);
+  return array();
+}

@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * Ensure that the new notifications fields are reverted.
+ */
+function commons_notify_update_7301() {
+  features_revert(array('commons_notify' => array('field_base', 'field_instance')));
+  return array();
+}
+
+/**
+ * Ensure that users' email subscription preferences are honored.
+ */
+function commons_notify_update_7302() {
+  features_revert(array('commons_notify' => array('variable')));
+  return array();
+}
+
+/**
+ * Correct the user notification settings URL.
+ */
+function commons_notify_update_7303() {
+  features_revert(array('commons_notify' => array('message_type')));
+  return array();
+}
+
+/**
+ * Add message notify for comments that have no group.
+ */
+function commons_notify_update_7304() {
+  features_revert(array('commons_notify' => array('message_type')));
+  return array();
+}

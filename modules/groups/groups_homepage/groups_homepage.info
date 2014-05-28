@@ -14,3 +14,4 @@ features[menu_custom][] = main-menu
 features[menu_links][] = main-menu:home
 features[page_manager_pages][] = groups_home
 features[ctools][] = strongarm:strongarm:1
+features[variable][] = site_frontpage

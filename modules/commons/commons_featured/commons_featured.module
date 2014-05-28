@@ -1,0 +1,17 @@
+<?php
+/**
+ * @file
+ * Code for the Commons Featured Content feature.
+ */
+
+include_once 'commons_featured.features.inc';
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function commons_featured_form_node_form_alter(&$form, &$form_state, $form_id) {
+  // Change "Promoted to front page" to "Featured".
+  if (isset($form['options']['promote'])) {
+    $form['options']['promote']['#title'] = t('Featured');
+  }
+}

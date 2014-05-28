@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * Implements hook_hook_info().
+ */
+function commons_utility_links_hook_info() {
+  $hooks = array(
+    'commons_utility_links',
+    'commons_utility_links_alter',
+  );
+
+  return array_fill_keys($hooks, array('group' => 'commons_utility_links'));
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function commons_utility_links_block_info() {
+  $blocks['commons_utility_links'] = array(
+    'info' => t('Commons utility links'),
+    'cache' => DRUPAL_NO_CACHE,
+    'visibility' => 0,
+    'status' => 1,
+    'pages' => 0,
+    'weight' => 1,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function commons_utility_links_block_view($delta = '') {
+  $block = array();
+
+  // Gather all of the available utility links.
+  $links = module_invoke_all('commons_utility_links');
+  drupal_alter('commons_utility_links', $links);
+
+  if (!empty($links)) {
+    // Sort the links by weight before rendering them.
+    uasort($links, 'drupal_sort_weight');
+
+    $block['subject'] = NULL;
+    $block['content'] = array(
+      '#theme' => 'links__commons_utility_links',
+      '#links' => $links,
+      '#attributes' => array(
+        'class' => array('commons-utility-links'),
+      ),
+    );
+  }
+
+  return $block;
+}

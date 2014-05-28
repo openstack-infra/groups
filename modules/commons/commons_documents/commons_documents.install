@@ -1,0 +1,89 @@
+<?php
+
+/**
+ * Disable summary on Document nodes.
+ */
+function commons_documents_update_7000() {
+    $revert = array(
+      'commons_documents' => array('field_instance'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Disable default frontpage promotion of Document nodes.
+ */
+function commons_documents_update_7001() {
+    $revert = array(
+      'commons_documents' => array('variable'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Remove unused view displays.
+ */
+function commons_documents_update_7002() {
+    $revert = array(
+      'commons_documents' => array('views_view'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Standardize Browsing Widget views.
+ */
+function commons_documents_update_7003() {
+  $revert = array(
+    'commons_documents' => array('views_view'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Display sticky content at top of lists.
+ */
+function commons_documents_update_7004() {
+  $revert = array(
+    'commons_documents' => array('views_view'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Add .txt to the list of allowed file extensions.
+ */
+function commons_documents_update_7005() {
+  $revert = array(
+    'commons_documents' => array('field_instance'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Add links to node teasers in the browsing widget.
+ */
+function commons_documents_update_7006() {
+  $revert = array(
+    'commons_documents' => array('views_view'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Improve the browsing widget empty text.
+ */
+function commons_documents_update_7007() {
+  $revert = array(
+    'commons_documents' => array('views_view'),
+  );
+  features_revert($revert);
+  return array();
+}

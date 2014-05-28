@@ -1,0 +1,67 @@
+<?php
+
+/**
+ * Disable summary on Poll nodes.
+ */
+function commons_polls_update_7000() {
+    $revert = array(
+      'commons_polls' => array('field_instance'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Grant users the ability to vote on polls.
+ */
+function commons_polls_update_7001() {
+    $revert = array(
+      'commons_polls' => array('user_permission'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Standardize Browsing Widget views.
+ */
+function commons_polls_update_7002() {
+  $revert = array(
+    'commons_polls' => array('views_view'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Display sticky content at top of lists.
+ */
+function commons_polls_update_7003() {
+  $revert = array(
+    'commons_polls' => array('views_view'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Add links to node teasers in the browsing widget.
+ */
+function commons_polls_update_7004() {
+  $revert = array(
+    'commons_polls' => array('views_view'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Improve the browsing widget empty text.
+ */
+function commons_polls_update_7005() {
+  $revert = array(
+    'commons_polls' => array('views_view'),
+  );
+  features_revert($revert);
+  return array();
+}
