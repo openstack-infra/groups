@@ -35,3 +35,8 @@ make distribution
 $> drush make build-groups.make groups-dev.local
 ```
 
+release tarballs
+----------------
+
+Development and release tarballs available at http://tarballs.openstack.org/groups
+
