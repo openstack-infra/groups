@@ -13,7 +13,7 @@ function commons_utility_links_install() {
   $utility_block = array(
     'module' => 'commons_utility_links',
     'delta' => 'commons_utility_links',
-    'theme' => 'commons_origins',
+    'theme' => 'openstack',
     'visibility' => 0,
     'region' => 'header',
     'status' => 1,
@@ -28,7 +28,7 @@ function commons_utility_links_install() {
     ->fields(array('cache' => DRUPAL_NO_CACHE))
     ->condition('delta', 'commons_utility_links')
     ->condition('module', 'commons_utility_links')
-    ->condition('theme', 'commons_origins')
+    ->condition('theme', 'openstack')
     ->execute();
 }
 
@@ -50,7 +50,7 @@ function commons_utility_links_update_7301() {
     ))
     ->condition('delta', 'commons_utility_links')
     ->condition('module', 'commons_utility_links')
-    ->condition('theme', 'commons_origins')
+    ->condition('theme', 'openstack')
     ->execute();
   cache_clear_all('*', 'cache_block', TRUE);
 }
