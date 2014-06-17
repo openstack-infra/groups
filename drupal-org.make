@@ -566,7 +566,7 @@ projects[jquery_update][version] = "2.4"
 
 projects[panels_ajax_tab][type] = "module"
 projects[panels_ajax_tab][subdir] = "contrib"
-projects[panels_ajax_tab][version] = "1.0-alpha+9-dev"
+projects[panels_ajax_tab][version] = "1.x-dev"
 
 
 ; Contributed themes.
