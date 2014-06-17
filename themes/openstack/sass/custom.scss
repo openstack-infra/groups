@@ -6,6 +6,7 @@
 
 @import "compass/css3";
 @import "compass/layout.scss";
+@import "compass/reset/utilities";
 @import "compass/typography";
 @import "compass/utilities";
 @import "init";
@@ -22,9 +23,20 @@ $blue4:       #264D69;
 $blue5:       #1D395E;
 $blue6:       #1F7A95;
 
+$blue7:       #C1E4EE;
+$blue8:       #7ED5EE;
+$blue9:       #1D6A95;
+
 $red:         #BC1518;
+$red1:        #C43322;
 
 $green:       #D5EFD4;
+
+$grey0:       #CAE1E9;
+$grey1:       #F4F3F2;
+$grey2:       #C6C6C6;
+$grey3:       #808080;
+$grey4:       #575757;
 
 @mixin font($size, $color, $weight){
   font-size: $size;
@@ -45,6 +57,10 @@ a{
   &:hover{
     text-decoration: underline;
   }
+}
+
+a, a:active, a:focus {
+  outline: none;
 }
 
 p{
@@ -73,11 +89,41 @@ h3{
 
 #logo {
   line-height: 24px;
-  verical-align: baseline;
+  vertical-align: baseline;
   img {
     padding-top: 8px;
   }
 }
+
+/** BRANDING LAYOUT **/
+
+/* reset */
+
+#branding {
+  a#logo {
+    @include reset-box-model;
+  }
+  div#navigation {
+    @include reset-box-model;
+    width: auto;
+  }
+}
+
+#branding {
+  $zen-column-count: 12;
+  $zen-gutter-width: 10px;
+  #branding-container {
+    @include zen-grid-container;
+  }
+  a#logo {
+    @include zen-grid-item(2, 1);
+    min-width: 196px;
+  }
+  div#navigation {
+    @include zen-grid-item(10, 3);
+  }
+}
+
 
 /** PRIMARY MENU **/
 
@@ -224,7 +270,7 @@ h3{
 
 .view-commons-activity-streams-activity {
   background: $blue0;
-  padding: 10px;
+  padding: 10px 0px;
   margin-bottom: 20px;
   line-height: 1em;
   /* activity stream row */
@@ -294,6 +340,9 @@ nav.breadcrumb {
   .openstack-front-container {
     @include zen-grid-container;
   }
+  .openstack-front-top {
+    margin-bottom: 20px;
+  }
   .region-openstack-front-first {
      @include zen-grid-item(6, 1);
   }
@@ -304,10 +353,51 @@ nav.breadcrumb {
      @include zen-grid-item(3, 10);
   }
   .region-openstack-front-bottom-first {
-    @include zen-grid-item(6, 1);
+    @include zen-grid-item(8, 1);
   }
   .region-openstack-front-bottom-second {
-    @include zen-grid-item(6, 7);
+    @include zen-grid-item(4, 9);
+  }
+}
+
+/** Landing page **/
+
+/* events / activity tabs */
+
+.region-openstack-front-bottom-first {
+  li {
+    a.panels-ajax-tab-tab {
+      font-size: 16px;
+      color: $blue6;
+    }
+  }
+  li.active {
+    a.panels-ajax-tab-tab {
+      color: $red;
+    }
+  }
+  .item-list {
+    text-align: left;
+  }
+  .pane-title {
+    display: none;
+  }
+}
+
+/* Find block */
+
+.find-user-group {
+  background: $grey1;
+  padding: 10px 20px;
+  border-top: 1px solid $grey2;
+  color: $blue9;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 140%;
+  text-align: center;
+
+  .field-region {
+    color: $grey0;
   }
 }
 
@@ -315,7 +405,7 @@ nav.breadcrumb {
 
 .view-commons-events-upcoming {
   background: $blue0;
-  padding: 10px;
+  padding: 10px 0px;
   line-height: 1em;
   .attachment-before,
   .view-filters {
@@ -365,13 +455,14 @@ nav.breadcrumb {
   }
   em {
     font-weight: bold;
+    color: $grey4;
   }
+  border-left: 3px solid $red1;
+  padding-left: 15px;
+  letter-spacing: -0.076em;
   font-size: 130%;
-  text-align: center;
-  color: #7F7F7F;
-  /*border: 3px solid #D5D5D5;*/
-  border-bottom: 2px solid #D5D5D5;
-  border-top: 2px solid #D5D5D5;
+  text-align: left;
+  color: $grey3;
   font-family: 'PT Sans',serif;
   padding: 5px;
 }

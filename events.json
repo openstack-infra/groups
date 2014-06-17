@@ -2,13 +2,13 @@
   "events": [
   {
     "title": "Gartner Data Center Conference",
-    "date_from": "2014-01-09 09:00:00",
-    "date_to": "2014-01-12 18:00:00",
+    "date_from": "2014-11-09 09:00:00",
+    "date_to": "2014-11-12 18:00:00",
     "location": "US/Las Vegas, NV"
   },
   {
     "title": "OpenStack in action 4",
-    "date_from": "2014-01-05 09:00:00",
+    "date_from": "2014-11-05 09:00:00",
     "location": "FR/Paris"
   }
   ]

@@ -560,6 +560,15 @@ projects[feeds_fetcher_directory][version] = "2.0-beta5"
 ; https://drupal.org/node/2023775
 projects[feeds_fetcher_directory][patch][] = "https://drupal.org/files/feeds_fetcher_directory-config-form-validate-errors.patch"
 
+projects[jquery_update][type] = "module"
+projects[jquery_update][subdir] = "contrib"
+projects[jquery_update][version] = "2.4"
+
+projects[panels_ajax_tab][type] = "module"
+projects[panels_ajax_tab][subdir] = "contrib"
+projects[panels_ajax_tab][version] = "1.0-alpha+9-dev"
+
+
 ; Contributed themes.
 
 projects[zen][type] = "theme"

@@ -3,17 +3,8 @@
  * Template of front page groups finder block.
  */
 ?>
-<div>
+<div class="find-user-group">
   <form>
-    <p>
-    Find the nearest usergroup in your region and meet with other stackers!
-    </p>
-    <input type="text" name="region"/>
-    <input type="submit" value="Find"/>
+    Find groups near <input class="field-region" type="text" name="region" value="Budapest, HU"/>
   </form>
-  <h3>Not found?</h3>
-  <p>
-  Establish a new Openstack User Group in your city. Read our organizer tips About bootstrapping a local group and join to our fast growing vibrant community!
-  </p>
-  <a href="#">Register new user group</a>
 </div>

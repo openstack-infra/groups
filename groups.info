@@ -41,6 +41,7 @@ dependencies[] = features
 dependencies[] = file_entity
 dependencies[] = flag
 dependencies[] = http_client
+dependencies[] = jquery_update
 dependencies[] = libraries
 dependencies[] = media
 dependencies[] = media_internet
