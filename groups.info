@@ -57,6 +57,7 @@ dependencies[] = media_oembed
 dependencies[] = og
 dependencies[] = panelizer
 dependencies[] = panels
+dependencies[] = panels_ajax_tab
 dependencies[] = panels_ipe
 dependencies[] = paranoia
 dependencies[] = pathauto
