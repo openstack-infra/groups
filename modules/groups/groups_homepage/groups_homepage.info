@@ -17,4 +17,5 @@ features[menu_custom][] = main-menu
 features[page_manager_pages][] = groups_home
 features[panels_mini][] = recent_activity
 features[panels_mini][] = upcoming_events
+features[variable][] = panels_ajax_tab
 features[variable][] = site_frontpage
