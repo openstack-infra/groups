@@ -538,6 +538,9 @@ projects[leaflet_more_maps][subdir] = "contrib"
 projects[feeds][type] = "module"
 projects[feeds][subdir] = "contrib"
 projects[feeds][version] = "2.0-alpha8"
+; fix broken date import
+; https://www.drupal.org/node/2237177
+projects[feeds][patch][] = "https://www.drupal.org/files/issues/feeds-date_import_fix.patch"
 
 projects[job_scheduler][type] = "module"
 projects[job_scheduler][subdir] = "contrib"
@@ -568,6 +571,9 @@ projects[panels_ajax_tab][type] = "module"
 projects[panels_ajax_tab][subdir] = "contrib"
 projects[panels_ajax_tab][version] = "1.x-dev"
 
+projects[date_ical][type] = "module"
+projects[date_ical][subdir] = "contrib"
+projects[date_ical][version] = "3.2"
 
 ; Contributed themes.
 
@@ -636,3 +642,8 @@ libraries[leaflet][download][type] = "get"
 libraries[leaflet][type] = "libraries"
 libraries[leaflet][download][url] = "http://leaflet-cdn.s3.amazonaws.com/build/leaflet-0.6.4.zip"
 libraries[leaflet][destination] = "libraries"
+
+libraries[iCalcreator][type] = "libraries"
+libraries[iCalcreator][download][type] = "git"
+libraries[iCalcreator][download][url] = "git://github.com/iCalcreator/iCalcreator.git"
+libraries[iCalcreator][destination] = "libraries"

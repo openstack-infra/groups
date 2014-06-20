@@ -30,6 +30,7 @@ dependencies[] = breakpoints
 dependencies[] = ckeditor
 dependencies[] = ctools
 dependencies[] = custom_search
+dependencies[] = date_ical
 dependencies[] = diff
 dependencies[] = elements
 dependencies[] = email_registration
