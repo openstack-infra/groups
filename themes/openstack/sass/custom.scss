@@ -269,7 +269,7 @@ h3{
 /** Activity stream **/
 
 .view-commons-activity-streams-activity {
-  background: $blue0;
+  /*background: $blue0;*/
   padding: 10px 0px;
   margin-bottom: 20px;
   line-height: 1em;
@@ -277,7 +277,8 @@ h3{
   .views-row {
     @include clearfix();
     padding-left: 58px;
-    padding-bottom: 0.5em;
+    /*padding-bottom: 0.5em;*/
+    padding-bottom: 18px;
     min-height: 50px;
     div.user-picture {
       position: absolute;
@@ -288,12 +289,15 @@ h3{
       width: 40px;
     }
     .views-field-timestamp {
-      font-size: 0.85em;
+      font-size: 12px;
       margin-top: 0.5em;
     }
     a {
       color: $blue6;
     }
+  }
+  .more-link {
+    display: none;
   }
 
 }
@@ -401,12 +405,31 @@ nav.breadcrumb {
   }
 }
 
+/** Welcome pane **/
+
+.pane-groups-homepage-groups-homepage-welcome {
+  padding-right: 20px;
+}
+
 /** Landing page upcoming events **/
 
 .view-commons-events-upcoming {
-  background: $blue0;
+  /*background: $blue0;*/
+  /*background: #ff0000;*/
   padding: 10px 0px;
   line-height: 1em;
+  h3 {
+    font-size: 1.2em;
+    margin: 0px;
+    margin-bottom: 5px;
+    a {
+      color: $blue6;
+    }
+  }
+  .views-row {
+    padding-bottom: 18px;
+    padding-right: 20px;
+  }
   .attachment-before,
   .view-filters {
     display: none;
@@ -425,7 +448,7 @@ nav.breadcrumb {
     color: $blue6;
   }
   .field-item {
-    font-size: 0.85em;
+    font-size: 12px;
   }
 }
 

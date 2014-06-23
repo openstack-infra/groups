@@ -77,35 +77,13 @@ function groups_homepage_default_page_manager_pages() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
-    $pane->pid = 'new-b2494b76-fb10-46c5-bc6a-e6fec2d3919e';
-    $pane->panel = 'os_bottom_left';
-    $pane->type = 'panels_ajax_tab_tabs';
-    $pane->subtype = 'panels_ajax_tab_tabs';
+    $pane->pid = 'new-7bf353ed-b2a0-414f-b90e-cf8c4647a2f8';
+    $pane->panel = 'os_center';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'commons_events_upcoming-panel_pane_2';
     $pane->shown = TRUE;
     $pane->access = array();
-    $pane->configuration = array(
-      'mini_panels' => array(
-        'upcoming_events' => array(
-          'selected' => 1,
-          'tab_title' => '',
-          'url_id' => '',
-          'weight' => '-10',
-        ),
-        'recent_activity' => array(
-          'selected' => 1,
-          'tab_title' => '',
-          'url_id' => '',
-          'weight' => '-9',
-        ),
-      ),
-      'container_id' => 'front-events-activity-container',
-      'url_enabled' => 1,
-      'context' => array(
-        0 => 'empty',
-      ),
-      'override_title' => 0,
-      'override_title_text' => '',
-    );
+    $pane->configuration = array();
     $pane->cache = array();
     $pane->style = array(
       'settings' => NULL,
@@ -114,40 +92,14 @@ function groups_homepage_default_page_manager_pages() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $pane->uuid = 'b2494b76-fb10-46c5-bc6a-e6fec2d3919e';
-    $display->content['new-b2494b76-fb10-46c5-bc6a-e6fec2d3919e'] = $pane;
-    $display->panels['os_bottom_left'][0] = 'new-b2494b76-fb10-46c5-bc6a-e6fec2d3919e';
+    $pane->uuid = '7bf353ed-b2a0-414f-b90e-cf8c4647a2f8';
+    $display->content['new-7bf353ed-b2a0-414f-b90e-cf8c4647a2f8'] = $pane;
+    $display->panels['os_center'][0] = 'new-7bf353ed-b2a0-414f-b90e-cf8c4647a2f8';
     $pane = new stdClass();
-    $pane->pid = 'new-f29e6e7e-d5c9-4bfd-b2b8-22769d9b8d8e';
-    $pane->panel = 'os_bottom_left';
-    $pane->type = 'panels_ajax_tab_container';
-    $pane->subtype = 'panels_ajax_tab_container';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'container_id' => 'front-events-activity-container',
-      'context' => array(
-        0 => 'empty',
-      ),
-      'override_title' => 1,
-      'override_title_text' => '<none>',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 1;
-    $pane->locks = array();
-    $pane->uuid = 'f29e6e7e-d5c9-4bfd-b2b8-22769d9b8d8e';
-    $display->content['new-f29e6e7e-d5c9-4bfd-b2b8-22769d9b8d8e'] = $pane;
-    $display->panels['os_bottom_left'][1] = 'new-f29e6e7e-d5c9-4bfd-b2b8-22769d9b8d8e';
-    $pane = new stdClass();
-    $pane->pid = 'new-7ae087d4-887e-4b54-b980-44fb87245089';
-    $pane->panel = 'os_bottom_right';
+    $pane->pid = 'new-cbab0010-59c4-4d7c-8bf9-bb00f7739528';
+    $pane->panel = 'os_left';
     $pane->type = 'block';
-    $pane->subtype = 'groups_homepage-groups_community_stats';
+    $pane->subtype = 'groups_homepage-groups_homepage_welcome';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
@@ -162,9 +114,28 @@ function groups_homepage_default_page_manager_pages() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $pane->uuid = '7ae087d4-887e-4b54-b980-44fb87245089';
-    $display->content['new-7ae087d4-887e-4b54-b980-44fb87245089'] = $pane;
-    $display->panels['os_bottom_right'][0] = 'new-7ae087d4-887e-4b54-b980-44fb87245089';
+    $pane->uuid = 'cbab0010-59c4-4d7c-8bf9-bb00f7739528';
+    $display->content['new-cbab0010-59c4-4d7c-8bf9-bb00f7739528'] = $pane;
+    $display->panels['os_left'][0] = 'new-cbab0010-59c4-4d7c-8bf9-bb00f7739528';
+    $pane = new stdClass();
+    $pane->pid = 'new-cd740d02-05e4-4170-ac8f-a7c5d32da4aa';
+    $pane->panel = 'os_right';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'commons_activity_streams_activity-panel_pane_1';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array();
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $pane->uuid = 'cd740d02-05e4-4170-ac8f-a7c5d32da4aa';
+    $display->content['new-cd740d02-05e4-4170-ac8f-a7c5d32da4aa'] = $pane;
+    $display->panels['os_right'][0] = 'new-cd740d02-05e4-4170-ac8f-a7c5d32da4aa';
     $pane = new stdClass();
     $pane->pid = 'new-6b115d65-3d2e-4c7e-ad86-fd17d190afc0';
     $pane->panel = 'os_top';

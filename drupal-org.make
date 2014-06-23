@@ -575,6 +575,10 @@ projects[date_ical][type] = "module"
 projects[date_ical][subdir] = "contrib"
 projects[date_ical][version] = "3.2"
 
+projects[ds][type] = "module"
+projects[ds][subdir] = "contrib"
+projects[ds][version] = "2.6"
+
 ; Contributed themes.
 
 projects[zen][type] = "theme"
