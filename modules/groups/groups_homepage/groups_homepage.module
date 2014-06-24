@@ -163,3 +163,24 @@ function groups_homepage_update_stats() {
     watchdog_exception('update community stats', $e);
   }
 }
+
+/**
+ * Implements hook_views_pre_build
+ *
+ * Override load more pager of commons_events_upcoming views
+ * panel_pane_2 display.
+ */
+function groups_homepage_views_pre_build(&$view) {
+  if ($view->name == 'commons_events_upcoming' &&
+      $view->current_display == 'panel_pane_2') {
+    $pager = array(
+      'type' => 'some',
+      'options' => array(
+        'offset' => intval(0)
+      ),
+    );
+    $view->display_handler->set_option('pager', $pager);
+    $view->init_pager();
+    $view->set_items_per_page('5');
+  }
+}
