@@ -1,8 +1,9 @@
 name = Groups feeds
 description = Community portal Feeds module extension
 core = 7.x
-package = groups
+package = Groups - Building Blocks
 version = 7.x-1.0
 project = groups_feeds
 
 dependencies[] = feeds
+dependencies[] = commons_pages
