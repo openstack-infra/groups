@@ -34,3 +34,14 @@ function groups_feeds_install() {
 function groups_feeds_uninstall() {
   // TODO: remove static_page_import feeds source
 }
+
+/**
+ * Enable commons_pages module as a dependency for
+ * groups_feeds.
+ */
+function groups_feeds_update_7301() {
+  if (!module_exists('commons_pages')) {
+    module_enable(array('commons_pages'));
+    drupal_flush_all_caches();
+  }
+}
