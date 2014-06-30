@@ -98,6 +98,7 @@ dependencies[] = commons_location
 dependencies[] = commons_media
 dependencies[] = commons_misc
 dependencies[] = commons_notify
+dependencies[] = commons_pages
 dependencies[] = commons_polls
 dependencies[] = commons_posts
 dependencies[] = commons_profile_base

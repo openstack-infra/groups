@@ -5,6 +5,11 @@
  *  jekyll like yaml headers.
  */
 
+/**
+ * Base class for all exceptions thrown by FeedsMarkdownParse
+ */
+class FeedsMarkdownException extends Exception {}
+
 class FeedsMarkdownParser extends FeedsParser {
 
   /**
@@ -15,7 +20,15 @@ class FeedsMarkdownParser extends FeedsParser {
   public function parse(FeedsSource $source, FeedsFetcherResult $fetcher_result) {
     $result = new FeedsParserResult();
     $raw = $fetcher_result->getRaw();
-    $markdown = $this->parseMarkdown($raw);
+    if ($fetcher_result instanceof FeedsFileFetcherResult) {
+      var_dump($fetcher_result);
+    }
+    try {
+      $markdown = $this->parseMarkdown($raw);
+    } catch (FeedsMarkdownException $e) {
+      // catch invalid markdown formats here
+      return $result;
+    }
     $mandatory_fields = array('title', 'body');
     $optional_fields = array('path', 'published');
     $item = array();
@@ -100,7 +113,7 @@ class FeedsMarkdownParser extends FeedsParser {
       // parse header marker, we except --- here
       $line = fgets($fp);
       if ($line != "---\n") {
-        throw new Exception('Missing header mark');
+        throw new FeedsMarkdownException('Missing header mark');
       }
       // process content
       $line = fgets($fp);
