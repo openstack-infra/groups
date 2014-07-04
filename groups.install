@@ -105,4 +105,59 @@ function groups_install() {
     $form_state['values'] = array();
     drupal_form_submit('system_theme_settings', $form_state);
   }
+  // add markdown filter format
+  _groups_add_markdown_filter();
+}
+
+/**
+ * Enable markdown module if it is not already enabled.
+ */
+function groups_update_7100() {
+  module_enable(array('markdown'));
+  if (!module_exists('markdown')) {
+    throw new DrupalUpdateException('The <a href="https://drupal.org/project/markdown">Markdown module</a> must be downloaded and available for groups updates to proceed.');
+  }
+  _groups_add_markdown_filter();
+}
+
+/**
+ * Add markdown filter with permissions.
+ */
+function _groups_add_markdown_filter() {
+  // add markdown format filter
+  $markdown_format = array(
+    'format' => 'markdown',
+    'name' => 'Markdown',
+    'weight' => 1,
+    'filters' => array(
+      // Markdown filter.
+      'filter_markdown' => array(
+        'weight' => 0,
+        'status' => 1,
+        'settings' => array(),
+      ),
+      // URL filter.
+      'filter_url' => array(
+        'weight' => 0,
+        'status' => 1,
+      ),
+    ),
+  );
+  $markdown_format = (object) $markdown_format;
+  filter_format_save($markdown_format);
+  // assign default permissions to filter
+  if ($roles = user_roles(FALSE)) {
+    $permissions = array('use text format markdown');
+    foreach ($roles as $rid => $name) {
+      $module = 'filter';
+      foreach ($permissions as $name) {
+        db_merge('role_permission')->key(array(
+          'rid' => $rid,
+          'permission' => $name,
+        ))->fields(array(
+          'module' => $module,
+        ))->execute();
+      }
+    }
+  }
 }

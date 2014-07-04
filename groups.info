@@ -45,6 +45,7 @@ dependencies[] = flag
 dependencies[] = http_client
 dependencies[] = jquery_update
 dependencies[] = libraries
+dependencies[] = markdown
 dependencies[] = media
 dependencies[] = media_internet
 dependencies[] = media_wysiwyg
