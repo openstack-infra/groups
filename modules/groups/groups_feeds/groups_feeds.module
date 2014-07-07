@@ -220,3 +220,41 @@ function groups_feeds_get_meetup_links() {
   }
   return $meetup_links;
 }
+
+/**
+ * Implements hook_node_presave().
+ *
+ * Fix $node->title assignment failure in case of
+ * page content type, and assign title field's value
+ * into $node->title attribute.
+ *
+ * @param  class $node  node prepared to save
+ */
+function groups_feeds_node_presave($node) {
+  if ($node->type == 'page') {
+    // set title attribute of node
+    $node->title = $node->title_field['und'][0]['value'];
+  }
+}
+
+/**
+ * Implements hook_node_insert()
+ *
+ * Create a menu entry for page content type
+ * based on path and node title.
+ *
+ * @param  class $node  inserted node object
+ */
+function groups_feeds_node_insert($node) {
+  if ($node->type == 'page') {
+    // assign node menu automatically from path
+    $node->menu = array(
+      'link_title' => $node->title,
+      'description' => '',
+      'menu_name' => 'main-menu',
+      'plid' => 0,
+      'enabled' => 1,
+      'weight' => 20,
+    );
+  }
+}
