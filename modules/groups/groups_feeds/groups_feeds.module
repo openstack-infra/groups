@@ -87,7 +87,7 @@ function groups_feeds_static_pages_importer() {
           ),
         ),
         'update_existing' => '2',
-        'input_format' => 'plain_text',
+        'input_format' => 'markdown',
         'skip_hash_check' => 0,
         'bundle' => 'page',
       ),
