@@ -35,6 +35,143 @@ function groups_feeds_ctools_plugin_api($owner, $api) {
 }
 
 /**
+ * Rebuild scheduled jobs.
+ *
+ * Defined variables:
+ * - 'static_pages_import_period': the frequency of static
+ *   pages import, defaults to 5m
+ * - 'meetup_events_import_period': the frequency of meetup
+ *   event import, defaults to 1h
+ *
+ * A job is disabled when the update frequency variable
+ * is set to 0.
+ *
+ */
+function groups_feeds_rebuild_jobs() {
+  // setup static pages import
+  $job = array(
+    'type' => 'page-import',
+    'id' => 1,
+    'period' => 300, // defaults to 5m
+    'periodic' => TRUE
+  );
+  if ((int)variable_get('static_pages_import_period', 300) == 0) {
+    JobScheduler::get('static_pages_import')->remove($job);
+  } else {
+    JobScheduler::get('static_pages_import')->set($job);
+  }
+  // setup meetup events import
+    $job = array(
+    'type' => 'events-import',
+    'id' => 1,
+    'period' => 3600, // defaults to 1h
+    'periodic' => TRUE
+  );
+  if ((int)variable_get('meetup_events_import_period', 3600) == 0) {
+    JobScheduler::get('meetup_events_import')->remove($job);
+  } else {
+    JobScheduler::get('meetup_events_import')->set($job);
+  }
+}
+
+/**
+ * Implements hook_cron_job_scheduler_info()
+ *
+ * Define feed import scheduler items.
+ *
+ * @return array
+ *   An associative array including the periodically
+ *   scheduled feed imports.
+ */
+function groups_feeds_cron_job_scheduler_info() {
+  $schedulers = array();
+  $schedulers['static_pages_import'] = array(
+    'queue name' => 'static_pages_import_queue',
+  );
+  $schedulers['meetup_events_import'] = array(
+    'queue name' => 'meetup_events_import_queue',
+  );
+  return $schedulers;
+}
+
+/**
+ * Implements hook_cron_queue_info()
+ *
+ * @return array
+ *   An associative array that contains feed
+ *   queues.
+ */
+function groups_feeds_cron_queue_info() {
+  $queues = array();
+  $queues['static_pages_import_queue'] = array(
+    'worker callback' => 'groups_feeds_static_pages_import',
+    'time' => 120,
+  );
+  $queues['meetup_events_import_queue'] = array(
+    'worker callback' => 'groups_feeds_meetup_events_import',
+    'time' => 120,
+  );
+  return $queues;
+}
+
+/**
+ * Static pages import worker.
+ *
+ * @param  array $job Associative array of job parameters. When set to
+ *   NULL, won't reschedule the job.
+ */
+function groups_feeds_static_pages_import($job) {
+  watchdog('groups_feeds', 'start static page import', array(), WATCHDOG_INFO);
+  $feedSource = feeds_source('static_page_import');
+  $config = $feedSource->getConfig();
+  $directory = variable_get('groups_feeds_markdown_directory', NULL);
+  if (empty($directory)) {
+    watchdog('Groups Feeds', 'Variable groups_feeds_markdown_directory missing.', array(), WATCHDOG_ERROR);
+    return FALSE;
+  }
+  $config['feeds_fetcher_directory_fetcher']['source'] = $directory;
+  $config['feeds_fetcher_directory_fetcher']['feed_files_fetched'] = array();
+  $feedSource->setConfig($config);
+  try {
+    while (FEEDS_BATCH_COMPLETE != $feedSource->import());
+    $feedSource->log('import', 'Import static page: !source', array('!directory' => $directory), WATCHDOG_INFO);
+  } catch (Exception $e) {
+    watchdog_exception('Groups Feeds', $e);
+  }
+  // reschedule, reset the reserved flag here
+  if ($job != NULL) {
+    JobScheduler::get('static_pages_import')->set($job);
+  }
+}
+
+/**
+ * Meetup events import worker.
+ *
+ * @param  array $job Associative array of job parameters. When set to
+ *   NULL, won't reschedule the job.
+ */
+function groups_feeds_meetup_events_import($job) {
+  $meetup_links = groups_feeds_get_meetup_links();
+  foreach ($meetup_links as $meetup_link) {
+    $url = $meetup_link['url'].'/events/ical/';
+    $feedSource = feeds_source('ical_feed_importer');
+    $config = $feedSource->getConfig();
+    $config['FeedsHTTPFetcher']['source'] = $url;
+    $feedSource->setConfig($config);
+    try {
+      while (FEEDS_BATCH_COMPLETE != $feedSource->import());
+      $feedSource->log('import', 'Import meetup event: !url', array('!url' => $url), WATCHDOG_INFO);
+    } catch (Exception $e) {
+      echo 'Failed to import feed: '.$url."\n";
+    }
+  }
+  // reschedule, reset the reserved flag here
+  if ($job != NULL) {
+    JobScheduler::get('meetup_events_import')->set($job);
+  }
+}
+
+/**
  * Construct static pages feed importer
  */
 function groups_feeds_static_pages_importer() {
