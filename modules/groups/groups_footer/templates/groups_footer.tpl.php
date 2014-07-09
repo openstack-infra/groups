@@ -3,8 +3,7 @@
       <h3>Contribute to the Groups Portal</h3>
 	<ul>
 	  <li><a href="https://bugs.launchpad.net/openstack-ci">Report Issues</a></li>
-	  <li><a href="https://TODO">Join a Group</a></li>
-	  <li><a href="https://TODO">Establish a New Group</a></li>
+	  <li><a href="/tips">Establish a New Group</a></li>
 	</ul>
     </div>
     <div class="span-4">
