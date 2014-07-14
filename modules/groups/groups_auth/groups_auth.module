@@ -35,6 +35,26 @@ function groups_auth_menu_alter(&$items) {
 }
 
 /**
+ * Implements hook_module_implements_alter().
+ *
+ * Move groups_auth_XXX_form_alter() to the end of the list to access
+ * openid form elements from groups_auth module.
+ *
+ * @param $implementations
+ *   All implementations of the given hook.
+ * @param $hook
+ *   Name of the hook.
+ */
+function groups_auth_module_implements_alter(&$implementations, $hook) {
+  if (($hook == 'form_alter') &&
+      (isset($implementations['groups_auth']))) {
+    $group = $implementations['groups_auth'];
+    unset($implementations['groups_auth']);
+    $implementations['groups_auth'] = $group;
+  }
+}
+
+/**
  * Override user module's page callback
  *
  * Enforce openid authentication for unauthenticated users, otherwise
@@ -52,6 +72,12 @@ function groups_auth_user_page() {
   }
   else {
     groups_auth_login();
+  }
+}
+
+function groups_auth_form_user_login_alter(&$form, &$form_state) {
+  if (isset($form['openid_links'])) {
+    unset($form['openid_links']);
   }
 }
 
