@@ -32,6 +32,11 @@ function groups_feeds_drush_command() {
     'bootstrap' => DRUSH_BOOTSTRAP_DRUSH,
     'arguments' => array(),
   );
+  $items['import-user-groups'] = array(
+    'description' => 'Import user groups',
+    'bootstrap' => DRUSH_BOOTSTRAP_DRUSH,
+    'arguments' => array(),
+  );
   return $items;
 }
 
@@ -51,4 +56,8 @@ function drush_groups_feeds_import_meetup_events() {
 function drush_groups_feeds_import_static_pages() {
   // execute static_pages_import schedule job
   groups_feeds_static_pages_import(NULL);
+}
+
+function drush_groups_feeds_import_user_groups() {
+  groups_feeds_user_groups_import(NULL);
 }

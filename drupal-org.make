@@ -542,6 +542,10 @@ projects[feeds][version] = "2.0-alpha8"
 ; https://www.drupal.org/node/2237177
 projects[feeds][patch][] = "https://www.drupal.org/files/issues/feeds-date_import_fix.patch"
 
+projects[feeds_jsonpath_parser][type] = "module"
+projects[feeds_jsonpath_parser][subdir] = "contrib"
+projects[feeds_jsonpath_parser][version] = "1.0-beta2"
+
 projects[job_scheduler][type] = "module"
 projects[job_scheduler][subdir] = "contrib"
 projects[job_scheduler][version] = "2.0-alpha3"
@@ -655,3 +659,8 @@ libraries[iCalcreator][type] = "libraries"
 libraries[iCalcreator][download][type] = "git"
 libraries[iCalcreator][download][url] = "git://github.com/iCalcreator/iCalcreator.git"
 libraries[iCalcreator][destination] = "libraries"
+
+libraries[feeds_jsonpath_parser][download][type] = get
+libraries[feeds_jsonpath_parser][download][url] = http://jsonpath.googlecode.com/files/jsonpath-0.8.1.php
+libraries[feeds_jsonpath_parser][destination] = modules/contrib
+libraries[feeds_jsonpath_parser][install_path] = profiles/groups

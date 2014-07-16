@@ -144,6 +144,24 @@ function groups_feeds_static_pages_import($job) {
   }
 }
 
+function groups_feeds_user_groups_import($job) {
+  $url = 'https://raw.githubusercontent.com/openstack-infra/groups-static-pages/master/groups.json';
+  watchdog('groups_feeds', 'start user groups import', array(), WATCHDOG_INFO);
+  $feedSource = feeds_source('user_group_feed_importer');
+  $config = $feedSource->getConfig();
+  $config['FeedsHTTPFetcher']['source'] = $url;
+  $feedSource->setConfig($config);
+  try {
+    while (FEEDS_BATCH_COMPLETE != $feedSource->import());
+    $feedSource->log('import', 'Import user groups: !source', array('!source' => $url), WATCHDOG_INFO);
+  } catch (Exception $e) {
+    watchdog_exception('Groups Feeds', $e);
+  }
+  if ($job != NULL) {
+    JobScheduler::get('user_groups_import')->set($job);
+  }
+}
+
 /**
  * Meetup events import worker.
  *
@@ -326,6 +344,7 @@ function groups_feeds_feeds_importer_default() {
   $export = array();
   $export['staticpages'] = groups_feeds_static_pages_importer();
   $export['ical_feed_importer'] = groups_feeds_meetup_ical_importer();
+  $export['user_group_feed_importer'] = groups_feeds_groups_importer();
   return $export;
 }
 
@@ -394,4 +413,129 @@ function groups_feeds_node_insert($node) {
       'weight' => 20,
     );
   }
+}
+
+function groups_feeds_groups_importer() {
+  $feeds_importer = new stdClass();
+  $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
+  $feeds_importer->api_version = 1;
+  $feeds_importer->id = 'user_group_feed_importer';
+  $feeds_importer->config = array(
+    'name' => 'User group feed importer',
+    'description' => 'Import user group data from json',
+    'fetcher' => array(
+      'plugin_key' => 'FeedsHTTPFetcher',
+      'config' => array(
+        'auto_detect_feeds' => FALSE,
+        'use_pubsubhubbub' => FALSE,
+        'designated_hub' => '',
+        'request_timeout' => NULL,
+      ),
+    ),
+    'parser' => array(
+      'plugin_key' => 'FeedsJSONPathParser',
+      'config' => array(
+        'context' => '$.groups.*',
+        'sources' => array(
+          'jsonpath_parser:3' => 'id',
+          'jsonpath_parser:0' => 'title',
+          'jsonpath_parser:1' => 'location',
+          'jsonpath_parser:2' => 'attributes',
+        ),
+        'debug' => array(
+          'options' => array(
+            'context' => 0,
+            'jsonpath_parser:3' => 0,
+            'jsonpath_parser:0' => 0,
+            'jsonpath_parser:1' => 0,
+            'jsonpath_parser:2' => 0,
+          ),
+        ),
+      ),
+    ),
+    'processor' => array(
+      'plugin_key' => 'FeedsNodeProcessor',
+      'config' => array(
+        'expire' => '-1',
+        'author' => '1',
+        'authorize' => 1,
+        'mappings' => array(
+          0 => array(
+            'source' => 'jsonpath_parser:3',
+            'target' => 'guid',
+            'unique' => 1,
+          ),
+          1 => array(
+            'source' => 'jsonpath_parser:0',
+            'target' => 'title',
+            'unique' => FALSE,
+          ),
+          2 => array(
+            'source' => 'jsonpath_parser:1',
+            'target' => 'field_group_location',
+            'unique' => FALSE,
+          ),
+          3 => array(
+            'source' => 'jsonpath_parser:2',
+            'target' => 'field_resource_links',
+            'unique' => FALSE,
+          ),
+        ),
+        'update_existing' => '0',
+        'input_format' => 'plain_text',
+        'skip_hash_check' => 0,
+        'bundle' => 'group',
+      ),
+    ),
+    'content_type' => '',
+    'update' => 0,
+    'import_period' => '-1',
+    'expire_period' => 3600,
+    'import_on_create' => 1,
+    'process_in_background' => 0,
+  );
+  return $feeds_importer;
+}
+
+function groups_feeds_feeds_presave($source, $entity, $item) {
+  static $list_lookup;
+  if ($list_lookup == null) {
+    $list_lookup = field_property_list_reverse_lookup();
+  }
+  if (($entity->feeds_item->entity_type == 'node') &&
+    ($entity->feeds_item->id == 'user_group_feed_importer')) {
+    $entity->field_group_location[LANGUAGE_NONE][0] = $item['jsonpath_parser:1'];
+    $attributes = $item['jsonpath_parser:2'];
+    if (isset($attributes)) {
+      $attr = array();
+      foreach ($attributes as $attribute) {
+        $key = key($attribute);
+        $value = $attribute[$key];
+        if ($list_lookup[$key] != NULL) {
+          $attr[] = array(
+            'key' => $list_lookup[$key],
+            'value' => $value
+          );
+        }
+      }
+      $entity->field_resource_links['und'] = $attr;
+    }
+  }
+}
+
+function groups_feeds_feeds_processor_targets_alter(&$targets, $entity_type, $bundle_name) {
+  foreach (field_info_instances($entity_type, $bundle_name) as $name => $instance) {
+    $info = field_info_field($name);
+    if (($info['field_name'] == 'field_group_location') || ($info['field_name'] == 'field_resource_links')) {
+      $targets[$name] = array(
+        'name' => check_plain($instance['label']),
+        'callback'    => 'groups_feeds_set_target_entity_reference',
+        'description' => t(''),
+      );
+    }
+  }
+}
+
+function groups_feeds_set_target_entity_reference($source, $entity, $target, $value, $mapping) {
+  // @todo: implement dummy callback
 }
