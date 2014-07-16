@@ -31,6 +31,8 @@ function groups_footer_theme() {
  * Implements hook_block_view().
  */
 function groups_footer_block_view() {
+  // $tweets = drupal_http_request('http://tarballs.local/groups.json');
+  // dpm(drupal_json_decode($tweets->data));
   $block['subject'] = '';
   $block['content'] = theme('groups_footer');
   return $block;

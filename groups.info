@@ -134,6 +134,7 @@ dependencies[] = leaflet_mapbox
 dependencies[] = leaflet_more_maps
 dependencies[] = job_scheduler
 dependencies[] = feeds
+dependencies[] = feeds_jsonpath_parser
 dependencies[] = drush_feeds_import
 dependencies[] = feeds_ui
 dependencies[] = feeds_fetcher_directory
