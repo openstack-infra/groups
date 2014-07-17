@@ -121,6 +121,13 @@ function groups_update_7100() {
 }
 
 /**
+ * Enable feeds_jsonpath_parser module if it is not already enabled.
+ */
+function groups_update_7101() {
+  module_enable(array('feeds_jsonpath_parser'));
+}
+
+/**
  * Add markdown filter with permissions.
  */
 function _groups_add_markdown_filter() {
