@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * commons_events.pages_default.inc
+ * commons_events_pages.pages_default.inc
  */
 
 /**
  * Implements hook_default_page_manager_pages().
  */
-function commons_events_default_page_manager_pages() {
+function commons_events_pages_default_page_manager_pages() {
   $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
   $page->api_version = 1;
