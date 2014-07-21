@@ -128,6 +128,13 @@ function groups_update_7101() {
 }
 
 /**
+ * Enable groups_events_pages module if it is not already enabled.
+ */
+function groups_update_7102() {
+  module_enable(array('groups_events_pages'));
+}
+
+/**
  * Add markdown filter with permissions.
  */
 function _groups_add_markdown_filter() {
