@@ -5,7 +5,6 @@ package = Commons - Landing pages
 dependencies[] = commons_activity_streams
 dependencies[] = commons_featured
 dependencies[] = commons_follow
-dependencies[] = commons_radioactivity_groups
 dependencies[] = entity
 dependencies[] = page_manager
 dependencies[] = strongarm
@@ -19,3 +18,10 @@ features[page_manager_pages][] = commons_home
 features[variable][] = site_frontpage
 features[views_view][] = commons_homepage_content
 features_exclude[dependencies][views_content] = views_content
+
+; Information added by Drupal.org packaging script on 2014-06-25
+version = "7.x-3.15"
+core = "7.x"
+project = "commons"
+datestamp = "1403672628"
+

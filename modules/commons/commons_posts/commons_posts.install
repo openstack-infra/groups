@@ -1,6 +1,22 @@
 <?php
 
 /**
+ * Set default posts roles upon enable
+ */
+function commons_posts_enable() {
+  $revert = array(
+    'commons_posts' => array('og_features_permission'),
+  );
+  features_revert($revert);
+
+  $groups = og_get_all_group();
+
+  foreach ($groups AS $gid) {
+    commons_groups_features_permission_rebuild('commons_posts', $gid);
+  }
+}
+
+/**
  * Disable summary on Posts nodes.
  */
 function commons_posts_update_7000() {
@@ -70,6 +86,17 @@ function commons_posts_update_7005() {
  * Improve the browsing widget empty text.
  */
 function commons_posts_update_7006() {
+  $revert = array(
+    'commons_posts' => array('views_view'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Replace the title attribute with the title field in view displays.
+ */
+function commons_posts_update_7007() {
   $revert = array(
     'commons_posts' => array('views_view'),
   );

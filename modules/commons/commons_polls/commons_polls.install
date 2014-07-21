@@ -1,6 +1,22 @@
 <?php
 
 /**
+ * Set default polls roles upon enable
+ */
+function commons_polls_enable() {
+  $revert = array(
+    'commons_polls' => array('og_features_permission'),
+  );
+  features_revert($revert);
+
+  $groups = og_get_all_group();
+
+  foreach ($groups AS $gid) {
+    commons_groups_features_permission_rebuild('commons_polls', $gid);
+  }
+}
+
+/**
  * Disable summary on Poll nodes.
  */
 function commons_polls_update_7000() {
@@ -59,6 +75,17 @@ function commons_polls_update_7004() {
  * Improve the browsing widget empty text.
  */
 function commons_polls_update_7005() {
+  $revert = array(
+    'commons_polls' => array('views_view'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Replace the title attribute with the title field in view displays.
+ */
+function commons_polls_update_7006() {
   $revert = array(
     'commons_polls' => array('views_view'),
   );

@@ -48,3 +48,10 @@ features[variable][] = message_subscribe_default_notifiers
 features_exclude[field_base][message_text] = message_text
 features_exclude[field_base][field_target_nodes] = field_target_nodes
 features_exclude[field_base][field_target_comments] = field_target_comments
+
+; Information added by Drupal.org packaging script on 2014-06-25
+version = "7.x-3.15"
+core = "7.x"
+project = "commons"
+datestamp = "1403672628"
+

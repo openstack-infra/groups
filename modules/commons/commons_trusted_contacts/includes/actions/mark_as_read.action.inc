@@ -18,3 +18,4 @@ function commons_trusted_contacts_mark_as_read_action($privatemsg_message) {
     ->condition('mid', $privatemsg_message->mid)
     ->execute();
 }
+

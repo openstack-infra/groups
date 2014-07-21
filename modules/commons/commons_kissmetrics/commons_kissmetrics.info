@@ -29,3 +29,10 @@ features[rules_config][] = rules_commons_kissmetrics_user_posts_comment
 features[rules_config][] = rules_commons_kissmetrics_user_registers
 features[rules_config][] = rules_commons_kissmetrics_user_replies_to_private_message_thread
 features[rules_config][] = rules_commons_kissmetrics_user_starts_new_private_message_thread
+
+; Information added by Drupal.org packaging script on 2014-06-25
+version = "7.x-3.15"
+core = "7.x"
+project = "commons"
+datestamp = "1403672628"
+

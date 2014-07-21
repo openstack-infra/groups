@@ -9,3 +9,10 @@ dependencies[] = views_content
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[views_view][] = activity_group
+
+; Information added by Drupal.org packaging script on 2014-06-25
+version = "7.x-3.15"
+core = "7.x"
+project = "commons"
+datestamp = "1403672628"
+

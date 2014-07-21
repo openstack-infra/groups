@@ -10,6 +10,10 @@
 function theme_commons_events_attending_event($variables = array()) {
   global $user;
   $event = $variables['event'];
+  if (!$event->nid) {
+    return '';
+  }
+
   $attendee_count = isset($variables['attendee_count']) ? $variables['attendee_count'] : 0;
 
   $registration_type = registration_get_entity_registration_type('node', $event);
@@ -29,9 +33,16 @@ function theme_commons_events_attending_event($variables = array()) {
     && registration_status('node', $event->nid, TRUE)) {
     return drupal_get_form('commons_events_attend_event_form_' . $event->nid, $event, $registration, $attendee_count);
   }
-  else if (registration_is_registered($registration, NULL, $user->uid) &&
+  elseif (registration_is_registered($registration, NULL, $user->uid) &&
     registration_access('delete', $registration, $user, $registration->type)) {
-    return drupal_get_form('commons_events_cancel_event_form_' . $event->nid, $event);
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'registration')
+      ->propertyCondition('user_uid', $user->uid)
+      ->propertyCondition('entity_id', $event->nid)
+      ->propertyCondition('entity_type', 'node');
+    $result = $query->execute();
+
+    return drupal_get_form('commons_events_cancel_event_form_' . $event->nid, $event, $result['registration']);
   }
   return "";
 }

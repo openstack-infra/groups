@@ -1,6 +1,22 @@
 <?php
 
 /**
+ * Set default events roles upon enable
+ */
+function commons_events_enable() {
+  $revert = array(
+    'commons_events' => array('og_features_permission'),
+  );
+  features_revert($revert);
+
+  $groups = og_get_all_group();
+
+  foreach ($groups AS $gid) {
+    commons_groups_features_permission_rebuild('commons_events', $gid);
+  }
+}
+
+/**
  * Implements hook_install().
  * Creates a default datetime format for events.
  */
@@ -230,6 +246,28 @@ function commons_events_update_7011() {
 function commons_events_update_7012() {
   $revert = array(
     'commons_events' => array('message_type', 'field_instance'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Sort and filter the upcoming user events view by start date.
+ */
+function commons_events_update_7013() {
+  $revert = array(
+    'commons_events' => array('views_view'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Replace the title attribute with the title field in view displays.
+ */
+function commons_events_update_7014() {
+  $revert = array(
+    'commons_events' => array('views_view'),
   );
   features_revert($revert);
   return array();

@@ -7,51 +7,15 @@
 include_once 'commons_posts.features.inc';
 
 /**
- * Implements hook_commons_entity_integration().
+ * Implements hook_form_BASE_FORM_ID_alter().
  */
-function commons_posts_commons_entity_integration() {
-  return array(
-    'node' => array(
-      'post' => array(
-        'media' => TRUE,
-        'is_group_content' => TRUE,
-      ),
-    ),
-  );
-}
+function commons_posts_form_node_form_alter(&$form, &$form_state, $form_id) {
+  $node = $form['#node'];
 
-/**
-* Implements hook_commons_bw_group_widget().
-*/
-function commons_posts_commons_bw_group_widget() {
-  return array(
-    'commons_posts' => array(
-      'title' => t('Posts'),
-      'type' => 'view',
-      'vid' => 'commons_bw_posts',
-      'display' => 'default',
-      'weight' => -1,
-      'bundle' => 'post',
-    ),
-  );
-}
+  list(, , $bundle) = entity_extract_ids('node', $node);
 
-/**
- * Implements hook_commons_bw_create_all_widget().
- */
-function commons_posts_commons_bw_create_all_widget($group) {
-  if (og_user_access('node', $group->nid, 'create post content')) {
-    $link = l(t('Create a post'),'node/add/post',
-    array('attributes' => array('class' => 'commons-posts-create'), 'query' => array('og_group_ref' => $group->nid))
-    );
-    return array(
-      'commons_posts' => array(
-        'default' => TRUE,
-        'link' => $link,
-        'text' =>  t('Foster a topic through commenting'),
-        '#weight' => -1,
-      ),
-    );
+  if ($bundle == 'post' && empty($node->nid)) {
+    drupal_set_title(t('Create a post'));
   }
 }
 
@@ -62,6 +26,8 @@ function commons_posts_form_commons_bw_partial_node_form_alter(&$form, &$form_st
   if (empty($form['#entity']) || $form['#entity']->type != 'post') {
     return;
   }
+
+  $form['title']['#markup'] = t('Create a post');
 
   $language = $form['body']['#language'];
   $form['body'][$language][0]['#title_display'] = 'invisible';
@@ -129,17 +95,6 @@ function commons_posts_commons_activity_streams_message_selection_alter(&$messag
     if (isset($items[$key])) {
       $items[$key]->value['node']['post'] = 1;
     }
-  }
-}
-
-/**
- * Implements hook_views_default_views_alter().
- *
- * Display posts on the browsing widget main view.
- */
-function commons_posts_views_default_views_alter(&$views) {
-  if (!empty($views['commons_bw_all'])) {
-    $views['commons_bw_all']->display['default']->display_options['filters']['type']['value']['post'] = 'post';
   }
 }
 

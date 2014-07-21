@@ -5,7 +5,6 @@ package = Commons - Landing pages
 dependencies[] = commons_activity_streams
 dependencies[] = commons_bw
 dependencies[] = commons_follow_group
-dependencies[] = commons_radioactivity_groups
 dependencies[] = ctools
 dependencies[] = panelizer
 dependencies[] = strongarm
@@ -15,3 +14,10 @@ features[features_api][] = api:2
 features[panelizer_defaults][] = node:group:default
 features[panelizer_defaults][] = node:group:default:teaser
 features[variable][] = panelizer_defaults_node_group
+
+; Information added by Drupal.org packaging script on 2014-06-25
+version = "7.x-3.15"
+core = "7.x"
+project = "commons"
+datestamp = "1403672628"
+

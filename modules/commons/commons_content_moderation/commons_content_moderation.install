@@ -17,3 +17,34 @@ function commons_content_moderation_update_7001() {
 function commons_content_moderation_update_7002() {
   cache_clear_all('*', 'cache_views', TRUE);
 }
+
+/**
+ * Replace the title attribute with the title field in view displays.
+ */
+function commons_content_moderation_update_7003() {
+  $revert = array(
+    'commons_content_moderation' => array('views_view'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Delete any copies of the Flag Abuse default flags stored in the database in
+ * order to allow alterations to take effect.
+ */
+function commons_content_moderation_update_7004() {
+  // The Flag module automatically copies module-provided default flags into the
+  // database for performance reasons.
+  // Delete the Flag Abuse default flags from the database in order to have the
+  // default flag alterations take effect.
+  foreach (array('abuse_user', 'abuse_comment', 'abuse_node', 'abuse_whitelist_comment', 'abuse_whitelist_node', 'abuse_whitelist_user') as $abuse_flag) {
+    $flag = flag_get_flag($abuse_flag);
+
+    if($flag) {
+      $flag->delete();
+    }
+  }
+
+  return array();
+}

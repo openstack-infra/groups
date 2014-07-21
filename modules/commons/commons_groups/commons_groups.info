@@ -45,6 +45,8 @@ features[field_instance][] = og_membership-og_membership_type_default-og_members
 features[image][] = 35x35
 features[image][] = 50x50
 features[node][] = group
+features[og_features_permission][] = user:user:subscribe
+features[og_features_permission][] = user:user:subscribe without approval
 features[user_permission][] = create group content
 features[user_permission][] = edit own group content
 features[variable][] = comment_anonymous_group
@@ -72,3 +74,10 @@ features[views_view][] = commons_groups_recent_content
 features[views_view][] = commons_groups_user_groups
 features_exclude[field][node-group-group_group] = node-group-group_group
 features_exclude[field][node-group-group_access] = node-group-group_access
+
+; Information added by Drupal.org packaging script on 2014-06-25
+version = "7.x-3.15"
+core = "7.x"
+project = "commons"
+datestamp = "1403672628"
+

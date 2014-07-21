@@ -7,36 +7,6 @@
 include_once 'commons_polls.features.inc';
 
 /**
- * Implements hook_commons_entity_integration().
- */
-function commons_polls_commons_entity_integration() {
-  return array(
-    'node' => array(
-      'poll' => array(
-        'media' => TRUE,
-        'is_group_content' => TRUE,
-      ),
-    ),
-  );
-}
-
-/**
- * Implements hook_commons_bw_group_widget().
- */
-function commons_polls_commons_bw_group_widget() {
-  return array(
-    'commons_polls' => array(
-      'title' => t('Polls'),
-      'type' => 'view',
-      'vid' => 'commons_bw_polls',
-      'display' => 'default',
-      'weight' => 10,
-      'bundle' => 'poll',
-    ),
-  );
-}
-
-/**
 * Implements hook_strongarm_alter().
 */
  function commons_polls_strongarm_alter(&$items) {
@@ -64,13 +34,15 @@ function commons_polls_commons_bw_group_widget() {
 }
 
 /**
- * Implements hook_views_default_views_alter().
- *
- * Display polls on the browsing widget main view.
+ * Implements hook_form_BASE_FORM_ID_alter().
  */
-function commons_polls_views_default_views_alter(&$views) {
-  if (!empty($views['commons_bw_all'])) {
-    $views['commons_bw_all']->display['default']->display_options['filters']['type']['value']['poll'] = 'poll';
+function commons_polls_form_node_form_alter(&$form, &$form_state, $form_id) {
+  $node = $form['#node'];
+
+  list(, , $bundle) = entity_extract_ids('node', $node);
+
+  if ($bundle == 'poll' && empty($node->nid)) {
+    drupal_set_title(t('Create a poll'));
   }
 }
 
@@ -81,6 +53,8 @@ function commons_polls_form_commons_bw_partial_node_form_alter(&$form, &$form_st
   if (empty($form['#entity']) || $form['#entity']->type != 'poll') {
     return;
   }
+
+  $form['title']['#markup'] = t('Create a poll');
 
   $language = $form['body']['#language'];
   $form['body'][$language][0]['#title_display'] = 'invisible';
@@ -124,7 +98,7 @@ function commons_polls_form_commons_bw_partial_node_form_alter(&$form, &$form_st
     '#markup' => '<a href="#" id="add-choice">' . t('Add more choices') . '</a>',
   );
 
-  $form['#attached']['js'] = array(drupal_get_path('module', 'commons_polls') . '/js/commons_polls_partial_form.js');
+  $form['#attached']['js'][] = drupal_get_path('module', 'commons_polls') . '/js/commons_polls_partial_form.js';
 
   $form['actions']['submit']['#value'] = t('Create');
 

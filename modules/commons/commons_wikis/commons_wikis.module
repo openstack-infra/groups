@@ -7,36 +7,6 @@
 include_once 'commons_wikis.features.inc';
 
 /**
- * Implements hook_commons_entity_integration().
- */
-function commons_wikis_commons_entity_integration() {
-  return array(
-    'node' => array(
-      'wiki' => array(
-        'auto_title_instance' => FALSE,
-        'is_group_content' => TRUE,
-      ),
-    ),
-  );
-}
-
-/**
- * Implements hook_commons_bw_group_widget().
- */
-function commons_wikis_commons_bw_group_widget() {
-  return array(
-    'commons_wikis' => array(
-      'title' => t('Wikis'),
-      'type' => 'view',
-      'vid' => 'commons_bw_wikis',
-      'display' => 'default',
-      'weight' => 8,
-      'bundle' => 'wiki',
-    ),
-  );
-}
-
-/**
 * Implements hook_module_implements_alter().
 */
 function commons_wikis_module_implements_alter(&$implementations, $hook) {
@@ -46,24 +16,6 @@ function commons_wikis_module_implements_alter(&$implementations, $hook) {
     $group = $implementations['commons_wikis'];
     unset($implementations['commons_wikis']);
     $implementations['commons_wikis'] = $group;
-  }
-}
-
-/**
- * Implements hook_commons_bw_create_all_widget().
- */
-function commons_wikis_commons_bw_create_all_widget($group) {
-  if (og_user_access('node', $group->nid, 'create wiki content')) {
-    $link = l(t('Start a wiki'), 'node/add/wiki',
-      array('attributes' => array('class' => 'commons-wikis-create'), 'query' => array('og_group_ref' => $group->nid))
-    );
-    return array(
-      'commons_wikis' => array(
-        'link' => $link,
-        'text' => t('Collaborate on a document'),
-        '#weight' => 8,
-      ),
-    );
   }
 }
 
@@ -78,17 +30,6 @@ function commons_wikis_menu_alter(&$items) {
 
   $items['node/%node/revisions/%/view']['access arguments'][] = $items['node/%node/revisions']['access callback'];
   $items['node/%node/revisions/%/view']['access callback'] = 'commons_wikis_user_revision_access';
-}
-
-/**
- * Implements hook_views_default_views_alter().
- *
- * Display wikis on the browsing widget main view.
- */
-function commons_wikis_views_default_views_alter(&$views) {
-  if (!empty($views['commons_bw_all'])) {
-    $views['commons_bw_all']->display['default']->display_options['filters']['type']['value']['wiki'] = 'wiki';
-  }
 }
 
 /**
@@ -137,12 +78,27 @@ function commons_wikis_og_user_access_alter(&$temp_perm, $context) {
 }
 
 /**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function commons_wikis_form_node_form_alter(&$form, &$form_state, $form_id) {
+  $node = $form['#node'];
+
+  list(, , $bundle) = entity_extract_ids('node', $node);
+
+  if ($bundle == 'wiki' && empty($node->nid)) {
+    drupal_set_title(t('Create a wiki'));
+  }
+}
+
+/**
  * Implements hook_form_FROM_ID_alter().
  */
 function commons_wikis_form_commons_bw_partial_node_form_alter(&$form, &$form_state) {
   if (empty($form['#entity']) || $form['#entity']->type != 'wiki') {
     return;
   }
+
+  $form['title']['#markup'] = t('Create a wiki');
 
   $language = $form['title_field']['#language'];
   $form['title_field'][$language][0]['value']['#title_display'] = 'invisible';

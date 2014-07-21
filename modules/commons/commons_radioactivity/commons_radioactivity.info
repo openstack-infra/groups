@@ -16,3 +16,10 @@ features[field_base][] = field_radioactivity
 features[radioactivity_decay_profile][] = commons_ra_node
 features[variable][] = commons_radioactivity_entity_types
 features[views_view][] = commons_radioactivity_admin
+
+; Information added by Drupal.org packaging script on 2014-06-25
+version = "7.x-3.15"
+core = "7.x"
+project = "commons"
+datestamp = "1403672628"
+

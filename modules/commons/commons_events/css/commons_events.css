@@ -28,7 +28,7 @@
   padding: 0px;
 }
 #edit-field-date .fieldset-wrapper .form-item:first-child,
-#edit-field-date .form-item .form-item,
+#edit-field-date .form-item .form-item, 
 #edit-field-address .fieldset-wrapper .form-item:first-child,
 #edit-field-address .form-item {
   margin-top: 0em;

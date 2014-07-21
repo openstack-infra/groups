@@ -210,3 +210,47 @@ function commons_groups_update_3116() {
   features_revert($revert);
   return array();
 }
+
+/**
+ * Replace the title attribute with the title field in view displays.
+ */
+function commons_groups_update_3117() {
+  $revert = array(
+    'commons_groups' => array('views_view'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Revert the contributors view to use new markup.
+ */
+function commons_groups_update_3118() {
+  $revert = array(
+    'commons_groups' => array('views_view'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Ensure that permissions to subscribe to user groups are properly set.
+ */
+function commons_groups_update_3119() {
+  $revert = array(
+    'commons_groups' => array('og_features_permission'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Revert the group homepage view to use distinct to reduce duplicate entries.
+ */
+function commons_groups_update_3120() {
+  $revert = array(
+    'commons_groups' => array('views_view'),
+  );
+  features_revert($revert);
+  return array();
+}

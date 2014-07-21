@@ -14,8 +14,14 @@ features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[field_instance][] = message-commons_follow_user_user_followed-field_target_users
 features[flag][] = commons_follow_user
-features[flag][] = email_user
 features[message_type][] = commons_follow_user_user_followed
 features[views_view][] = commons_follow_user
 features[views_view][] = commons_follow_user_followers
 features[views_view][] = commons_follow_user_following
+
+; Information added by Drupal.org packaging script on 2014-06-25
+version = "7.x-3.15"
+core = "7.x"
+project = "commons"
+datestamp = "1403672628"
+

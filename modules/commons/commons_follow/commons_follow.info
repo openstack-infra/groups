@@ -23,3 +23,9 @@ files[] = includes/views/handlers/commons_follow_plugin_argument_default_message
 files[] = includes/views/handlers/commons_follow_user_follow_filter.inc
 files[] = includes/views/handlers/commons_follow_user_follow_filter_message.inc
 files[] = includes/views/handlers/commons_follow_handler_field_ops.inc
+; Information added by Drupal.org packaging script on 2014-06-25
+version = "7.x-3.15"
+core = "7.x"
+project = "commons"
+datestamp = "1403672628"
+

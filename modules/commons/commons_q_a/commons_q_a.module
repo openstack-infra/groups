@@ -7,41 +7,6 @@
 include_once 'commons_q_a.features.inc';
 
 /**
- * Implements hook_commons_entity_integration().
- */
-function commons_q_a_commons_entity_integration() {
-  return array(
-    'node' => array(
-      'question' => array(
-        'media' => TRUE,
-        'is_group_content' => TRUE,
-      ),
-      'answer' => array(
-        'exclude_topics' => TRUE,
-        'exclude_rate' => TRUE,
-        'is_group_content' => TRUE,
-      ),
-    ),
-  );
-}
-
-/**
- * Implements hook_commons_bw_group_widget().
- */
-function commons_q_a_commons_bw_group_widget() {
-  return array(
-    'commons_q_a' => array(
-      'title' => t('Q & A'),
-      'type' => 'view',
-      'vid' => 'commons_bw_q_a',
-      'display' => 'default',
-      'weight' => 5,
-      'bundle' => 'question',
-    ),
-  );
-}
-
-/**
  * Implements hook_theme().
  */
 function commons_q_a_theme() {
@@ -90,7 +55,7 @@ function commons_q_a_form_commons_bw_partial_node_form_alter(&$form, &$form_stat
     return;
   }
 
-  $form['title']['#markup'] = '<h3>' . t('Ask a question') . '</h3>';
+  $form['title']['#markup'] = t('Ask a question');
 
   $language = $form['body']['#language'];
   $form['body'][$language][0]['#title_display'] = 'invisible';
@@ -121,17 +86,6 @@ function commons_q_a_form_commons_bw_partial_node_form_after_build($form) {
   $form['body'][$language][0]['value']['#rows'] = 3;
 
   return $form;
-}
-
-/**
- * Implements hook_views_default_views_alter().
- *
- * Display questions on the browsing widget main view.
- */
-function commons_q_a_views_default_views_alter(&$views) {
-  if (!empty($views['commons_bw_all'])) {
-    $views['commons_bw_all']->display['default']->display_options['filters']['type']['value']['question'] = 'question';
-  }
 }
 
 /*
@@ -243,6 +197,19 @@ function commons_q_a_module_implements_alter(&$implementations, $hook) {
 }
 
 /**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function commons_q_a_form_node_form_alter(&$form, &$form_state, $form_id) {
+  $node = $form['#node'];
+
+  list(, , $bundle) = entity_extract_ids('node', $node);
+
+  if ($bundle == 'question' && empty($node->nid)) {
+    drupal_set_title(t('Ask a question'));
+  }
+}
+
+/**
 * Implements hook_form_alter().
 */
 function commons_q_a_form_alter(&$form, &$form_state, $form_id) {
@@ -256,9 +223,6 @@ function commons_q_a_form_alter(&$form, &$form_state, $form_id) {
     // the Trusted Contacts toggle when commons_trusted_contacts.module
     // is enabled.
     $form_state['hide_audience_toggle'] = TRUE;
-  }
-  if ($form_id == 'question_node_form' && empty($form['#node']->nid)) {
-    drupal_set_title(t('Ask a question'));
   }
   if ($form_id == 'comment_node_question_form' || $form_id == 'comment_node_answer_form') {
     $form['container'] = array(
@@ -286,24 +250,6 @@ function commons_q_a_field_attach_submit($entity_type, &$entity, $form, &$form_s
   if ($entity_type == 'node' && $entity->type == 'answer' && empty($entity->nid)) {
     $question = node_load($entity->field_related_question[LANGUAGE_NONE][0]['target_id']);
     $entity->og_group_ref = $question->og_group_ref;
-  }
-}
-
-/**
- * Implements hook_commons_bw_create_all_widget().
- */
-function commons_q_a_commons_bw_create_all_widget($group) {
-   if (og_user_access('node', $group->nid, 'create question content')) {
-      $link = l(t('Ask a question'),'node/add/question',
-      array('attributes' => array('class' => 'commons-q-a-create'), 'query' => array('og_group_ref' => $group->nid))
-    );
-    return array(
-      'commons_q_a' => array(
-        'link' => $link,
-        'text' => t('Learn the best answer'),
-        '#weight' => 5,
-      ),
-    );
   }
 }
 

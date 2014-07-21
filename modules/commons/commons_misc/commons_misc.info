@@ -24,3 +24,10 @@ features[variable][] = theme_adaptivetheme_settings
 features[variable][] = theme_commons_origins_settings
 features[variable][] = user_register
 features_exclude[dependencies][page_manager] = page_manager
+
+; Information added by Drupal.org packaging script on 2014-06-25
+version = "7.x-3.15"
+core = "7.x"
+project = "commons"
+datestamp = "1403672628"
+

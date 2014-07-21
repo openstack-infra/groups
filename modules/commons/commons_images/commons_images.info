@@ -43,3 +43,10 @@ features[image][] = commons-teaser-small-1_5x
 features[picture_mapping][] = commons_default
 features[picture_mapping][] = commons_full
 features[picture_mapping][] = commons_teaser
+
+; Information added by Drupal.org packaging script on 2014-06-25
+version = "7.x-3.15"
+core = "7.x"
+project = "commons"
+datestamp = "1403672628"
+

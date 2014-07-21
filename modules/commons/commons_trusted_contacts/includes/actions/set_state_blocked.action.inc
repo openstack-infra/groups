@@ -26,3 +26,4 @@ function commons_trusted_contacts_set_state_blocked_action($og_membership) {
   $og_membership->state = OG_STATE_BLOCKED;
   $og_membership->save();
 }
+

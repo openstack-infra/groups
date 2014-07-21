@@ -101,8 +101,9 @@ function commons_follow_group_node_insert($node) {
   }
   // The owner of the content automatically follows the content
   $account = user_load($node->uid);
-  $flag = flag_get_flag('commons_follow_group');
-  $flag->flag('flag', $node->nid, $account);
+  if ($flag = flag_get_flag('commons_follow_group')) {
+    $flag->flag('flag', $node->nid, $account);
+  }
 }
 
 
@@ -149,3 +150,5 @@ function commons_follow_group_sync_flag_to_group_membership($og_membership) {
     }
   }
 }
+
+

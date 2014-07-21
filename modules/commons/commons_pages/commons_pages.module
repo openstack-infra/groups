@@ -16,10 +16,10 @@ function commons_pages_strongarm_alter(&$items) {
     foreach($items['rate_widgets']->value as $key => $widget) {
       if ($widget->name == 'commons_like') {
         if (!in_array('document', $items['rate_widgets']->value[$key]->node_types)) {
-          $items['rate_widgets']->value[$key]->node_types[] = 'page';
-        }
+          $items['rate_widgets']->value[$key]->node_types[] = 'page';  
+        }       
         if (!in_array('document', $items['rate_widgets']->value[$key]->comment_types)) {
-          $items['rate_widgets']->value[$key]->comment_types[] = 'page';
+          $items['rate_widgets']->value[$key]->comment_types[] = 'page';  
         }
       }
     }

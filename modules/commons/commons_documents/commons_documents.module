@@ -7,32 +7,16 @@
 include_once 'commons_documents.features.inc';
 
 /**
- * Implements hook_commons_entity_integration().
+ * Implements hook_form_BASE_FORM_ID_alter().
  */
-function commons_documents_commons_entity_integration() {
-  return array(
-    'node' => array(
-      'document' => array(
-        'is_group_content' => TRUE,
-      ),
-    ),
-  );
-}
+function commons_documents_form_node_form_alter(&$form, &$form_state, $form_id) {
+  $node = $form['#node'];
 
-/**
- * Implements hook_commons_bw_group_widget().
- */
-function commons_documents_commons_bw_group_widget() {
-  return array(
-    'commons_documents' => array(
-      'title' => t('Docs'),
-      'type' => 'view',
-      'vid' => 'commons_bw_documents',
-      'display' => 'default',
-      'weight' => 6,
-      'bundle' => 'document',
-    ),
-  );
+  list(, , $bundle) = entity_extract_ids('node', $node);
+
+  if ($bundle == 'document' && empty($node->nid)) {
+    drupal_set_title(t('Create a document'));
+  }
 }
 
 /**
@@ -42,6 +26,8 @@ function commons_documents_form_commons_bw_partial_node_form_alter(&$form, &$for
   if (empty($form['#entity']) || $form['#entity']->type != 'document') {
     return;
   }
+
+  $form['title']['#markup'] = t('Create a document');
 
   $language = $form['body']['#language'];
   $form['body'][$language][0]['#title_display'] = 'invisible';
@@ -71,17 +57,6 @@ function commons_documents_form_commons_bw_partial_node_form_after_build($form) 
   $form['body'][$language][0]['value']['#rows'] = 3;
 
   return $form;
-}
-
-/**
- * Implements hook_views_default_views_alter().
- *
- * Display documents on the browsing widget main view.
- */
-function commons_documents_views_default_views_alter(&$views) {
-  if (!empty($views['commons_bw_all'])) {
-    $views['commons_bw_all']->display['default']->display_options['filters']['type']['value']['document'] = 'document';
-  }
 }
 
 /**

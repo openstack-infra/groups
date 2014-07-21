@@ -61,3 +61,10 @@ features[variable][] = show_preview_changes_wiki
 features[views_view][] = commons_bw_wikis
 features[views_view][] = commons_wikis_contributor_list
 features_exclude[dependencies][commons_trusted_contacts] = commons_trusted_contacts
+
+; Information added by Drupal.org packaging script on 2014-06-25
+version = "7.x-3.15"
+core = "7.x"
+project = "commons"
+datestamp = "1403672628"
+

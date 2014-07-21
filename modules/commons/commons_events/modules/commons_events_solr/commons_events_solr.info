@@ -19,3 +19,10 @@ features[features_api][] = api:2
 features[page_manager_existing_pages][] = solr_events_search
 features[page_manager_handlers][] = pm_existing_pages_solr_events_search_panel_context
 features[variable][] = pm_existing_pages_disabled_solr_events_search
+
+; Information added by Drupal.org packaging script on 2014-06-25
+version = "7.x-3.15"
+core = "7.x"
+project = "commons"
+datestamp = "1403672628"
+

@@ -12,7 +12,7 @@ $plugin = array(
   'content type' => 'commons_bw_group',
   'all contexts' => TRUE,
 );
-
+ 
 /**
 * Output function for the '[content_type]' content type.
 */
@@ -26,14 +26,14 @@ function commons_bw_commons_bw_group_content_type_render($subtype, $conf, $panel
   $block->content = drupal_render($widget['content']);
   return $block;
 }
-
+ 
 /**
 * Returns an edit form for the custom type.
 */
 function commons_bw_commons_bw_group_content_type_edit_form($form, $form_state) {
   return $form;
 }
-
+ 
 /**
 * Returns an edit form for the custom type.
 */

@@ -5,6 +5,16 @@
  */
 
 /**
+ * Implements hook_features_export_alter().
+ */
+function commons_like_features_export_alter(&$export, $module_name) {
+  /* don't export strongarm anymore */
+  if($module_name == 'commons_like' && isset($export['features']['variable'])) {
+    unset($export['features']['variable']);
+  }
+}
+
+/**
  * Implements hook_ctools_plugin_api().
  */
 function commons_like_ctools_plugin_api($module = NULL, $api = NULL) {
@@ -24,7 +34,10 @@ function commons_like_default_message_type() {
     "argument_keys" : [],
     "argument" : [],
     "category" : "message_type",
-    "data" : { "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" } },
+    "data" : {
+      "token options" : { "clear" : 1 },
+      "purge" : { "override" : 0, "enabled" : 0, "quota" : "", "days" : "" }
+    },
     "language" : "",
     "arguments" : null,
     "message_text" : { "und" : [
