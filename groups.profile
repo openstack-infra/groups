@@ -241,7 +241,8 @@ function field_property_list_reverse_lookup() {
       'slideshare' => 15,
       'mailing-list' => 16,
       'launchpad' => 17,
-      'google-plus' => 18
+      'google-plus' => 18,
+      'coordinators' => 19,
   );
 }
 
