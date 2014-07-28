@@ -26,6 +26,7 @@
     16 => t('Mailing list'),
     17 => t('Launchpad)'),
     18 => t('Google plus'),
+    19 => t('Coordinators'),
   );
  }
 
