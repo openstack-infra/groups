@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * Implements hook_instal()
+ *
+ */
+function groups_groups_install() {
+  groups_groups_update_7301();
+}
+
+/**
+ * Set default display settings for group content type and
+ * hide author and date information.
+ */
+function groups_groups_update_7301() {
+  $v = variable_get('node_submitted_group', 0);
+  variable_set('node_submitted_group', $v);
+}

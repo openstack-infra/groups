@@ -106,6 +106,17 @@ function openstack_preprocess_node_event(&$variables, $hook) {
 //     die('-y-');
 }
 
+/**
+ * Preprocess group node, remove 'read more' and 'comment login' links
+ * from teaser.
+ */
+function openstack_preprocess_node_group(&$variables, $hook) {
+  if ($variables['view_mode'] == 'teaser') {
+    unset($variables['content']['links']['node']['#links']['node-readmore']);
+    unset($variables['content']['links']['comment']['#links']['comment_forbidden']);
+  }
+}
+
 function openstack_preprocess_views_view(&$variables) {
   $view = $variables['view'];
   if ($view->name == 'commons_events_upcoming') {
