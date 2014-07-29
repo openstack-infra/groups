@@ -135,6 +135,17 @@ function groups_update_7102() {
 }
 
 /**
+ * Enable commons_wikis module to fix missing og_group_ref
+ * fields from group contents.
+ */
+function groups_update_7103() {
+  if (!module_exists('commons_wikis')) {
+    module_enable(array('commons_wikis'));
+    drupal_flush_all_caches();
+  }
+}
+
+/**
  * Add markdown filter with permissions.
  */
 function _groups_add_markdown_filter() {

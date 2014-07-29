@@ -6,6 +6,20 @@
 define('DRUPAL_MINIMUM_MAX_EXECUTION_TIME', 120);
 
 /**
+ * Implements hook_hook_info().
+ *
+ * Provide commons_entity_integration hooks, load hooks from
+ * modulename.commons.inc file.
+ */
+function groups_hook_info() {
+  $hooks = array(
+    'commons_entity_integration',
+    'commons_entity_integration_alter',
+  );
+  return array_fill_keys($hooks, array('group' => 'commons'));
+}
+
+/**
  * Get Commons entity integration information.
  *
  * @param $entity_type
