@@ -2,7 +2,7 @@
     <div class="span-8">
       <h3>Contribute to the Groups Portal</h3>
 	<ul>
-	  <li><a href="https://bugs.launchpad.net/openstack-ci">Report Issues</a></li>
+	  <li><a href="https://storyboard.openstack.org/#!/project/704">Report Issues</a></li>
 	  <li><a href="/tips">Establish a New Group</a></li>
 	  <li><a href="/code-of-conduct">Code of Conduct</a></li>
 	</ul>
