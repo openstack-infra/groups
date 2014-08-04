@@ -109,6 +109,7 @@ dependencies[] = commons_search
 dependencies[] = commons_search_core
 dependencies[] = commons_social_sharing
 dependencies[] = commons_utility_links
+dependencies[] = commons_wikis
 dependencies[] = commons_wysiwyg
 
 ; Disabled commons modules
@@ -121,7 +122,6 @@ dependencies[] = commons_wysiwyg
 ;dependencies[] = commons_site_homepage
 ;dependencies[] = commons_trusted_contacts
 ;dependencies[] = commons_user_profile_pages
-;dependencies[] = commons_wikis
 ;dependencies[] = commons_wikis_pages
 
 ; Install Groups dependencies
