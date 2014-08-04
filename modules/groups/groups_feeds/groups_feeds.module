@@ -72,6 +72,18 @@ function groups_feeds_rebuild_jobs() {
   } else {
     JobScheduler::get('meetup_events_import')->set($job);
   }
+  // setup groups import fro json
+  $job = array(
+    'type' => 'groups-import',
+    'id' => 1,
+    'period' => 3600, // defaults to 1h
+    'periodic' => TRUE
+  );
+  if ((int)variable_get('user_groups_import_period', 3600) == 0) {
+    JobScheduler::get('user_groups_import')->remove($job);
+  } else {
+    JobScheduler::get('user_groups_import')->set($job);
+  }
 }
 
 /**
@@ -90,6 +102,9 @@ function groups_feeds_cron_job_scheduler_info() {
   );
   $schedulers['meetup_events_import'] = array(
     'queue name' => 'meetup_events_import_queue',
+  );
+  $schedulers['user_groups_import'] = array(
+    'queue name' => 'user_groups_import_queue',
   );
   return $schedulers;
 }
