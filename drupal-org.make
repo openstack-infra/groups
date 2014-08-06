@@ -178,6 +178,10 @@ projects[flag_abuse][type] = "module"
 projects[flag_abuse][subdir] = "contrib"
 projects[flag_abuse][version] = "2.0"
 
+projects[google_analytics][type] = "module"
+projects[google_analytics][subdir] = "contrib"
+projects[google_analytics][version] = "2.0"
+
 projects[gravatar][type] = "module"
 projects[gravatar][subdir] = "contrib"
 projects[gravatar][download][type] = "git"

@@ -42,6 +42,7 @@ dependencies[] = edit_profile
 dependencies[] = features
 dependencies[] = file_entity
 dependencies[] = flag
+dependencies[] = googleanalytics
 dependencies[] = http_client
 dependencies[] = jquery_update
 dependencies[] = libraries
