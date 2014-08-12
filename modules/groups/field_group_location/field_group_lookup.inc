@@ -16,7 +16,7 @@ function _continent_get_predefined_list() {
   $t = get_t();
   $continents = array(
     'AF' => $t('Africa'),
-    'AS' => $t('Asia'),
+    'AS' => $t('Asia Pacific'),
     'EU' => $t('Europe'),
     'NA' => $t('North America'),
     'SA' => $t('South America'),
@@ -48,7 +48,7 @@ function _country_by_continent_predefined_list() {
     'AZ' => 'EU',
     'AZ' => 'AS',
     'AR' => 'SA',
-    'AU' => 'OC',
+    'AU' => 'AS',
     'AT' => 'EU',
     'BS' => 'NA',
     'BH' => 'AS',
@@ -200,7 +200,7 @@ function _country_by_continent_predefined_list() {
     'BQ' => 'NA',
     'NC' => 'OC',
     'VU' => 'OC',
-    'NZ' => 'OC',
+    'NZ' => 'AZ',
     'NI' => 'NA',
     'NE' => 'AF',
     'NG' => 'AF',
