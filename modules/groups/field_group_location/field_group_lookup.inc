@@ -16,7 +16,7 @@ function _continent_get_predefined_list() {
   $t = get_t();
   $continents = array(
     'AF' => $t('Africa'),
-    'AS' => $t('Asia'),
+    'AS' => $t('Asia/Pacific'),
     'EU' => $t('Europe'),
     'NA' => $t('North America'),
     'SA' => $t('South America'),
