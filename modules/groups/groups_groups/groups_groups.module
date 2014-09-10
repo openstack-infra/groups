@@ -16,24 +16,62 @@ function groups_groups_node_prepare($node) {
 }
 
 /**
+ * Lookup latitude and longitude coordinates by location and country
+ * using Google's geocode API.
+ *
+ * @param  string $location Location (eg. Los Angeles, CA)
+ * @param  string $country  Country of the location
+ * @return array            lat, lng coordinates
+ */
+function _groups_groups_lookup_lat_lng($location, $country) {
+  $query = array(
+    'components' => 'country:'.$country,
+    'sensor' => 'false',
+  );
+  if (isset($location)) {
+    $query['address'] = $location;
+  }
+  watchdog('Groups groups', 'Lookup geolocation data [query=@query]',
+    array('@query' => print_r($query, TRUE)), WATCHDOG_DEBUG);
+  $url = 'http://maps.googleapis.com/maps/api/geocode/json?' . drupal_http_build_query($query);
+  $response = drupal_http_request($url);
+  if (empty($response->error)) {
+    $data = json_decode($response->data);
+    if ($data->status == 'OK') {
+      foreach ($data->results as $result) {
+        if (!empty($result->formatted_address)) {
+          watchdog('Groups groups', 'Lookup geolocation data result @lat;@lng [query=@query]',
+            array('@query' => print_r($query, TRUE),
+              '@lat' => $result->geometry->location->lat,
+              '@lng' => $result->geometry->location->lng), WATCHDOG_DEBUG);
+          return array($result->geometry->location->lat, $result->geometry->location->lng);
+        }
+      }
+    }
+  }
+  throw new Exception(t('Failed to lookup geolocation data [query=@query].', array('@query' => print_r($query, TRUE))));
+}
+
+/**
  * Implements hook node presave
  *
- * Update geofield from group location values.
+ * Update geofield from group location values. Override lat / long values
+ * when field_geofield is empty.
  */
-
 function groups_groups_node_presave($node) {
-  if ($node->type == 'group') {
-    if ((isset($node->field_group_location['und'][0]['lat']) &&
-      (isset($node->field_group_location['und'][0]['lng'])))) {
+  if (($node->type == 'group') && (empty($node->field_geofield[LANGUAGE_NONE]))) {
+    try {
       geophp_load();
-      $latitude = $node->field_group_location['und'][0]['lat'];
-      $longitude = $node->field_group_location['und'][0]['lng'];
-      $geom = new Point($longitude, $latitude);
+      list($lat, $lng) = _groups_groups_lookup_lat_lng(
+        $node->field_group_location['und'][0]['location'],
+        $node->field_group_location['und'][0]['country']);
+      $geom = new Point($lng, $lat);
       $geofield = geofield_get_values_from_geometry($geom);
-      $geofield['geom'] = 'POINT (' . $longitude . ' ' . $latitude . ')';
+      $geofield['geom'] = 'POINT (' . $lng . ' ' . $lat . ')';
       $node->field_geofield = array('und'=>array($geofield));
-    } else {
-      $node->field_geofield = array();
+    } catch (Exception $e) {
+      watchdog('Groups groups', 'Node presave failed: @err',
+        array('@err' => $e->getMessage()), WATCHDOG_ERROR);
     }
   }
 }
