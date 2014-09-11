@@ -496,7 +496,7 @@ function groups_feeds_groups_importer() {
             'unique' => FALSE,
           ),
         ),
-        'update_existing' => '0',
+        'update_existing' => '2',
         'input_format' => 'plain_text',
         'skip_hash_check' => 0,
         'bundle' => 'group',
@@ -519,7 +519,9 @@ function groups_feeds_feeds_presave($source, $entity, $item) {
   }
   if (($entity->feeds_item->entity_type == 'node') &&
     ($entity->feeds_item->id == 'user_group_feed_importer')) {
-    $entity->field_group_location[LANGUAGE_NONE][0] = $item['jsonpath_parser:1'];
+    $location = $item['jsonpath_parser:1'];
+    $entity->field_group_location[LANGUAGE_NONE][0] = $location;
+    // update attributes
     $attributes = $item['jsonpath_parser:2'];
     if (isset($attributes)) {
       $attr = array();
@@ -534,6 +536,14 @@ function groups_feeds_feeds_presave($source, $entity, $item) {
         }
       }
       $entity->field_resource_links['und'] = $attr;
+    }
+    // update geolocation when lat / lng != 0
+    if (($location['lat'] != 0) && ($location['lng'] != 0)) {
+      geophp_load();
+      $geom = new Point($location['lng'], $location['lat']);
+      $geofield = geofield_get_values_from_geometry($geom);
+      $geofield['geom'] = 'POINT (' . $location['lng'] . ' ' . $location['lat'] . ')';
+      $entity->field_geofield = array('und'=>array($geofield));
     }
   }
 }
