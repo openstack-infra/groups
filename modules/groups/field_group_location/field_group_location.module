@@ -152,29 +152,15 @@ function field_group_location_field_widget_form(&$form, &$form_state, $field,
   return $element + $widget;
 }
 
+/**
+ * Implements hook_field_presave()
+ *
+ * Lookup continent data by country name.
+ */
 function field_group_location_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
   module_load_include('inc', 'field_group_location', 'field_group_lookup');
   $continent_lookup = _country_by_continent_predefined_list();
   foreach ($items as $delta => &$item) {
     $item['continent'] = $continent_lookup[$item['country']];
-    // lookup long, lat values
-    $query = array(
-      'address' => $item['location'],
-      'components' => 'country:'.$item['country'],
-      'sensor' => 'false',
-    );
-    $url = 'http://maps.googleapis.com/maps/api/geocode/json?' . drupal_http_build_query($query);
-    $response = drupal_http_request($url);
-    if (empty($response->error)) {
-      $data = json_decode($response->data);
-      if ($data->status == 'OK') {
-        foreach ($data->results as $result) {
-          if (!empty($result->formatted_address)) {
-            $item['lat'] = $result->geometry->location->lat;
-            $item['lng'] = $result->geometry->location->lng;
-          }
-        }
-      }
-    }
   }
 }
