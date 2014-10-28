@@ -80,18 +80,6 @@ function groups_directory_views_default_views() {
 
   /* Display: Content pane */
   $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
-  $translatables['groups_groups_directory'] = array(
-    t('Master'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('[field_group_location_1-continent]'),
-    t('Content pane'),
-    t('View panes'),
-  );
   $export['groups_groups_directory'] = $view;
 
   $view = new view();
@@ -119,26 +107,6 @@ function groups_directory_views_default_views() {
   $handler->display->display_options['style_options']['description_field'] = '#rendered_entity';
   $handler->display->display_options['style_options']['view_mode'] = 'teaser';
   $handler->display->display_options['style_options']['map'] = 'mapbox-warden';
-  $handler->display->display_options['style_options']['icon'] = array(
-    'iconUrl' => '',
-    'shadowUrl' => '',
-    'iconSize' => array(
-      'x' => '',
-      'y' => '',
-    ),
-    'iconAnchor' => array(
-      'x' => '',
-      'y' => '',
-    ),
-    'shadowAnchor' => array(
-      'x' => '',
-      'y' => '',
-    ),
-    'popupAnchor' => array(
-      'x' => '',
-      'y' => '',
-    ),
-  );
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -166,17 +134,6 @@ function groups_directory_views_default_views() {
 
   /* Display: Content pane */
   $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
-  $translatables['groups_map'] = array(
-    t('Master'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Content pane'),
-    t('View panes'),
-  );
   $export['groups_map'] = $view;
 
   return $export;

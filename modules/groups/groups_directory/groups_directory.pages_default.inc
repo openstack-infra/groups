@@ -14,7 +14,7 @@ function groups_directory_default_page_manager_pages() {
   $page->name = 'groups_directory';
   $page->task = 'page';
   $page->admin_title = 'Groups Directory';
-  $page->admin_description = 'A directory of groups.';
+  $page->admin_description = '';
   $page->path = 'groups';
   $page->access = array();
   $page->menu = array(
@@ -30,9 +30,7 @@ function groups_directory_default_page_manager_pages() {
     ),
   );
   $page->arguments = array();
-  $page->conf = array(
-    'admin_paths' => FALSE,
-  );
+  $page->conf = array();
   $page->default_handlers = array();
   $handler = new stdClass();
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
@@ -43,9 +41,9 @@ function groups_directory_default_page_manager_pages() {
   $handler->handler = 'panel_context';
   $handler->weight = 0;
   $handler->conf = array(
-    'title' => 'Groups',
-    'no_blocks' => 0,
-    'pipeline' => 'standard',
+    'title' => 'Landing page',
+    'no_blocks' => FALSE,
+    'pipeline' => 'ipe',
     'body_classes_to_remove' => '',
     'body_classes_to_add' => '',
     'css_id' => '',
@@ -54,39 +52,33 @@ function groups_directory_default_page_manager_pages() {
     'relationships' => array(),
   );
   $display = new panels_display();
-  $display->layout = 'one';
+  $display->layout = 'two_33_66';
   $display->layout_settings = array();
   $display->panel_settings = array(
     'style_settings' => array(
       'default' => NULL,
-      'one_main' => NULL,
+      'two_33_66_top' => NULL,
+      'two_33_66_first' => NULL,
+      'two_33_66_second' => NULL,
+      'two_33_66_bottom' => NULL,
+    ),
+    'two_33_66_second' => array(
+      'style' => '-1',
     ),
   );
   $display->cache = array();
-  $display->title = 'Groups';
-  $display->uuid = 'd2985b74-dfbb-8c44-75c5-66561d3f51d9';
+  $display->title = 'User Groups';
+  $display->uuid = 'B5282991-9D90-4F58-B30F-DB4729DAE4AB';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
-    $pane->pid = 'new-36c90f7b-8dc4-8454-ad40-eb1a8c79b542';
-    $pane->panel = 'one_main';
-    $pane->type = 'views';
-    $pane->subtype = 'groups_map';
+    $pane->pid = 'new-261DFD57-3B25-4DFE-8418-5D79026050A0';
+    $pane->panel = 'two_33_66_first';
+    $pane->type = 'block';
+    $pane->subtype = 'groups_directory-groups_directory_filter';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'override_pager_settings' => 0,
-      'use_pager' => 1,
-      'nodes_per_page' => '0',
-      'pager_id' => '0',
-      'offset' => '0',
-      'more_link' => 0,
-      'feed_icons' => 0,
-      'panel_args' => 0,
-      'link_to_view' => 0,
-      'args' => '',
-      'url' => '',
-      'display' => 'default',
       'override_title' => 0,
       'override_title_text' => '',
     );
@@ -98,31 +90,19 @@ function groups_directory_default_page_manager_pages() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $pane->uuid = '36c90f7b-8dc4-8454-ad40-eb1a8c79b542';
-    $display->content['new-36c90f7b-8dc4-8454-ad40-eb1a8c79b542'] = $pane;
-    $display->panels['one_main'][0] = 'new-36c90f7b-8dc4-8454-ad40-eb1a8c79b542';
+    $pane->uuid = '261DFD57-3B25-4DFE-8418-5D79026050A0';
+    $display->content['new-261DFD57-3B25-4DFE-8418-5D79026050A0'] = $pane;
+    $display->panels['two_33_66_first'][0] = 'new-261DFD57-3B25-4DFE-8418-5D79026050A0';
     $pane = new stdClass();
-    $pane->pid = 'new-a462e99c-3629-0aa4-e15f-4a84115becc7';
-    $pane->panel = 'one_main';
-    $pane->type = 'views';
-    $pane->subtype = 'groups_groups_directory';
+    $pane->pid = 'new-11F619FA-9DD0-4710-AAFF-5758ECE3FAA7';
+    $pane->panel = 'two_33_66_second';
+    $pane->type = 'block';
+    $pane->subtype = 'groups_directory-groups_directory_list';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'override_pager_settings' => 0,
-      'use_pager' => 1,
-      'nodes_per_page' => '0',
-      'pager_id' => '0',
-      'offset' => '0',
-      'more_link' => 0,
-      'feed_icons' => 0,
-      'panel_args' => 0,
-      'link_to_view' => 0,
-      'args' => '',
-      'url' => '',
-      'display' => 'default',
-      'override_title' => 0,
-      'override_title_text' => '',
+      'override_title' => 1,
+      'override_title_text' => '<none>',
     );
     $pane->cache = array();
     $pane->style = array(
@@ -130,13 +110,13 @@ function groups_directory_default_page_manager_pages() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 1;
+    $pane->position = 0;
     $pane->locks = array();
-    $pane->uuid = 'a462e99c-3629-0aa4-e15f-4a84115becc7';
-    $display->content['new-a462e99c-3629-0aa4-e15f-4a84115becc7'] = $pane;
-    $display->panels['one_main'][1] = 'new-a462e99c-3629-0aa4-e15f-4a84115becc7';
+    $pane->uuid = '11F619FA-9DD0-4710-AAFF-5758ECE3FAA7';
+    $display->content['new-11F619FA-9DD0-4710-AAFF-5758ECE3FAA7'] = $pane;
+    $display->panels['two_33_66_second'][0] = 'new-11F619FA-9DD0-4710-AAFF-5758ECE3FAA7';
   $display->hide_title = PANELS_TITLE_FIXED;
-  $display->title_pane = '0';
+  $display->title_pane = 'new-261DFD57-3B25-4DFE-8418-5D79026050A0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
   $pages['groups_directory'] = $page;

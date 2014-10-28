@@ -180,3 +180,46 @@
   }
 
 }
+
+/* === Groups directory === */
+
+.two-33-66 {
+  @extend .container;
+  .region-two-33-66-first {
+    @extend .col-md-4;
+  }
+  .region-two-33-66-second {
+    @extend .col-md-8;
+  }
+}
+
+.pane-groups-directory-groups-directory-filter {
+    .checkbox label {
+      padding-left: 0px;
+    }
+}
+
+.pane-groups-directory-groups-directory-list {
+  .node-group {
+    .user-picture {
+      display: none;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+    .list-inline {
+      padding-left: 0px;
+      margin-left: 0px;
+    }
+    .links > li a,
+    .links > li a:hover,
+    .links > li a:focus {
+      color: #8A959E;
+      font-size: 12px;
+      text-transform: uppercase;
+      padding: 0px;
+      background: none;
+      line-height: 20px;
+    }
+  }
+}
