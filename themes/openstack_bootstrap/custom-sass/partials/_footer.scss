@@ -1,0 +1,63 @@
+/* === Footer styles ==== */
+
+.region-footer {
+  @extend .row;
+}
+
+.footer-block-openstack,
+.footer-block-community,
+.footer-block-documentation,
+.footer-block-branding {
+  @extend .col-md-2;
+  @extend .col-sm-2;
+  @extend .col-xs-6;
+}
+
+.footer-block-stay-in-touch {
+  @extend .col-md-4;
+  @extend .col-sm-4;
+  @extend .col-xs-12;
+}
+
+.footer {
+  border-top: none;
+  margin-top: 50px;
+  padding: 70px 0px;
+  background: #333;
+  a {
+    color: #AAA;
+  }
+  ul {
+    @extend .list-unstyled;
+  }
+  ul > li {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 20px;
+  }
+  h3 {
+    color: white;
+    padding: 0px;
+    margin: 10px 0px;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .fine-print {
+    margin-top: 20px;
+    color: #AAA;
+    font-size: 12px;
+  }
+}
+
+.footer-bottom {
+  background: #222;
+  padding: 15px 0px;
+  text-align: center;
+  color: #777;
+  font-size: 12px;
+  line-height: 40px;
+  a {
+    color: #777;
+    text-decoration: underline;
+  }
+}

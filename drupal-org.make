@@ -615,6 +615,10 @@ projects[sky][type] = "theme"
 projects[sky][subdir] = "contrib"
 projects[sky][version] = "3.0"
 
+projects[bootstrap][type] = "theme"
+projects[bootstrap][subdir] = "contrib"
+projects[bootstrap][version] = "3.0"
+
 ; Libraries.
 ; NOTE: These need to be listed in http://drupal.org/packaging-whitelist.
 
