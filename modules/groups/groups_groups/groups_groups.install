@@ -16,3 +16,20 @@ function groups_groups_update_7301() {
   $v = variable_get('node_submitted_group', 0);
   variable_set('node_submitted_group', $v);
 }
+
+/**
+ * Set default group status to "unsupported".
+ */
+function groups_groups_update_7302() {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'group');
+  $result = $query->execute();
+  $nids = array_keys($result['node']);
+  foreach ($nids as $nid) {
+    $entity = node_load($nid);
+    $wrapper = entity_metadata_wrapper('node', $entity);
+    $wrapper->field_group_status->set('0');
+    $wrapper->save();
+  }
+}
