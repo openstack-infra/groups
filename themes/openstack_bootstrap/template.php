@@ -23,3 +23,41 @@ function openstack_bootstrap_preprocess_page(&$variables) {
     $variables['navbar_classes_array'][] = 'navbar-os';
   }
 }
+
+
+/**
+ * Implements hook_page_alter().
+ *
+ * Relocate utility links from header to utility region.
+ */
+function openstack_bootstrap_page_alter(&$page) {
+  if (isset($page['header']['commons_utility_links_commons_utility_links'])) {
+    $page['utility']['commons_utility_links_commons_utility_links'] =
+      $page['header']['commons_utility_links_commons_utility_links'];
+    unset($page['header']['commons_utility_links_commons_utility_links']);
+  }
+}
+
+/**
+ * Render a Sign in button to anonymous users and a dropdown-menu of
+ * utility links for authenticated ones.
+ */
+function openstack_bootstrap_links__commons_utility_links(&$variables) {
+  if (user_is_logged_in()) {
+    global $user;
+    $variables['attributes']['class'][] = 'dropdown-menu';
+    $variables['attributes']['class'][] = 'dropdown-menu-right';
+    $output = '<div class="btn-group">';
+    $output .= '<button class="btn dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
+    '.$GLOBALS['user']->name.'<span class="caret"></span>
+  </button>';
+    $output .= theme_links($variables);
+    $output .= '</div>';
+    return $output;
+  } else {
+    // render the signup button only
+    $link = $variables['links']['signup'];
+    $link['attributes']['class'][] = 'btn-sign-in';
+    return l($link['title'], $link['href'], $link);
+  }
+}

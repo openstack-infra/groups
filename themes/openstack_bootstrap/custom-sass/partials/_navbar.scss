@@ -38,9 +38,6 @@
   .navbar-nav > li > a.sign-in-btn:hover {
     background: #286A95;
   }
-  .navbar-nav {
-    padding-right: 15px;
-  }
   .navbar-header {
     min-width: 135px;
     padding-right: 20px;
@@ -51,6 +48,56 @@
 // Hide border line on front page
 body.front .navbar-os {
   border: 0px;
+}
+
+.block-commons-utility-links {
+  float: right;
+  padding-right: 15px;
+  .btn-sign-in:focus,
+  .btn-sign-in {
+      display: inline-block;
+      @include border-radius(2px);
+      font-size: 12px;
+      line-height: 20px;
+      text-transform: uppercase;
+      background: #2A4E68;
+      padding: 7px 25px;
+      margin-top: 7px;
+      color: #FFF;
+      margin-left: 15px;
+  }
+  .btn-sign-in:hover {
+      background: #286A95;
+      text-decoration: none;
+  }
+  .btn {
+    background: none;
+    color: #333;
+    border: 0px;
+    display: inline-block;
+    padding: 7px 15px;
+    margin-top: 7px;
+    font-size: 12px;
+    line-height: 20px;
+    text-transform: uppercase;
+  }
+  .btn:focus,
+  .btn:active,
+  .btn-group.open .dropdown-toggle {
+    background: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background: #2A4E68;
+    color: #FFF;
+  }
+  .btn .glyphicon {
+    margin-right: 4px;
+    color: #8A959E;
+  }
+  .btn .caret {
+    color: #8A959E;
+    margin-left: 4px;
+  }
 }
 
 #block-search-form {
