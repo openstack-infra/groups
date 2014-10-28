@@ -9,11 +9,12 @@
  */
 function groups_footer_install() {
   cache_clear_all('*', 'cache_block', TRUE);
+  $theme = variable_get('theme_default', 'openstack_bootstrap');
  // Place site blocks in the footer region.
   $footer_block = array(
     'module' => 'groups_footer',
     'delta' => 'groups_footer',
-    'theme' => 'openstack',
+    'theme' => $theme,
     'visibility' => 0,
     'region' => 'footer',
     'status' => 0,
@@ -33,7 +34,7 @@ function groups_footer_install() {
     ))
     ->condition('delta', 'groups_footer')
     ->condition('module', 'groups_footer')
-    ->condition('theme', 'openstack')
+    ->condition('theme', $theme)
     ->execute();
 }
 
