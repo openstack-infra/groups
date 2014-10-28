@@ -38,7 +38,7 @@ function groups_requirements($phase) {
  */
 function groups_install() {
   // Enable the Origins theme and set it as the default.
-  theme_enable(array('adaptivetheme', 'commons_origins', 'adaptivetheme_admin', 'openstack'));
+  theme_enable(array('adaptivetheme', 'commons_origins', 'adaptivetheme_admin', 'openstack', 'openstack_bootstrap'));
 
     // The Bartik theme is automatically enabled during installation. Disable it.
   db_update('system')
@@ -48,7 +48,7 @@ function groups_install() {
     ->execute();
 
   // Set the default and administration themes.
-  variable_set('theme_default', 'openstack');
+  variable_set('theme_default', 'openstack_bootstrap');
   // Set a default administrative theme:
   variable_set('admin_theme', 'adaptivetheme_admin');
   variable_set('node_admin_theme', FALSE);
@@ -143,6 +143,14 @@ function groups_update_7103() {
     module_enable(array('commons_wikis'));
     drupal_flush_all_caches();
   }
+}
+
+/**
+ * Switch default theme to "openstack_bootstrap"
+ */
+function groups_update_7105() {
+  theme_enable(array('openstack_bootstrap'));
+  variable_set('theme_default', 'openstack_bootstrap');
 }
 
 /**
