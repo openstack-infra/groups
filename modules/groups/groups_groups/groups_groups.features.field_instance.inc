@@ -13,6 +13,7 @@ function groups_groups_field_default_field_instances() {
   // Exported field_instance: 'node-group-field_geofield'
   $field_instances['node-group-field_geofield'] = array(
     'bundle' => 'group',
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -35,12 +36,14 @@ function groups_groups_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_geofield',
     'label' => 'geofield',
+    'required' => FALSE,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
       'module' => 'geofield',
+      'settings' => array(),
       'type' => 'geofield_latlon',
       'weight' => 47,
     ),
@@ -88,6 +91,47 @@ function groups_groups_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-group-field_group_status'
+  $field_instances['node-group-field_group_status'] = array(
+    'bundle' => 'group',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 18,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_group_status',
+    'label' => 'Group status',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 48,
+    ),
+  );
+
   // Exported field_instance: 'node-group-field_resource_links'
   $field_instances['node-group-field_resource_links'] = array(
     'bundle' => 'group',
@@ -128,6 +172,7 @@ function groups_groups_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Group location');
+  t('Group status');
   t('Resource links');
   t('geofield');
 
