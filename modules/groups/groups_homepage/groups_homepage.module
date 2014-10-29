@@ -182,5 +182,6 @@ function groups_homepage_views_pre_build(&$view) {
     $view->display_handler->set_option('pager', $pager);
     $view->init_pager();
     $view->set_items_per_page('5');
+    $view->display_handler->set_option('title', t('Upcoming Events'));
   }
 }
