@@ -164,6 +164,14 @@ function groups_update_7104() {
 }
 
 /**
+ * Fix groups update order issue.
+ * groups_pages module must be enabled after update #7105.
+ */
+function groups_update_7106() {
+  groups_update_7104();
+}
+
+/**
  * Add markdown filter with permissions.
  */
 function _groups_add_markdown_filter() {
