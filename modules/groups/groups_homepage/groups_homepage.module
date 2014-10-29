@@ -26,6 +26,14 @@ function groups_homepage_block_info() {
     'info' => t('Groups find nearby'),
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
+  $blocks['groups_community_banner'] = array(
+    'info' => t('Community Banner'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  $blocks['groups_community_guides'] = array(
+    'info' => t('Community Guides'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
   return $blocks;
 }
 
@@ -57,6 +65,15 @@ function groups_homepage_block_view($delta='') {
     case 'groups_find_nearby':
       $block['content'] = theme('groups_find_nearby', array());
       $block['subject'] = 'Find nearby groups';
+      break;
+    case 'groups_community_banner':
+      $block['content'] = theme('groups_community_banner', array());
+      $block['subject'] = 'Community Banner';
+      break;
+    case 'groups_community_guides':
+      $menu = menu_navigation_links('menu-content-menu');
+      $block['content'] = theme('links__menu_content_menu', array('links' => $menu));;
+      $block['subject'] = 'Community Guides';
       break;
   }
   return $block;
@@ -92,7 +109,11 @@ function groups_homepage_theme() {
     'community_map' => $base + array(
       'template' => 'community_map',
       'variables' => array(),
-    )
+    ),
+    'groups_community_banner' => $base + array(
+      'template' => 'community_banner',
+      'variables' => array(),
+    ),
   );
 }
 

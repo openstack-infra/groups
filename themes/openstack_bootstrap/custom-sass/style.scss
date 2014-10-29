@@ -25,7 +25,31 @@
   font-weight: $weight;
 }
 
+.not-front .main-container {
+  @extend .container;
+}
+
 /* Front container */
+
+.region-openstack-front-top-first {
+  @extend .col-md-6;
+  @extend .col-sm-12;
+}
+
+.region-openstack-front-top-second {
+  @extend .col-md-6;
+  @extend .col-sm-12;
+}
+
+.region-openstack-front-bottom-first {
+  @extend .col-md-6;
+  @extend .col-sm-12;
+}
+
+.region-openstack-front-bottom-second {
+  @extend .col-md-6;
+  @extend .col-sm-12;
+}
 
 .region-openstack-front-first {
   @extend .col-md-6;
@@ -42,7 +66,12 @@
   @extend .col-sm-6;
 }
 
+/*.openstack-front-top {
+  @extend .container;
+}*/
+
 .openstack-front-container {
+  @extend .container;
   margin-top: 80px;
 }
 
@@ -298,6 +327,78 @@
       padding: 0px;
       background: none;
       line-height: 20px;
+    }
+  }
+}
+
+/* === Community banner === */
+
+.community-banner-container {
+  padding: 75px 0px;
+  background: url(../images/community-banner.jpg) no-repeat scroll center center / cover transparent;
+  min-height: 350px;
+  color: #FFF;
+  h3 {
+    margin-top: 20px;
+    margin-bottom: 25px;
+    font-weight: 300;
+    font-size: 30px;
+  }
+  p {
+    font-weight: 400;
+  }
+}
+
+a.community-btn {
+  font-size: 16px;
+  font-weight: 400;
+  background: none repeat scroll 0% 0% transparent;
+  border: 1px solid #FFF;
+  border-radius: 3px;
+  margin-top: 10px;
+  padding: 8px 30px 8px 40px;
+  color: #FFF;
+  float: left;
+}
+
+.community-banner-first {
+  @extend .col-md-6;
+  @extend .col-sm-12;
+}
+
+.community-banner-second {
+  @extend .col-md-6;
+  @extend .col-sm-12;
+}
+
+/* === Community guides === */
+
+.region-openstack-front-top-second {
+  background: #EDF2F7;
+  border-radius: 4px;
+}
+
+.pane-groups-homepage-groups-community-guides {
+  padding: 20px;
+  .pane-title {
+    margin-top: 0px;
+    color: #2A4E68;
+    font-weight: 300;
+    font-size: 20px;
+  }
+  ul.links {
+    list-style: none;
+    padding-left: 0px;
+    li {
+      border-bottom: 1px dotted #4D96C7;
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+      a {
+        color: #4D96C7;
+      }
+    }
+    li.last {
+      border-bottom: 0px;
     }
   }
 }

@@ -16,6 +16,19 @@ $panel_suffix = isset($panel_suffix) ? $panel_suffix : '';
   <?php endif; ?>
 
   <div class="openstack-front-container">
+    <div class="region region-openstack-front-top-first">
+      <div class="region-inner clearfix">
+        <?php print $content['os_top_left']; ?>
+      </div>
+    </div>
+    <div class="region region-openstack-front-top-second">
+      <div class="region-inner clearfix">
+        <?php print $content['os_top_right']; ?>
+      </div>
+    </div>
+  </div>
+
+  <div class="openstack-front-container">
     <div class="region region-openstack-front-first">
       <div class="region-inner clearfix">
         <?php print $content['os_left']; ?>

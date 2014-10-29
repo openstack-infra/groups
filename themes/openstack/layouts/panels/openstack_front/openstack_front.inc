@@ -14,6 +14,8 @@ function openstack_openstack_front_panels_layouts() {
     'admin css' => 'openstack_front.admin.css',
     'regions' => array(
       'os_top' => t('Top (Conditional)'),
+      'os_top_left' => t('Top Left'),
+      'os_top_right' => t('Top Right'),
       'os_left' => t('Left'),
       'os_center' => t('Center'),
       'os_right' => t('Right'),

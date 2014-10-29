@@ -422,7 +422,7 @@ function groups_feeds_node_insert($node) {
     $node->menu = array(
       'link_title' => $node->title,
       'description' => '',
-      'menu_name' => 'main-menu',
+      'menu_name' => 'menu-content-menu',
       'plid' => 0,
       'enabled' => 1,
       'weight' => 20,
