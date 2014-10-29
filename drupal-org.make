@@ -308,6 +308,8 @@ projects[oembed][download][revision] = "9aa5303"
 projects[og][type] = "module"
 projects[og][subdir] = "contrib"
 projects[og][version] = "2.7"
+; Fix missing class of login links in subscription field
+projects[og][patch][] = "patches/0003-fix-og-subscribe-link-classes.patch"
 
 ; Auto-assign role to group manager broken on groups with overridden roles.
 ; https://drupal.org/node/2005800#comment-7684873
