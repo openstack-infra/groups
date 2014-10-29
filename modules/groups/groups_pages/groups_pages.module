@@ -1,0 +1,37 @@
+<?php
+/**
+ * @file
+ * Code for the Group pages feature.
+ */
+
+include_once 'groups_pages.features.inc';
+
+/**
+ * Implements hook_preprocess_field()
+ *
+ * Override markup of organic group subscribtion field.
+ *
+ * @see http://drupal.stackexchange.com/questions/28105/how-to-change-og-subscribe-to-group-link-text
+ */
+function groups_pages_preprocess_field(&$variables) {
+  if (($variables['element']['#field_name'] == 'group_group') &&
+      ($variables['element']['#formatter'] == 'og_group_subscribe')) {
+    // determine login status from element class
+    $item = $variables['items'][0];
+    $class = isset($item['#options']) ? $item['#options']['attributes']['class'] : NULL;
+    $class = isset($item['#attributes']['class']) ? $item['#attributes']['class'] : $class;
+    $class = is_array($class) ? reset($class) : $class;
+    switch ($class) {
+      case 'group subscribe':
+        $variables['items'][0]['#title'] = t('Join us!');
+        $variables['items'][0]['#options']['attributes']['class'][] = 'btn';
+        $variables['items'][0]['#options']['attributes']['class'][] = 'btn-default';
+        $variables['items'][0]['#prefix'] = '<p>'.t('Join to our user group, participate on local events, contribute to our community, and stay informed about latest news.').'</p>';
+        break;
+      case 'group unsubscribe':
+        $variables['items'][0]['#title'] = 'x '.$variables['items'][0]['#title'];
+        $variables['items'][0]['#prefix'] = '<p>'.t('You are an active member of this group.').'</p>';
+        break;
+    }
+  }
+}

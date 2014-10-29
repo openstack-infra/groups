@@ -154,6 +154,16 @@ function groups_update_7105() {
 }
 
 /**
+ * Enable groups_pages module.
+ */
+function groups_update_7104() {
+  if (!module_exists('groups_pages')) {
+    module_enable(array('groups_pages'));
+    drupal_flush_all_caches();
+  }
+}
+
+/**
  * Add markdown filter with permissions.
  */
 function _groups_add_markdown_filter() {

@@ -154,3 +154,4 @@ dependencies[] = groups_common
 dependencies[] = groups_auth
 dependencies[] = groups_feeds
 dependencies[] = groups_events_pages
+dependencies[] = groups_pages

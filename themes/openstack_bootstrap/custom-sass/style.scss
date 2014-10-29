@@ -181,6 +181,84 @@
 
 }
 
+/* === Groups page === */
+
+.two-66-33 {
+  @extend .container;
+  .region-two-66-33-first {
+    @extend .col-md-8;
+  }
+  .region-two-66-33-second {
+    @extend .col-md-4;
+  }
+}
+
+.page-node {
+  h2.pane-title {
+    color: #2A4E68;
+    font-weight: 300;
+    font-size: 18px;
+    margin-bottom: 25px;
+  }
+  .pane-node-body {
+    margin-top: 25px;
+    font-size: 16px;
+    color: #888;
+    line-height: 1.4;
+    a {
+      color: #30739C;
+      text-decoration: underline;
+    }
+  }
+  .pane-node-field-resource-links {
+    border-top: 1px dotted #C5E2EA;
+    margin-top: 25px;
+    padding-top: 25px;
+    .property-title {
+      background: #C4E0E9;
+      display: inline-block;
+      color: #254C7C;
+      padding: 0px 10px;
+    }
+    a {
+      color: #30739C;
+      text-decoration: underline;
+    }
+  }
+  .pane-node-group-group {
+    margin-top: 25px;
+    background: #EDF2F7;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: right;
+    p {
+      text-align: left;
+    }
+    .group.unsubscribe {
+      font-size: 10px;
+    }
+  }
+}
+
+.view-profile-badges {
+  h3 {
+    color: #CF2F19;
+    font-size: 16px;
+    font-weight: 300;
+
+  }
+}
+
+.profile-badges {
+  list-style: none;
+  padding-left: 0px;
+  li {
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+}
+
 /* === Groups directory === */
 
 .two-33-66 {
