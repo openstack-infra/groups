@@ -252,6 +252,7 @@
     a {
       color: #30739C;
       text-decoration: underline;
+      @include word-break(break-all);
     }
   }
   .pane-node-group-group {
