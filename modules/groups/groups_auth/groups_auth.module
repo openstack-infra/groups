@@ -21,6 +21,7 @@ function groups_auth_menu() {
  *
  * Disable "Request new password" tab on user profile page.
  * Override /user callback.
+ * Set administrator role only access to openid tab of user profile.
  *
  * @param unknown &$items
  *  menu items to alter.
@@ -32,6 +33,18 @@ function groups_auth_menu_alter(&$items) {
   // login page and redirect to openid provider.
   // $items['user']['page callback'] = 'groups_auth_user_page';
   // unset($items['user']['file']);
+  $items['user/%user/openid']['page callback'] = 'groups_auth_user_identities';
+  $items['user/%user/openid']['access callback'] = 'groups_auth_role_access';
+  $items['user/%user/openid']['access arguments'] = array('administrator');
+}
+
+/**
+ * Returns TRUE if the actual user have the speicified
+ * role.
+ */
+function groups_auth_role_access($role) {
+  global $user;
+  return in_array($role, array_values($user->roles));
 }
 
 /**
@@ -78,11 +91,15 @@ function groups_auth_user_page() {
 /**
  * hook_FORM_ID_alter()
  *
- * Remove openid links form element
+ * Remove openid links form element.
+ * Remove alternate openid login form element.
  */
 function groups_auth_form_user_login_alter(&$form, &$form_state) {
   if (isset($form['openid_links'])) {
     unset($form['openid_links']);
+  }
+  if (isset($form['openid_identifier'])) {
+    unset($form['openid_identifier']);
   }
 }
 
@@ -123,7 +140,8 @@ function groups_auth_form_user_register_form_alter(&$form, &$form_state) {
 function groups_auth_login() {
   $return_to = url('openid/authenticate',
     array('absolute' => TRUE, 'query' => array('destination' => '<front>')));
-  openid_begin("https://openstackid-dev.openstack.org", $return_to, array());
+  $openid_url = variable_get('groups_openid_provider', 'https://openstackid-dev.openstack.org');
+  openid_begin($openid_url, $return_to, array());
 }
 
 /**
@@ -154,8 +172,35 @@ function groups_auth_form_user_profile_form_alter( &$form, $form_state ) {
 
 function groups_auth_commons_utility_links_alter(&$links) {
   if (isset($links['login'])) {
-    // @todo: uncomment this line to restore login link in header
-    // $links['login']['href'] = 'login';
     unset($links['login']);
   }
+  if (isset($links['signup'])) {
+    $links['signup']['href'] = 'login';
+  }
+}
+
+/**
+ * Remove the Add OpenID feature from OpenID identities tab
+ * of user profile.
+ *
+ * @see openid_user_identities()
+ */
+function groups_auth_user_identities($account) {
+  drupal_set_title(format_username($account));
+  drupal_add_css(drupal_get_path('module', 'openid') . '/openid.css');
+  $header = array(t('OpenID'), t('Operations'));
+  $rows = array();
+
+  $result = db_query("SELECT * FROM {authmap} WHERE module='openid' AND uid=:uid", array(':uid' => $account->uid));
+  foreach ($result as $identity) {
+    $rows[] = array(check_plain($identity->authname), l(t('Delete'), 'user/' . $account->uid . '/openid/delete/' . $identity->aid));
+  }
+
+  $build['openid_table'] = array(
+    '#theme' => 'table',
+    '#header' => $header,
+    '#rows' => $rows,
+    '#empty' => t('No OpenID identities available for this account.'),
+  );
+  return $build;
 }
