@@ -196,6 +196,30 @@ function groups_events_views_default_views() {
   $handler->display->display_options['fields']['body']['settings'] = array(
     'trim_length' => '600',
   );
+  /* Field: Content: Date */
+  $handler->display->display_options['fields']['field_date_1']['id'] = 'field_date_1';
+  $handler->display->display_options['fields']['field_date_1']['table'] = 'field_data_field_date';
+  $handler->display->display_options['fields']['field_date_1']['field'] = 'field_date';
+  /* Field: Content: Venue name */
+  $handler->display->display_options['fields']['field_venue_name']['id'] = 'field_venue_name';
+  $handler->display->display_options['fields']['field_venue_name']['table'] = 'field_data_field_venue_name';
+  $handler->display->display_options['fields']['field_venue_name']['field'] = 'field_venue_name';
+  $handler->display->display_options['fields']['field_venue_name']['label'] = '';
+  $handler->display->display_options['fields']['field_venue_name']['element_label_colon'] = FALSE;
+  /* Field: Content: Address */
+  $handler->display->display_options['fields']['field_address']['id'] = 'field_address';
+  $handler->display->display_options['fields']['field_address']['table'] = 'field_data_field_address';
+  $handler->display->display_options['fields']['field_address']['field'] = 'field_address';
+  $handler->display->display_options['fields']['field_address']['label'] = '';
+  $handler->display->display_options['fields']['field_address']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_address']['click_sort_column'] = 'country';
+  $handler->display->display_options['fields']['field_address']['type'] = 'addressfield_linear';
+  $handler->display->display_options['fields']['field_address']['settings'] = array(
+    'use_widget_handlers' => 1,
+    'format_handlers' => array(
+      'address' => 'address',
+    ),
+  );
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: OG membership: Group ID */
   $handler->display->display_options['arguments']['gid']['id'] = 'gid';

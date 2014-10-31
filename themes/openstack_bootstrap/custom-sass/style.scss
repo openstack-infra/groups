@@ -245,9 +245,15 @@
   }
   .pane-groups-events-upcoming-events-panel-pane-1 h2.pane-title {
     display: inline-block;
-    line-height: 16px;
+    line-height: 20px;
     font-size: 80%;
     text-transform: uppercase;
+    margin-bottom: 0px;
+    background: #C4E0E9;
+    display: inline-block;
+    color: #254C7C;
+    padding: 0px 10px;
+    font-weight: 400;
   }
   .region-two-66-33-second h2.pane-title {
     color: #2A4E68;
@@ -275,6 +281,7 @@
       display: inline-block;
       color: #254C7C;
       padding: 0px 10px;
+      font-weight: 400;
     }
     a {
       color: #30739C;
@@ -323,14 +330,15 @@
 /* === Event large teaser === */
 
 .event--large-teaser {
-  @extend .clearfix;
+  @extend .row;
+  .container-header {
+    @extend .col-md-8;
+  }
   .container-first {
-    float: left;
-    width: 60%;
+    @extend .col-md-8;
   }
   .container-second {
-    float: left;
-    width: 40%;
+    @extend .col-md-2;
   }
   h3 {
     margin-bottom: 5px;
@@ -343,24 +351,17 @@
   .field-name-field-address {
     margin-bottom: 10px;
   }
+  .field-venue {
+    .field-content {
+      display: inline-block;
+    }
+  }
   .field-body {
     color: #888;
     line-height: 1.4;
     font-size: 16px;
     padding-bottom: 10px;
-  }
-  .field-date {
-    font-size: 18px;
-    color: #000;
-    font-weight: 300;
-    .date-part {
-      font-weight: 400;
-      font-size: 18px;
-    }
-    .date-display-start {
-    }
-    .date-display-end {
-    }
+    padding-top: 10px;
   }
   .field-name-field-organizers .field-label {
     font-weight: 400;

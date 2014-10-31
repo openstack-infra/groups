@@ -5,3 +5,12 @@
  */
 
 include_once 'groups_events.features.inc';
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function groups_events_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'addressfield') {
+    return 'plugins/' . $plugin;
+  }
+}
