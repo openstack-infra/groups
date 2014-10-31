@@ -172,6 +172,16 @@ function groups_update_7106() {
 }
 
 /**
+ * Enable groups_events module.
+ */
+function groups_update_7107() {
+  if (!module_exists('groups_events')) {
+    module_enable(array('groups_events'));
+    drupal_flush_all_caches();
+  }
+}
+
+/**
  * Add markdown filter with permissions.
  */
 function _groups_add_markdown_filter() {
