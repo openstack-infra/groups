@@ -137,7 +137,8 @@
 
 /* === Upcoming events block === */
 
-.view-id-commons_events_upcoming {
+.view-id-commons_events_upcoming,
+.view-commons-events-upcoming {
   // Hide sort filter and event count
   .attachment-before,
   .view-filters {
@@ -147,21 +148,27 @@
     padding: 15px 0px;
     border-bottom: 1px solid #EBEFF4;
   }
+  .views-row-last {
+    border-bottom: 0px;
+  }
   .views-row:hover {
 
   }
   .views-row-first {
     padding-top: 0px;
   }
+  .views-field-title-field,
   h3 {
     margin: 0px;
     padding: 0px;
   }
+  .views-field-title-field a,
   h3 > a {
     color: #000;
     font-size: 14px;
     font-weight: 600;
   }
+  .views-field-field-date,
   .field-type-datetime {
     color: #DA422F;
     font-size: 10px;
@@ -169,6 +176,15 @@
   .field-type-addressfield {
     color: #333;
     font-style: italic;
+  }
+  .views-field-comment-count,
+  .views-field-capacity-used {
+    padding-top: 5px;
+    color: #8A959E;
+    font-size: 12px;
+  }
+  .more-link {
+    display: none;
   }
 }
 
@@ -225,6 +241,16 @@
 .page-node {
   h2.pane-title {
     color: #2A4E68;
+    margin-bottom: 25px;
+  }
+  .pane-groups-events-upcoming-events-panel-pane-1 h2.pane-title {
+    display: inline-block;
+    line-height: 16px;
+    font-size: 80%;
+    text-transform: uppercase;
+  }
+  .region-two-66-33-second h2.pane-title {
+    color: #2A4E68;
     font-weight: 300;
     font-size: 18px;
     margin-bottom: 25px;
@@ -240,6 +266,7 @@
     }
   }
   .pane-node-field-resource-links {
+    @extend .clearfix;
     border-top: 1px dotted #C5E2EA;
     margin-top: 25px;
     padding-top: 25px;
@@ -267,6 +294,10 @@
       font-size: 10px;
     }
   }
+  .pane-groups-events-upcoming-events-panel-pane-1 {
+    border-top: 1px dotted #C5E2EA;
+    margin-top: 25px;
+  }
 }
 
 .view-profile-badges {
@@ -285,6 +316,63 @@
     float: left;
     margin-right: 10px;
     margin-bottom: 10px;
+  }
+}
+
+/* === Event large teaser === */
+
+.event--large-teaser {
+  @extend .clearfix;
+  .container-first {
+    float: left;
+    width: 60%;
+  }
+  .container-second {
+    float: left;
+    width: 40%;
+  }
+  h3 {
+    margin-bottom: 5px;
+  }
+  h3 a {
+    color: #30739C;
+    font-weight: 400;
+    font-size: 24px;
+  }
+  .field-name-field-address {
+    margin-bottom: 10px;
+  }
+  .field-body {
+    color: #888;
+    line-height: 1.4;
+    font-size: 16px;
+    padding-bottom: 10px;
+  }
+  .field-date {
+    font-size: 18px;
+    color: #000;
+    font-weight: 300;
+    .date-part {
+      font-weight: 400;
+      font-size: 18px;
+    }
+    .date-display-start {
+    }
+    .date-display-end {
+    }
+  }
+  .field-name-field-organizers .field-label {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .field-name-field-organizers .field-item {
+    line-height: 20px;
+   }
+  .field-name-field-organizers a {
+    font-size: 12px;
+    color: #30739C;
+    line-height: 20px;
   }
 }
 

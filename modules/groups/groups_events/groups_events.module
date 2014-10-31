@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Groups Events feature.
+ */
+
+include_once 'groups_events.features.inc';
