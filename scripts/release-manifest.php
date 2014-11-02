@@ -101,6 +101,65 @@ function write_log($type, $message) {
 }
 
 /**
+ * Convert an array into SimpleXML recursively.
+ */
+function __append_elements($item, &$parent) {
+  foreach ($item as $k => $v) {
+    if (is_array($v)) {
+      $element = $parent->addChild($k);
+      __append_elements($v, $element);
+    } else {
+      $parent->addChild($k, $v);
+    }
+  }
+}
+
+/**
+ * Convert a SimpleXML into an array recursively.
+ */
+function simple_xml_to_array($xml){
+  $array = (array)$xml;
+  foreach ($array as $key => $value){
+    if($value instanceof SimpleXMLElement) {
+      $array[$key] = simple_xml_to_array($value);
+    } else {
+      $array[$key] = $value;
+    }
+  }
+  return $array;
+}
+
+/**
+ * Reorder release elements into a descending list by version_patch.
+ * Fix drush download issues.
+ */
+function order_release_elements($xml) {
+  $prod_releases = array();
+  $dev_releases = array();
+  $releases = $xml->xpath('releases/release');
+  foreach ($releases as $i => $release) {
+    if (isset($release->version_patch)) {
+      $prod_releases[(int)$release->version_patch] = simple_xml_to_array($release);
+    } else {
+      $dev_releases[(string)$release->version_extra] = simple_xml_to_array($release);
+    }
+  }
+  unset($xml->releases);
+  $releases = $xml->addChild('releases');
+  // reverse-order prod releases here
+  krsort($prod_releases);
+  foreach ($prod_releases as $item) {
+    $release = $releases->addChild('release');
+    __append_elements($item, $release);
+  }
+  foreach ($dev_releases as $item) {
+    $release = $releases->addChild('release');
+    __append_elements($item, $release);
+  }
+  return $xml;
+}
+
+/**
  * Validate and decode a Drupal format version string
  * into a key-value array.
  *
@@ -254,6 +313,8 @@ try {
     $xml = simplexml_load_string($manifest_template);
   }
   append_release($xml, $params['version'], $params['releasetar'], $params['md5']);
+  // reorder xml here
+  $xml = order_release_elements($xml);
   $xml_content = $xml->asXML();
   write_log(_LOG_DEBUG_, sprintf("Generated manifest:\n %s", $xml_content));
   file_put_contents($config['outfile'], $xml_content);
