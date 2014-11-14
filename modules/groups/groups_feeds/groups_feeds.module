@@ -5,6 +5,20 @@
  */
 
 /**
+ * Implements hook_menu().
+ */
+function groups_feeds_menu() {
+  $items['feed/groups.json'] = array(
+    'title' => 'Export groups data',
+    'description' => 'Export groups data in json format',
+    'page callback' => 'groups_feeds_json_export_groups',
+    'access callback' => TRUE,
+    'file' => 'groups_feeds.groups_json.inc',
+  );
+  return $items;
+}
+
+/**
  * Implements hook_feeds_plugins().
  */
 function groups_feeds_feeds_plugins() {
