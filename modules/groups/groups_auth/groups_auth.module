@@ -115,6 +115,7 @@ function groups_auth_form_user_register_form_alter(&$form, &$form_state) {
   if (isset($_SESSION['openid']['response'])) {
     module_load_include('inc', 'openid');
     $response = $_SESSION['openid']['response'];
+    echo "<pre>";print_r($response);die('-x-');
     if (!empty($response['openid.sreg.nickname'])) {
       $form['account']['name']['#default_value'] = $response['openid.sreg.nickname'];
     }
