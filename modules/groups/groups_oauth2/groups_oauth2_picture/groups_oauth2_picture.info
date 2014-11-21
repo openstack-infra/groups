@@ -1,0 +1,7 @@
+name = Groups OAuth2 Profile Picture
+description = "Profile Picture support for Groups OAuth2 authentication"
+core = 7.x
+package = Groups - Authentication
+
+version = "7.x-1.0"
+project = "groups"

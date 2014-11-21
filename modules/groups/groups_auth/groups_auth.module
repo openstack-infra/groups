@@ -36,6 +36,10 @@ function groups_auth_menu_alter(&$items) {
   $items['user/%user/openid']['page callback'] = 'groups_auth_user_identities';
   $items['user/%user/openid']['access callback'] = 'groups_auth_role_access';
   $items['user/%user/openid']['access arguments'] = array('administrator');
+  $items['user/%user/edit-profile']['access arguments'] = array('administrator');
+  $items['user/%user/edit-profile']['access callback'] = 'groups_auth_role_access';
+  $items['user/%user/edit']['access arguments'] = array('administrator');
+  $items['user/%user/edit']['access callback'] = 'groups_auth_role_access';
 }
 
 /**
@@ -138,10 +142,14 @@ function groups_auth_form_user_register_form_alter(&$form, &$form_state) {
  */
 
 function groups_auth_login() {
-  $return_to = url('openid/authenticate',
-    array('absolute' => TRUE, 'query' => array('destination' => '<front>')));
-  $openid_url = variable_get('groups_openid_provider', 'https://openstackid-dev.openstack.org');
-  openid_begin($openid_url, $return_to, array());
+  if (module_exists('groups_oauth2')) {
+    groups_oauth2_user_login_submit();
+  } else {
+    $return_to = url('openid/authenticate',
+      array('absolute' => TRUE, 'query' => array('destination' => '<front>')));
+    $openid_url = variable_get('groups_openid_provider', 'https://openstackid-dev.openstack.org');
+    openid_begin($openid_url, $return_to, array());
+  }
 }
 
 /**
@@ -176,6 +184,15 @@ function groups_auth_commons_utility_links_alter(&$links) {
   }
   if (isset($links['signup'])) {
     $links['signup']['href'] = 'login';
+  }
+  if (isset($links['name'])) {
+    $links['name']['title'] = t('View profile');
+  }
+  if (isset($links['logout'])) {
+    $links['logout']['weight'] = 1000;
+  }
+  if (isset($links['settings'])) {
+    unset($links['settings']);
   }
 }
 
