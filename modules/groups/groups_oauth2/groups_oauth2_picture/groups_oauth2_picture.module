@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * Implements hook_oauth2_user_save().
+ *
+ * Fetch profile picture from oauth2 provider and link it to
+ * Drupal user account.
+ *
+ * @param  $account
+ *   A user account array.
+ * @param  $userinfo
+ *   A user profile returned by oauth2 provider.
+ * @return
+ *   None.
+ */
+function groups_oauth2_picture_oauth2_user_save(&$account, $userinfo) {
+  if (variable_get('oauth2_fetch_profile_picture', FALSE)) {
+    $image_path = _groups_oauth2_get_profile_picture_filename($userinfo->picture);
+    $picture_result = drupal_http_request($userinfo->picture);
+    $picture_file = file_save_data($picture_result->data, $image_path, FILE_EXISTS_REPLACE);
+    $image_info = image_get_info($image_path);
+    $file = new StdClass();
+    $validators = array(
+      'file_validate_is_image' => array(),
+    );
+    $errors = file_validate($picture_file, $validators);
+    if (empty($errors)) {
+      $picture_file->uid = $account->uid;
+      $picture_file = file_save($picture_file);
+      file_usage_add($picture_file, 'user', 'user', $account->uid);
+      db_update('users')
+        ->fields(array(
+          'picture' => $picture_file->fid,
+        ))
+        ->condition('uid', $account->uid)
+        ->execute();
+    }
+  }
+  $account->data['oauth2_picture'] = $userinfo->picture;
+  user_save($account);
+}

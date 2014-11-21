@@ -49,7 +49,7 @@ function openstack_bootstrap_links__commons_utility_links(&$variables) {
     $variables['attributes']['class'][] = 'dropdown-menu-right';
     $output = '<div class="btn-group">';
     $output .= '<button class="btn dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
-    '.$GLOBALS['user']->name.'<span class="caret"></span>
+    '.format_username($user).'<span class="caret"></span>
   </button>';
     $output .= theme_links($variables);
     $output .= '</div>';
