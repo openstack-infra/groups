@@ -1,0 +1,6 @@
+name = Groups OAuth2
+description = "Groups Authentication module - uses OAuth2. Handle authentication to openstackid.org service"
+core = 7.x
+
+version = "7.x-1.0"
+project = "groups"
