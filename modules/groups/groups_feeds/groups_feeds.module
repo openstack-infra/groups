@@ -209,7 +209,7 @@ function groups_feeds_meetup_events_import($job) {
       while (FEEDS_BATCH_COMPLETE != $feedSource->import());
       $feedSource->log('import', 'Import meetup event: !url', array('!url' => $url), WATCHDOG_INFO);
     } catch (Exception $e) {
-      echo 'Failed to import feed: '.$url."\n";
+      $feedSource->log('import', 'Failed to import feed: !url', array('!url' => $url), WATCHDOG_ERROR);
     }
   }
   // reschedule, reset the reserved flag here
