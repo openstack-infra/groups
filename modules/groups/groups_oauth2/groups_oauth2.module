@@ -49,7 +49,7 @@ function groups_oauth2_user_login_submit() {
   if (isset($_GET['destination'])) {
     unset($_GET['destination']);
   }
-  $redirect_uri = url('oauth2/response', array('https' => FALSE, 'absolute' => TRUE));
+  $redirect_uri = url('oauth2/response', array('https' => $GLOBALS['is_https'], 'absolute' => TRUE));
   $url = _groups_oauth2_authorize_url('code', $redirect_uri, 'auto', 'profile email');
   drupal_goto($url);
 }
