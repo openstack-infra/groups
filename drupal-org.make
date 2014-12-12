@@ -9,7 +9,7 @@ projects[addressfield][version] = "1.0-beta5"
 
 projects[addressfield_tokens][type] = "module"
 projects[addressfield_tokens][subdir] = "contrib"
-projects[addressfield_tokens][version] = "1.4"
+projects[addressfield_tokens][version] = "1.5"
 
 projects[admin_icons][type] = "module"
 projects[admin_icons][subdir] = "contrib"
@@ -180,7 +180,7 @@ projects[flag_abuse][version] = "2.0"
 
 projects[google_analytics][type] = "module"
 projects[google_analytics][subdir] = "contrib"
-projects[google_analytics][version] = "2.0"
+projects[google_analytics][version] = "2.1"
 
 projects[gravatar][type] = "module"
 projects[gravatar][subdir] = "contrib"
