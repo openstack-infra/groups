@@ -75,3 +75,109 @@ function groups_groups_node_presave($node) {
     }
   }
 }
+
+/**
+ * Implements hook_theme()
+ *
+ * Define theme template for group node form.
+ */
+function groups_groups_theme() {
+  $path = drupal_get_path('module', 'groups_groups').'/templates';
+  return array(
+    'groups_groups_group_node_form' => array(
+      'arguments' => array('form' => NULL),
+      'template' => 'groups-groups--group-node-form',
+      'render element' => 'form',
+      'path' => $path,
+    ),
+  );
+}
+
+/**
+ * Implements hook_element_info_alter()
+ *
+ * Override filter_process_format.
+ *
+ * @see _groups_groups_set_default_format()
+ */
+function groups_groups_element_info_alter(&$type) {
+  if (isset($type['text_format']['#process'])) {
+    foreach ($type['text_format']['#process'] as &$callback) {
+      if ($callback === 'filter_process_format') {
+        $callback = '_groups_groups_set_default_format';
+      }
+    }
+  }
+}
+
+/**
+ * Callback to set body text format of group content type
+ * to markdown, and hide text filter form elements.
+ */
+function _groups_groups_set_default_format($element) {
+  // set body filter default to 'markdown'
+  $element = filter_process_format($element);
+  if (($element['#bundle'] == 'group') && ($element['#field_name'] == 'body')) {
+    // set default value to markdown
+    $element['format']['format']['#default_value'] = 'markdown';
+    // hide text format filter
+    $element['format']['#access'] = FALSE;
+  }
+  return $element;
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Override group node form.
+ */
+function groups_groups_form_alter(&$form, &$form_state, $form_id) {
+  global $user;
+  if ($form_id == 'group_node_form') {
+    $node = $form_state['node'];
+    $is_administrator = in_array('administrator', array_values($user->roles));
+    // hide group status field
+    $form['field_group_status']['#access'] = $is_administrator;
+    // hide location geofield
+    $form['field_geofield']['#access'] = $is_administrator;
+    // hide privacy settings field
+    $form['field_og_subscribe_settings']['#access'] = $is_administrator;
+    // hide group logo
+    $form['field_group_logo']['#access'] = false;
+
+    $form['field_group_location']['und'][0]['location']['#title'] = 'City (optional)';
+    // reorder resource links, group location
+    $form['field_resource_links']['#weight'] = 21;
+    $form['revision_information']['#access'] = $is_administrator;
+    $form['topics_wrapper']['#access'] = $is_administrator;
+    $form['actions']['preview']['#access'] = false;
+    if (!isset($node->nid) || isset($node->is_new)) {
+      $form['#theme'] = 'groups_groups_group_node_form';
+      $form['actions']['submit']['#value'] = t('Register user group');
+      $form['field_resource_links']['#access'] = false;
+      $form['accept_terms'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('I have read and agree the !termsurl and !eventurl', array(
+            '!termsurl' => l(t('Terms and Conditions'), '#'), // TODO: specify url here
+            '!eventurl' => l(t('OpenStack Event Policy'), 'http://www.openstack.org/brand/event-policy/'),
+          )),
+        '#weight' => 22,
+      );
+       $form['field_group_location']['und'][0]['#title'] = '';
+       $form['title_field']['und'][0]['#title'] = 'Name of the User Group';
+       $form['body']['und'][0]['#title'] = 'Tell a few words about your User Group';
+    }
+    $form['#validate'][] = 'groups_groups_group_node_form_validate';
+  }
+}
+
+/**
+ * Group node form validate callback.
+ *
+ * Validate the Terms and Conditions checkbox status.
+ */
+function groups_groups_group_node_form_validate($form, &$form_state) {
+  if ((isset($form_state['values']['accept_terms'])) && ($form_state['values']['accept_terms'] != 1)) {
+    form_set_error('accept_terms', t('You must accept the Terms and Conditions.'));
+  }
+}
