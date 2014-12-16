@@ -5,6 +5,42 @@
  */
 
 /**
+ * Implements hook_field_default_field_bases_alter
+ *
+ * Override field base settings defined in module features.
+ */
+function groups_groups_field_default_field_bases_alter(&$fields) {
+  // Override og_group_ref field's Groups Field Settings -> Entity Selection
+  // Organic Group's default filter enlist the groups where the user is
+  // a group owner.
+  if (isset($fields['og_group_ref'])) {
+    $fields['og_group_ref']['settings']['handler'] = 'og';
+  }
+}
+
+/**
+ * Implements hook_field_default_field_instances_alter
+ *
+ * Override field instance settings defined in commons_groups module.
+ */
+function groups_groups_field_default_field_instances_alter(&$fields) {
+  $commons_groups_entity_types = commons_groups_get_group_content_entity_types();
+  if (!empty($commons_groups_entity_types)) {
+    foreach ($commons_groups_entity_types as $entity_type => $bundles) {
+      foreach(array_keys($bundles) as $bundle) {
+        // Set Entity reference widget type to Check boxes on commons
+        // entity types including an og_group_ref field.
+        if (isset($fields["$entity_type-$bundle-og_group_ref"])) {
+          $widget = &$fields["$entity_type-$bundle-og_group_ref"]['settings']['behaviors']['og_widget'];
+          $widget['admin']['widget_type'] = 'options_buttons';
+          $widget['default']['widget_type'] = 'options_buttons';
+        }
+      }
+    }
+  }
+}
+
+/**
  * Implement hook_node_prepare
  *
  * Add a default published status to group content type.
