@@ -14,6 +14,8 @@
  *   None.
  */
 function groups_oauth2_picture_oauth2_user_save(&$account, $userinfo) {
+  $account->data['oauth2_picture'] = $userinfo->picture;
+  user_save($account);
   if (variable_get('oauth2_fetch_profile_picture', FALSE)) {
     $image_path = _groups_oauth2_get_profile_picture_filename($userinfo->picture);
     $picture_result = drupal_http_request($userinfo->picture);
@@ -36,6 +38,4 @@ function groups_oauth2_picture_oauth2_user_save(&$account, $userinfo) {
         ->execute();
     }
   }
-  $account->data['oauth2_picture'] = $userinfo->picture;
-  user_save($account);
 }
