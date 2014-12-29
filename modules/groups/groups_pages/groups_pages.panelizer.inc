@@ -128,6 +128,28 @@ function groups_pages_panelizer_defaults() {
     $display->content['new-4D07DA83-5650-4EE6-AA34-DEBDE8467ADB'] = $pane;
     $display->panels['two_66_33_first'][2] = 'new-4D07DA83-5650-4EE6-AA34-DEBDE8467ADB';
     $pane = new stdClass();
+    $pane->pid = 'new-0E5D035F-F2A0-4A1A-A237-3360F3284ED9';
+    $pane->panel = 'two_66_33_first';
+    $pane->type = 'commons_bw_group';
+    $pane->subtype = 'commons_bw_group';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'override_title' => 0,
+      'override_title_text' => '',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 3;
+    $pane->locks = array();
+    $pane->uuid = '0E5D035F-F2A0-4A1A-A237-3360F3284ED9';
+    $display->content['new-0E5D035F-F2A0-4A1A-A237-3360F3284ED9'] = $pane;
+    $display->panels['two_66_33_first'][3] = 'new-0E5D035F-F2A0-4A1A-A237-3360F3284ED9';
+    $pane = new stdClass();
     $pane->pid = 'new-0702E7C9-CCB9-4EA3-B2C5-7D1ACDF55BD5';
     $pane->panel = 'two_66_33_second';
     $pane->type = 'entity_field';
