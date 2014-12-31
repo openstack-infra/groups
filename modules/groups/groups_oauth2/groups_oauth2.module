@@ -299,11 +299,10 @@ function groups_oauth2_username_alter(&$name, $account) {
     // Don't alter anonymous users or objects that do not have any user ID.
     return;
   }
+  $user_account = user_load($account->uid);
   // Name was loaded/generated via hook_user_load(), so re-use it.
-  if (isset($account->data['oauth2_fullname'])) {
-    if (drupal_strlen($account->data['oauth2_fullname'])) {
-      $name = $account->data['oauth2_fullname'];
-    }
+  if (isset($user_account->data['oauth2_fullname'])) {
+    $name = $user_account->data['oauth2_fullname'];
     return;
   }
   // Real name was not yet available for the account so we need to generate it.
