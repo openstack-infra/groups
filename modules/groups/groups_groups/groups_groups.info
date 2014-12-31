@@ -12,6 +12,7 @@ dependencies[] = geocoder
 dependencies[] = geofield
 dependencies[] = list
 dependencies[] = options
+dependencies[] = groups_common
 features[features_api][] = api:2
 features[field_base][] = field_geofield
 features[field_base][] = field_group_location

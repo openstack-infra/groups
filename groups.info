@@ -151,6 +151,7 @@ dependencies[] = groups_directory
 dependencies[] = groups_footer
 dependencies[] = groups_homepage
 dependencies[] = groups_common
+dependencies[] = groups_comment
 dependencies[] = groups_auth
 dependencies[] = groups_oauth2
 dependencies[] = groups_oauth2_picture

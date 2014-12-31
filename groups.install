@@ -192,6 +192,16 @@ function groups_update_7108() {
 }
 
 /**
+ * Enable groups_comment module.
+ */
+function groups_update_7109() {
+  if ((!module_exists('groups_comment')) && (!module_exists('groups_comment'))) {
+    module_enable(array('groups_comment'));
+    drupal_flush_all_caches();
+  }
+}
+
+/**
  * Add markdown filter with permissions.
  */
 function _groups_add_markdown_filter() {

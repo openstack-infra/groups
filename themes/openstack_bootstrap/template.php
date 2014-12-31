@@ -145,8 +145,6 @@ function openstack_bootstrap_preprocess_node(&$variables, $hook) {
       '!date' => $variables['date'],
       '@interval' => format_interval(REQUEST_TIME - $node->created),
     );
-    // $node_user = user_load($node->uid);
-    // $placeholders['!user'] = format_username($node_user);
     if (!empty($node->{OG_AUDIENCE_FIELD}) && $wrapper->{OG_AUDIENCE_FIELD}->count() == 1) {
       $placeholders['!group'] = l($wrapper->{OG_AUDIENCE_FIELD}->get(0)->label(), 'node/' . $wrapper->{OG_AUDIENCE_FIELD}->get(0)->getIdentifier());
       if ($use_timeago_date_format == TRUE) {

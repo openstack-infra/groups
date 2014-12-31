@@ -33,3 +33,21 @@ function groups_groups_update_7302() {
     $wrapper->save();
   }
 }
+
+/**
+ * Disable commenting on existing group nodes.
+ */
+function groups_groups_update_7303() {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'group');
+  $result = $query->execute();
+  if (isset($result['node'])) {
+    $nids = array_keys($result['node']);
+    $nodes = node_load_multiple($nids, NULL, TRUE);
+    foreach ($nodes as $node) {
+      $node->comment = 0;
+      node_save($node);
+    }
+  }
+}

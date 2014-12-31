@@ -130,36 +130,17 @@ function groups_groups_theme() {
 }
 
 /**
- * Implements hook_element_info_alter()
+ * Implements hook_text_format_alter.
  *
- * Override filter_process_format.
- *
- * @see _groups_groups_set_default_format()
+ * Set default text format to markdown for the group/body field.
  */
-function groups_groups_element_info_alter(&$type) {
-  if (isset($type['text_format']['#process'])) {
-    foreach ($type['text_format']['#process'] as &$callback) {
-      if ($callback === 'filter_process_format') {
-        $callback = '_groups_groups_set_default_format';
-      }
-    }
-  }
-}
-
-/**
- * Callback to set body text format of group content type
- * to markdown, and hide text filter form elements.
- */
-function _groups_groups_set_default_format($element) {
-  // set body filter default to 'markdown'
-  $element = filter_process_format($element);
+function groups_groups_text_format_alter(&$element) {
   if (($element['#bundle'] == 'group') && ($element['#field_name'] == 'body')) {
     // set default value to markdown
     $element['format']['format']['#default_value'] = 'markdown';
     // hide text format filter
     $element['format']['#access'] = FALSE;
   }
-  return $element;
 }
 
 /**

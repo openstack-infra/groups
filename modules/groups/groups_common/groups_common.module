@@ -36,3 +36,32 @@ function groups_common_commons_utility_links_alter(&$links) {
     $links['signup']['title'] = t('Sign in');
   }
 }
+
+/**
+ * Implements hook_element_info_alter()
+ *
+ * Override filter_process_format.
+ *
+ * @see _groups_common_filter_process_format()
+ */
+function groups_common_element_info_alter(&$type) {
+  if (isset($type['text_format']['#process'])) {
+    foreach ($type['text_format']['#process'] as &$callback) {
+      if ($callback === 'filter_process_format') {
+        $callback = '_groups_common_filter_process_format';
+      }
+    }
+  }
+}
+
+/**
+ * Callback to for text_format_alter hooks.
+ */
+function _groups_common_filter_process_format($element) {
+  $element = filter_process_format($element);
+  foreach (module_implements('text_format_alter') as $module) {
+    $function = $module . '_text_format_alter';
+    $function($element);
+  }
+  return $element;
+}

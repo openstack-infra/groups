@@ -278,6 +278,7 @@ function groups_demo_create_group($title, $location, $attributes = null) {
   $group->created = time() - 604800;
   $group->status = 1;
   $group->field_group_location[LANGUAGE_NONE][0] = $location;
+  $group->comment = 0; // disable comments
   if (isset($attributes)) {
     $attr = array();
     foreach ($attributes as $attribute) {
