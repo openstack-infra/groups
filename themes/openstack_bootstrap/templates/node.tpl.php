@@ -112,8 +112,8 @@ $links_attributes = '';
 $footer_attributes = '';
 ?>
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
+  <?php print $user_picture; ?>
   <?php if ($title && !$page): ?>
-    <?php print $user_picture; ?>
     <header<?php print $header_attributes; ?>>
       <?php print render($title_prefix); ?>
         <h2<?php print $title_attributes; ?>>
@@ -125,7 +125,7 @@ $footer_attributes = '';
 
   <?php if(!empty($user_picture) || $display_submitted): ?>
     <footer<?php print $footer_attributes; ?>>
-      <p class="author-datetime"><?php print $submitted_; ?></p>
+      <div class="author-datetime"><?php print $submitted_; ?></div>
     </footer>
   <?php endif; ?>
 

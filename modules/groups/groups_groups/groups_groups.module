@@ -135,7 +135,8 @@ function groups_groups_theme() {
  * Set default text format to markdown for the group/body field.
  */
 function groups_groups_text_format_alter(&$element) {
-  if (($element['#bundle'] == 'group') && ($element['#field_name'] == 'body')) {
+  $bundles = array('group', 'post');
+  if ((in_array($element['#bundle'], $bundles)) && ($element['#field_name'] == 'body')) {
     // set default value to markdown
     $element['format']['format']['#default_value'] = 'markdown';
     // hide text format filter

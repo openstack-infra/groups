@@ -116,6 +116,8 @@ function openstack_bootstrap_preprocess_form_content(&$variables, $hook) {
  * Override or insert variables into the node templates.
  */
 function openstack_bootstrap_preprocess_node(&$variables, $hook) {
+  //dpm($variables['content']['links']);
+  dpm($variables['content']);
   $node = $variables['node'];
   $wrapper = entity_metadata_wrapper('node', $node);
   // Use timeago module for formatting node submission date
@@ -167,4 +169,29 @@ function openstack_bootstrap_preprocess_node(&$variables, $hook) {
   // overwrites the original submitted variable, so we are passing submitted_ now.
   // @see templates/node.tpl.php
   $variables['submitted_'] = $variables['submitted'];
+
+  // Remove the group output from nodes
+  if (isset($variables['content']['og_group_ref'])) {
+    unset($variables['content']['og_group_ref']);
+  }
+  // Remove the like link
+  if (isset($variables['content']['rate_commons_like'])) {
+    unset($variables['content']['rate_commons_like']);
+  }
+  $content_nodes = array('post');
+  if (!$variables['teaser'] && in_array($node->type, $content_nodes)) {
+    // remove add new comment from non-teaser view modes.
+    if (isset($variables['content']['links']['comment'])) {
+      unset($variables['content']['links']['comment']);
+    }
+    if (isset($variables['content']['links']['rate'])) {
+      unset($variables['content']['links']['rate']);
+    }
+    if (isset($variables['content']['links']['flag']['#links']['flag-inappropriate_node'])) {
+      unset($variables['content']['links']['flag']['#links']['flag-inappropriate_node']);
+    }
+    // if (isset($variables['content']['links']['flag'])) {
+    //   unset($variables['content']['links']['flag']);
+    // }
+  }
 }
