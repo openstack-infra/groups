@@ -110,7 +110,6 @@ dependencies[] = commons_search
 dependencies[] = commons_search_core
 dependencies[] = commons_social_sharing
 dependencies[] = commons_utility_links
-dependencies[] = commons_wikis
 dependencies[] = commons_wysiwyg
 
 ; Disabled commons modules

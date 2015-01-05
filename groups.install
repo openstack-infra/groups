@@ -202,6 +202,16 @@ function groups_update_7109() {
 }
 
 /**
+ * Disable commons_wiki module.
+ */
+function groups_update_7110() {
+  if (module_exists('commons_wiki')) {
+    module_disable(array('groups_comment'));
+    drupal_flush_all_caches();
+  }
+}
+
+/**
  * Add markdown filter with permissions.
  */
 function _groups_add_markdown_filter() {
