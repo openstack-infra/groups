@@ -146,10 +146,23 @@ function groups_groups_text_format_alter(&$element) {
 /**
  * Implements hook_form_alter().
  *
- * Override group node form.
+ * Override group node form and alter content forms.
  */
 function groups_groups_form_alter(&$form, &$form_state, $form_id) {
   global $user;
+  // ensure group is selected for non-administrator users and
+  // make the og_group_ref field mandatory.
+  $commons_entity_integrations = commons_entity_integration_info();
+  if (!empty($commons_entity_integrations['node'])) {
+    foreach ($commons_entity_integrations['node'] as $bundle => $options) {
+      if ($form_id == $bundle.'_node_form') {
+        $is_administrator = in_array('administrator', array_values($user->roles));
+        if ($is_administrator == false) {
+          $form['og_group_ref'][LANGUAGE_NONE][0]['#required'] = true;
+        }
+      }
+    }
+  }
   if ($form_id == 'group_node_form') {
     $node = $form_state['node'];
     $is_administrator = in_array('administrator', array_values($user->roles));
@@ -196,5 +209,30 @@ function groups_groups_form_alter(&$form, &$form_state, $form_id) {
 function groups_groups_group_node_form_validate($form, &$form_state) {
   if ((isset($form_state['values']['accept_terms'])) && ($form_state['values']['accept_terms'] != 1)) {
     form_set_error('accept_terms', t('You must accept the Terms and Conditions.'));
+  }
+}
+
+/**
+ * Implements hook_og_user_access_alter().
+ *
+ * Revert the commons_groups_og_user_access_alter() hook, and disable content
+ * creation for non-group members on publicly visible groups.
+ *
+ * @see commons_groups_og_user_access_alter()
+ */
+function groups_groups_og_user_access_alter(&$perm, $context) {
+  $account = $context['account'];
+  $group_type = $context['group_type'];
+  $group = $context['group'];
+  if ($group_type != 'node') {
+    return;
+  }
+  if (og_is_member($group_type, $group->nid, 'user', $account, array(OG_STATE_ACTIVE, OG_STATE_PENDING, OG_STATE_BLOCKED))) {
+    // The user is a group member, so comply to the OG permissions.
+    return;
+  }
+  $commons_groups_entity_types = commons_groups_get_group_content_entity_types();
+  foreach (array_keys($commons_groups_entity_types['node']) as $type) {
+    $perm["create $type content"] = FALSE;
   }
 }
