@@ -116,8 +116,6 @@ function openstack_bootstrap_preprocess_form_content(&$variables, $hook) {
  * Override or insert variables into the node templates.
  */
 function openstack_bootstrap_preprocess_node(&$variables, $hook) {
-  //dpm($variables['content']['links']);
-  dpm($variables['content']);
   $node = $variables['node'];
   $wrapper = entity_metadata_wrapper('node', $node);
   // Use timeago module for formatting node submission date
