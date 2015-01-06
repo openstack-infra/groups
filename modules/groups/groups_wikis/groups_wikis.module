@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * Implements hook_commons_bw_group_widget_alter()
+ */
+function groups_wikis_commons_bw_group_widget_alter(&$tabs) {
+  // Remove wikis from tabs
+  if (isset($tabs['commons_wikis'])) {
+    unset($tabs['commons_wikis']);
+  }
+}
+
+/**
+ * Implements hook_menu_alter()
+ *
+ * Disable wiki content type related menus.
+ */
+function groups_wikis_menu_alter(&$items) {
+  $items['node/add/wiki']['access callback'] = FALSE;
+}
