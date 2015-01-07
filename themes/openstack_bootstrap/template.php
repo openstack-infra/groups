@@ -176,7 +176,7 @@ function openstack_bootstrap_preprocess_node(&$variables, $hook) {
   if (isset($variables['content']['rate_commons_like'])) {
     unset($variables['content']['rate_commons_like']);
   }
-  $content_nodes = array('post');
+  $content_nodes = array('post', 'question', 'poll');
   if (!$variables['teaser'] && in_array($node->type, $content_nodes)) {
     // remove add new comment from non-teaser view modes.
     if (isset($variables['content']['links']['comment'])) {
@@ -188,8 +188,17 @@ function openstack_bootstrap_preprocess_node(&$variables, $hook) {
     if (isset($variables['content']['links']['flag']['#links']['flag-inappropriate_node'])) {
       unset($variables['content']['links']['flag']['#links']['flag-inappropriate_node']);
     }
-    // if (isset($variables['content']['links']['flag'])) {
-    //   unset($variables['content']['links']['flag']);
-    // }
+  }
+  // Remove Log in or register from comments
+  openstack_bootstrap_preprocess_comment($variables);
+}
+
+/**
+ * Implements hook_preprocess_comment()
+ */
+function openstack_bootstrap_preprocess_comment(&$variables) {
+  // Remove Log in or register from comments
+  if (isset($variables['content']['links']['comment']['#links']['comment_forbidden'])) {
+    unset($variables['content']['links']['comment']['#links']['comment_forbidden']);
   }
 }
