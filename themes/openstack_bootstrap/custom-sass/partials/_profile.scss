@@ -1,0 +1,42 @@
+.page-user .profile {
+  margin-top: 1em;
+  margin-left: 120px;
+  color: #888;
+  line-height: 1.4;
+  a {
+    color: #30739C;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  .picture img {
+    width: 100px;
+  }
+  .profile-sidebar {
+    float: left;
+    margin-left: -120px;
+  }
+  .field-name-og-user-node {
+    .field-label {
+      color: #2A4E68;
+      font-weight: 300;
+      margin-bottom: 25px;
+      margin-top: 20px;
+      text-align: left;
+      font-size: 30px;
+    }
+    .field-items .field-item {
+      display: inline-block;
+      padding-right: 1em;
+    }
+  }
+  h3 {
+      color: #2A4E68;
+      font-weight: 300;
+      margin-bottom: 25px;
+      margin-top: 20px;
+      text-align: left;
+      font-size: 30px;
+  }
+}
