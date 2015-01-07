@@ -202,3 +202,14 @@ function openstack_bootstrap_preprocess_comment(&$variables) {
     unset($variables['content']['links']['comment']['#links']['comment_forbidden']);
   }
 }
+
+/**
+ * Implements template_preprocess_views_view()
+ */
+function openstack_bootstrap_preprocess_views_view(&$variables) {
+  $view = $variables['view'];
+  // Remove exposed filters from Browsing Widget
+  if (strpos($view->name, 'commons_bw_') !== false) {
+    $variables['exposed'] = '';
+  }
+}
