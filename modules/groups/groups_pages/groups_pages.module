@@ -27,6 +27,13 @@ function groups_pages_preprocess_field(&$variables) {
         $variables['items'][0]['#options']['attributes']['class'][] = 'btn';
         $variables['items'][0]['#options']['attributes']['class'][] = 'btn-default';
         $variables['items'][0]['#prefix'] = '<p>'.t('Join to our user group, participate on local events, contribute to our community, and stay informed about latest news.').'</p>';
+        // redirect to custom login page when user not logged in
+        if ($variables['items'][0]['#href'] == 'user/login') {
+          $variables['items'][0]['#href'] = 'login';
+          if (isset($variables['items'][0]['#options']['query']['destination'])) {
+            unset($variables['items'][0]['#options']['query']['destination']);
+          }
+        }
         break;
       case 'group unsubscribe':
         $variables['items'][0]['#title'] = 'x '.$variables['items'][0]['#title'];
