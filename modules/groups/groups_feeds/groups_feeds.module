@@ -194,6 +194,9 @@ function groups_feeds_user_groups_import($job) {
 /**
  * Meetup events import worker.
  *
+ * Import events from meetup ical feed, if not disabled in
+ * groups_sync_event_<group-id> variable.
+ *
  * @param  array $job Associative array of job parameters. When set to
  *   NULL, won't reschedule the job.
  */
@@ -204,12 +207,15 @@ function groups_feeds_meetup_events_import($job) {
     $feedSource = feeds_source('ical_feed_importer');
     $config = $feedSource->getConfig();
     $config['FeedsHTTPFetcher']['source'] = $url;
+    $config['FeedsHTTPFetcher']['nid'] = $meetup_link['nid'];
     $feedSource->setConfig($config);
-    try {
-      while (FEEDS_BATCH_COMPLETE != $feedSource->import());
-      $feedSource->log('import', 'Import meetup event: !url', array('!url' => $url), WATCHDOG_INFO);
-    } catch (Exception $e) {
-      $feedSource->log('import', 'Failed to import feed: !url', array('!url' => $url), WATCHDOG_ERROR);
+    if (variable_get('groups_sync_event_'.$meetup_link['nid'], TRUE)) {
+      try {
+        while (FEEDS_BATCH_COMPLETE != $feedSource->import());
+        $feedSource->log('import', 'Import meetup event: !url', array('!url' => $url), WATCHDOG_INFO);
+      } catch (Exception $e) {
+        $feedSource->log('import', 'Failed to import feed: !url', array('!url' => $url), WATCHDOG_ERROR);
+      }
     }
   }
   // reschedule, reset the reserved flag here
@@ -558,6 +564,14 @@ function groups_feeds_feeds_presave($source, $entity, $item) {
       $geofield = geofield_get_values_from_geometry($geom);
       $geofield['geom'] = 'POINT (' . $location['lng'] . ' ' . $location['lat'] . ')';
       $entity->field_geofield = array('und'=>array($geofield));
+    }
+  }
+  if (($entity->feeds_item->entity_type == 'node') &&
+    ($entity->feeds_item->id == 'ical_feed_importer')) {
+    // assign group node id to the event
+    $config = $source->getConfig();
+    if (isset($config['FeedsHTTPFetcher']['nid'])) {
+      $entity->og_group_ref[LANGUAGE_NONE][0]['target_id'] = $config['FeedsHTTPFetcher']['nid'];
     }
   }
 }

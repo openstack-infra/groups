@@ -63,3 +63,14 @@ function groups_feeds_update_7302() {
 function groups_feeds_update_7303() {
   groups_feeds_update_7302();
 }
+
+/**
+ * Enforce update of all events imported by ical_feed_importer.
+ * Required to re-assign group ids to specific events.
+ */
+function groups_feeds_update_7304() {
+  $result = db_update('feeds_item')->
+    fields(array('hash' => '0'))
+    ->condition('id', 'ical_feed_importer', '=')
+    ->execute();
+}
