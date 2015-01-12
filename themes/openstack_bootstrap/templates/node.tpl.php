@@ -113,6 +113,9 @@ $footer_attributes = '';
 ?>
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <?php print $user_picture; ?>
+  <?php if ($type == 'group'): ?>
+    <div class="group-status-logo"></div>
+  <?php endif; ?>
   <?php if ($title && !$page): ?>
     <header<?php print $header_attributes; ?>>
       <?php print render($title_prefix); ?>

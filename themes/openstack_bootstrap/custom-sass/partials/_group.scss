@@ -138,3 +138,36 @@
     float: left;
   }
 }
+
+.group-status-logo {
+  background: url(../images/group-logo.png);
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  display: block;
+  margin-left: -40px;
+  margin-top: 2px;
+  float: left;
+}
+
+.node-group.group-status-unsupported .group-status-logo {
+  background-position: -32px 0px;
+}
+
+.node-group.group-status-official .group-status-logo {
+  background-position: 0px 0px;
+}
+
+.field-name-field-group-status {
+  margin-top: 0.5em;
+  color: #000;
+  font-size: 14px;
+  font-weight: 600;
+  .group-status-logo {
+    background: url(../images/group-logo-small.png);
+    width: 16px;
+    height: 16px;
+    margin-left: 0px;
+    margin-right: 4px;
+  }
+}
