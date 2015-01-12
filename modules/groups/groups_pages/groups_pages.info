@@ -16,4 +16,4 @@ features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
 features[panelizer_defaults][] = node:group:default
 features[variable][] = panelizer_defaults_node_group
-mtime = 1418722134
+mtime = 1420554875
