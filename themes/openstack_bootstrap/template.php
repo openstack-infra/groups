@@ -24,6 +24,20 @@ function openstack_bootstrap_preprocess_page(&$variables) {
   }
 }
 
+/**
+ * Implements hook_preprocess_field().
+ */
+function openstack_bootstrap_preprocess_field(&$variables, $hook) {
+  if ($node = menu_get_object()) {
+    if (($node->type == 'group') && ($variables['field_name_css'] == 'field-group-status')) {
+      // unset($variables['element']);
+      // echo "<pre>";print_r($variables);
+      $status = $node->field_group_status[LANGUAGE_NONE][0]['value'] == 1;
+      $variables['items'][0]['#markup'] = $status ? '<div class="group-status-logo"></div>'.t('Official user group') : '';
+      // die('-x-');
+    }
+  }
+}
 
 /**
  * Implements hook_page_alter().
@@ -188,6 +202,11 @@ function openstack_bootstrap_preprocess_node(&$variables, $hook) {
     if (isset($variables['content']['links']['flag']['#links']['flag-inappropriate_node'])) {
       unset($variables['content']['links']['flag']['#links']['flag-inappropriate_node']);
     }
+  }
+  // Add group-status-[official|unsupported] class to css
+  if ($node->type == 'group') {
+    $status = $node->field_group_status[LANGUAGE_NONE][0]['value'] == 1;
+    $variables['classes_array'][] = $status ? 'group-status-official' : 'group-status-unsupported';
   }
   // Remove Log in or register from comments
   openstack_bootstrap_preprocess_comment($variables);
