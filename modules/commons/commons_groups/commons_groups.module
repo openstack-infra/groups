@@ -508,6 +508,10 @@ function commons_groups_token_info() {
     'name' => t('"In groups" text'),
     'description' => t('The text (starting with "in the groups") indicating which groups a peice of content belongs to.'),
   );
+  $tokens['node']['commons-groups-first-group'] = array(
+    'name' => t('First Group'),
+    'description' => t('First group associated with a piece of content. Useful for path aliases'),
+  );
   $tokens['node']['commons-groups-group-contributors-count-topics'] = array(
     'name' => t('Commons Groups: Group contributor count and topics'),
     'description' => t('Displays text showing the number of contributors and the topics associated with a group node.'),
@@ -575,6 +579,26 @@ function commons_groups_tokens($type, $tokens, $data = array(), $options = array
       // Generate the appropriate text depending on the number of groups
       // associated with the message:
       $replacements['[commons-groups:in-groups-text]'] = commons_groups_related_groups_text($related_groups);
+      return $replacements;
+    }
+  }
+  if ($type == 'node' && !empty($data['node'])) {
+    if (!empty($tokens['commons-groups-first-group'])) {
+      $group = $data['node'];
+      $text = '';
+
+      if (!empty($group->og_group_ref[LANGUAGE_NONE])) {
+        $wrapper = entity_metadata_wrapper('node', $group);
+        $groups = $wrapper->og_group_ref->value();
+
+        // Return the title of the first group associated with this node.
+        $first_group = array_shift($groups);
+
+        // Use the title field by default and fall back to the node title.
+        $first_group_wrapper = entity_metadata_wrapper('node', $first_group);
+        $text = isset($first_group_wrapper->title_field) ? $first_group_wrapper->title_field->value() : $first_group_wrapper->label();
+      }
+      $replacements['[node:commons-groups-first-group]'] = $text;
       return $replacements;
     }
   }
