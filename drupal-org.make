@@ -593,6 +593,10 @@ projects[markdown][type] = "module"
 projects[markdown][subdir] = "contrib"
 projects[markdown][version] = "1.2"
 
+projects[smtp][type] = "module"
+projects[smtp][subdir] = "contrib"
+projects[smtp][version] = "1.2"
+
 ; Contributed themes.
 
 projects[zen][type] = "theme"

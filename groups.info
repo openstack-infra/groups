@@ -81,6 +81,7 @@ dependencies[] = views
 dependencies[] = views_bulk_operations
 dependencies[] = views_ui
 dependencies[] = votingapi
+dependencies[] = smtp
 
 ; Install commons specific modules
 dependencies[] = commons_activity_streams

@@ -225,6 +225,16 @@ function groups_update_7111() {
 }
 
 /**
+ * Enable smtp module.
+ */
+function groups_update_7112() {
+  if (!module_exists('smtp')) {
+    module_enable(array('smtp'));
+    drupal_flush_all_caches();
+  }
+}
+
+/**
  * Add markdown filter with permissions.
  */
 function _groups_add_markdown_filter() {
