@@ -203,7 +203,7 @@ function groups_feeds_user_groups_import($job) {
 function groups_feeds_meetup_events_import($job) {
   $meetup_links = groups_feeds_get_meetup_links();
   foreach ($meetup_links as $meetup_link) {
-    $url = $meetup_link['url'].'/events/ical/';
+    $url = rtrim($meetup_link['url'], '/events/ical/';
     $feedSource = feeds_source('ical_feed_importer');
     $config = $feedSource->getConfig();
     $config['FeedsHTTPFetcher']['source'] = $url;
@@ -422,7 +422,7 @@ function groups_feeds_get_meetup_links() {
  * @param  class $node  node prepared to save
  */
 function groups_feeds_node_presave($node) {
-  if ($node->type == 'page') {
+  if (($node->type == 'page') || ($node->type == 'event')) {
     // set title attribute of node
     $node->title = $node->title_field['und'][0]['value'];
   }
