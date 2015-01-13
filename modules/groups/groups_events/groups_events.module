@@ -14,3 +14,11 @@ function groups_events_ctools_plugin_directory($module, $plugin) {
     return 'plugins/' . $plugin;
   }
 }
+
+/**
+ * Implements hook_menu_alter()
+ */
+function groups_events_menu_alter(&$items) {
+  // show attendees tab for logged-in users only
+  $items['node/%node/attendees']['access callback'] = 'user_is_logged_in';
+}

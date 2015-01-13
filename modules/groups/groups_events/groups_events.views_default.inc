@@ -28,11 +28,9 @@ function groups_events_views_default_views() {
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'load_more';
+  $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['pager']['options']['id'] = '0';
-  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
   /* Field: Content: Title */
@@ -126,14 +124,12 @@ function groups_events_views_default_views() {
   /* Display: Group pane */
   $handler = $view->new_display('panel_pane', 'Group pane', 'panel_pane_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Upcoming events';
+  $handler->display->display_options['title'] = 'Upcoming event';
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'load_more';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '3';
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '1';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['pager']['options']['id'] = '0';
-  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
@@ -247,6 +243,7 @@ function groups_events_views_default_views() {
   /* Display: Landing Page pane */
   $handler = $view->new_display('panel_pane', 'Landing Page pane', 'panel_pane_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Upcoming events';
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['exposed_form'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -268,18 +265,18 @@ function groups_events_views_default_views() {
   $handler->display->display_options['empty']['area']['content'] = 'No events have been created yet.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Content: Promoted to front page */
-  $handler->display->display_options['sorts']['promote']['id'] = 'promote';
-  $handler->display->display_options['sorts']['promote']['table'] = 'node';
-  $handler->display->display_options['sorts']['promote']['field'] = 'promote';
-  $handler->display->display_options['sorts']['promote']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['promote']['expose']['label'] = 'Featured';
   /* Sort criterion: Content: Date -  start date (field_date) */
   $handler->display->display_options['sorts']['field_date_value']['id'] = 'field_date_value';
   $handler->display->display_options['sorts']['field_date_value']['table'] = 'field_data_field_date';
   $handler->display->display_options['sorts']['field_date_value']['field'] = 'field_date_value';
   $handler->display->display_options['sorts']['field_date_value']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['field_date_value']['expose']['label'] = 'Date';
+  /* Sort criterion: Content: Promoted to front page */
+  $handler->display->display_options['sorts']['promote']['id'] = 'promote';
+  $handler->display->display_options['sorts']['promote']['table'] = 'node';
+  $handler->display->display_options['sorts']['promote']['field'] = 'promote';
+  $handler->display->display_options['sorts']['promote']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['promote']['expose']['label'] = 'Featured';
   $handler->display->display_options['inherit_panels_path'] = '1';
   $export['groups_events_upcoming_events'] = $view;
 

@@ -1,0 +1,22 @@
+.pane-content .node-event,
+.view-groups-events-upcoming-events {
+  p {
+    font-size: 14px;
+    line-height: 1em;
+    color: #888;
+    a {
+      color: #30739C;
+      text-decoration: underline;
+    }
+  }
+}
+
+.pane-content .node-event {
+  .field-name-field-date {
+    color: #DA422F;
+  }
+}
+
+.nav-tabs {
+  margin-bottom: 0.5em;
+}

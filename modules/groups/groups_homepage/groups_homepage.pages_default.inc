@@ -79,10 +79,10 @@ function groups_homepage_default_page_manager_pages() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
-    $pane->pid = 'new-7bf353ed-b2a0-414f-b90e-cf8c4647a2f8';
+    $pane->pid = 'new-E519BFFF-E7E6-4152-B57B-325564FA7B29';
     $pane->panel = 'os_bottom_left';
     $pane->type = 'views_panes';
-    $pane->subtype = 'commons_events_upcoming-panel_pane_2';
+    $pane->subtype = 'groups_events_upcoming_events-panel_pane_2';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array();
@@ -94,9 +94,9 @@ function groups_homepage_default_page_manager_pages() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $pane->uuid = '7bf353ed-b2a0-414f-b90e-cf8c4647a2f8';
-    $display->content['new-7bf353ed-b2a0-414f-b90e-cf8c4647a2f8'] = $pane;
-    $display->panels['os_bottom_left'][0] = 'new-7bf353ed-b2a0-414f-b90e-cf8c4647a2f8';
+    $pane->uuid = 'E519BFFF-E7E6-4152-B57B-325564FA7B29';
+    $display->content['new-E519BFFF-E7E6-4152-B57B-325564FA7B29'] = $pane;
+    $display->panels['os_bottom_left'][0] = 'new-E519BFFF-E7E6-4152-B57B-325564FA7B29';
     $pane = new stdClass();
     $pane->pid = 'new-cd740d02-05e4-4170-ac8f-a7c5d32da4aa';
     $pane->panel = 'os_bottom_right';

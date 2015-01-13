@@ -17,7 +17,9 @@
   </div>
   <div class="container-first">
     <div class="field-date"><?php print $fields['field_date']->content; ?></div>
-    <div class="field-venue"><?php print $fields['field_venue_name']->content; ?> (<?php print $fields['field_address']->content; ?>)</div>
+    <?php if (sizeof($row->field_field_venue_name)): ?>
+      <div class="field-venue">!<?php print $fields['field_venue_name']->content; ?>! (<?php print $fields['field_address']->content; ?>)</div>
+    <?php endif; ?>
     <div class="field-body"><?php print $fields['body']->content; ?></div>
   </div>
   <div class="container-second">

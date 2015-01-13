@@ -19,6 +19,7 @@
 @import 'partials/comment';
 @import 'partials/post';
 @import 'partials/profile';
+@import 'partials/event';
 
 /* Custom override */
 
@@ -143,7 +144,8 @@
 /* === Upcoming events block === */
 
 .view-id-commons_events_upcoming,
-.view-commons-events-upcoming {
+.view-commons-events-upcoming,
+.pane-groups-events-upcoming-events-panel-pane-2 {
   // Hide sort filter and event count
   .attachment-before,
   .view-filters {
@@ -161,6 +163,11 @@
   }
   .views-row-first {
     padding-top: 0px;
+  }
+  /* hide comment count and attendee numbers */
+  .views-field-comment-count,
+  .views-field-capacity-used {
+    display: none;
   }
   .views-field-title-field,
   h3 {
