@@ -192,6 +192,22 @@ function groups_feeds_user_groups_import($job) {
 }
 
 /**
+ * Join two url parts trimming the last path separator properly.
+ *
+ * @param  $base
+ *   base url.
+ * @param  $path
+ *   fragment to be append.
+ * @return
+ *   Concated url fragments.
+ */
+function _groups_feeds_join_url($base, $path) {
+  $url = rtrim($base, '/');
+  $url .= $path;
+  return $url;
+}
+
+/**
  * Meetup events import worker.
  *
  * Import events from meetup ical feed, if not disabled in
@@ -203,7 +219,7 @@ function groups_feeds_user_groups_import($job) {
 function groups_feeds_meetup_events_import($job) {
   $meetup_links = groups_feeds_get_meetup_links();
   foreach ($meetup_links as $meetup_link) {
-    $url = $meetup_link['url'].'/events/ical/';
+    $url = _groups_feeds_join_url($meetup_link['url'], '/events/ical/');
     $feedSource = feeds_source('ical_feed_importer');
     $config = $feedSource->getConfig();
     $config['FeedsHTTPFetcher']['source'] = $url;
@@ -422,7 +438,7 @@ function groups_feeds_get_meetup_links() {
  * @param  class $node  node prepared to save
  */
 function groups_feeds_node_presave($node) {
-  if ($node->type == 'page') {
+  if (($node->type == 'page') || ($node->type == 'event')) {
     // set title attribute of node
     $node->title = $node->title_field['und'][0]['value'];
   }
