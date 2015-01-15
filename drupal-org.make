@@ -337,6 +337,9 @@ projects[paranoia][version] = "1.3"
 projects[pathauto][type] = "module"
 projects[pathauto][subdir] = "contrib"
 projects[pathauto][version] = "1.2"
+; Add drush commands for bulk alias updating/deleting
+; https://www.drupal.org/node/867578
+projects[pathauto][patch][] = "https://www.drupal.org/files/pathauto-add-drush-support-867578-42.patch"
 
 projects[picture][type] = "module"
 projects[picture][subdir] = "contrib"
