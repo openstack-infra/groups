@@ -41,3 +41,11 @@ h1 {
   -moz-box-shadow: none !important;
   box-shadow: none !important;
 }
+
+button:focus,
+button:active,
+button:hover
+{
+    outline:0px !important;
+    -webkit-appearance:none;
+}

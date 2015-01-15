@@ -14,6 +14,7 @@ dependencies[] = field_ui
 dependencies[] = file
 dependencies[] = image
 dependencies[] = list
+dependencies[] = locale
 dependencies[] = menu
 dependencies[] = number
 dependencies[] = options
@@ -46,6 +47,7 @@ dependencies[] = googleanalytics
 dependencies[] = http_client
 dependencies[] = jquery_update
 dependencies[] = libraries
+dependencies[] = l10n_update
 dependencies[] = markdown
 dependencies[] = media
 dependencies[] = media_internet
@@ -147,7 +149,6 @@ dependencies[] = field_group_location
 
 ; Features
 dependencies[] = groups_groups
-dependencies[] = groups_language_switcher
 dependencies[] = groups_directory
 dependencies[] = groups_footer
 dependencies[] = groups_homepage

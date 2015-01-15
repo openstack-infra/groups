@@ -99,6 +99,11 @@
     <?php if (!empty($primary_nav) || !empty($secondary_nav) || !empty($page['navigation'])): ?>
       <div class="navbar-collapse collapse">
         <nav role="navigation">
+          <div class="menu-language">
+            <button type="button" class="btn btn-language btn-xs collapsed" data-toggle="collapse" data-target="#block-locale-language">
+              <?php print $language->name; ?>
+            </button>
+          </div>
           <?php if (!empty($page['utility'])): ?>
             <?php print render($page['utility']); ?>
           <?php endif; ?>
@@ -116,6 +121,7 @@
     <?php endif; ?>
   </div>
   </div>
+  <?php print render($page['header']); ?>
 </header>
 
 <div class="main-container">
@@ -124,8 +130,6 @@
     <?php if (!empty($site_slogan)): ?>
       <p class="lead"><?php print $site_slogan; ?></p>
     <?php endif; ?>
-
-    <?php print render($page['header']); ?>
   </header> <!-- /#page-header -->
 
   <div class="row">

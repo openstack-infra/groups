@@ -81,6 +81,9 @@ function groups_install() {
   );
   drupal_write_record('block', $search_block);
 
+  _groups_enable_default_languages();
+  _groups_add_language_selector_block();
+
   // Create a default role for site administrators, with all available permissions assigned.
   // $admin_role = new stdClass();
   // $admin_role->name = 'administrator';
@@ -107,6 +110,40 @@ function groups_install() {
   }
   // add markdown filter format
   _groups_add_markdown_filter();
+}
+
+
+/**
+ * Add language selector block to header region.
+ *
+ * @see groups_install()
+ */
+function _groups_add_language_selector_block() {
+  $block = array(
+    'module' => 'locale',
+    'delta' => 'language',
+    'theme' => 'openstack_bootstrap',
+    'visibility' => 0,
+    'region' => 'header',
+    'status' => 1,
+    'pages' => '',
+    'weight' => 2,
+    'title' => '<none>',
+  );
+  drupal_write_record('block', $block);
+}
+
+/**
+ * Enable default languages.
+ */
+function _groups_enable_default_languages() {
+  include_once DRUPAL_ROOT . '/includes/locale.inc';
+  include_once DRUPAL_ROOT . '/includes/iso.inc';
+  $default_languages = variable_get('groups_default_languages', 'hu,es,de,ru,zh-hans,ja,fi');
+  $languages = explode(',', $default_languages);
+  foreach ($languages as $langcode) {
+    locale_add_language($langcode);
+  }
 }
 
 /**
@@ -232,6 +269,32 @@ function groups_update_7112() {
     module_enable(array('smtp'));
     drupal_flush_all_caches();
   }
+}
+
+/**
+ * Add language selector as a block and enable locale, l10n_update modules.
+ */
+function groups_update_7113() {
+  drupal_uninstall_schema('locale');
+  drupal_flush_all_caches();
+  module_enable(array('locale', 'l10n_update'));
+  module_disable(array('groups_language_switcher'));
+  _groups_add_language_selector_block();
+  _groups_enable_default_languages();
+  _groups_set_language_negotiation();
+}
+
+/**
+ * Set language negotiation to URL based.
+ */
+function _groups_set_language_negotiation() {
+  require_once DRUPAL_ROOT . '/includes/language.inc';
+  require_once DRUPAL_ROOT . '/includes/locale.inc';
+  $negotiation = array(
+    LOCALE_LANGUAGE_NEGOTIATION_URL => 2,
+    LANGUAGE_NEGOTIATION_DEFAULT => 10,
+  );
+  language_negotiation_set(LANGUAGE_TYPE_INTERFACE, $negotiation);
 }
 
 /**
