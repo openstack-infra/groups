@@ -37,6 +37,12 @@
 <div class="profile"<?php print $attributes; ?>>
   <div class="profile-sidebar">
     <?php print render($user_profile['user_picture']); ?>
+    <?php if (!empty($user_profile['role_ambassador']) || !empty($user_profile['role_community_manager'])): ?>
+      <div class="profile-roles">
+        <div class="profile-row"><?php print render($user_profile['role_ambassador']); ?></div>
+        <div class="profile-row"><?php print render($user_profile['role_community_manager']); ?></div>
+      </div>
+    <?php endif; ?>
   </div>
   <?php print render($user_profile['og_user_node']); ?>
   <?php print render($user_profile['summary']); ?>

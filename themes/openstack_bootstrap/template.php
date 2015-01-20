@@ -229,3 +229,24 @@ function openstack_bootstrap_preprocess_views_view(&$variables) {
     $variables['exposed'] = '';
   }
 }
+
+/**
+ * Implements template_preprocess_user_profile()
+ */
+function openstack_bootstrap_preprocess_user_profile(&$variables) {
+  $user = $variables['user'];
+  if (in_array('ambassador', $user->roles)) {
+    $variables['user_profile']['role_ambassador'] = array(
+      '#prefix' => '<span class="label label-info">',
+      '#markup' => t('Ambassador'),
+      '#suffix' => '</span>',
+    );
+  }
+  if (in_array('community_manager', $user->roles)) {
+    $variables['user_profile']['role_community_manager'] = array(
+      '#prefix' => '<span class="label label-info">',
+      '#markup' => t('Community Manager'),
+      '#suffix' => '</span>',
+    );
+  }
+}
