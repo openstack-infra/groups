@@ -20,3 +20,14 @@
 .nav-tabs {
   margin-bottom: 0.5em;
 }
+
+.feed-icon {
+  margin-top: 0.5em;
+  a {
+      color: #30739C;
+      text-decoration: underline;
+      img {
+        margin-right: 7px;
+      }
+  }
+}
