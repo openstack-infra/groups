@@ -103,7 +103,9 @@ function groups_events_views_default_views() {
   $handler->display->display_options['path'] = 'events-upcoming.xml';
   $handler->display->display_options['displays'] = array(
     'default' => 'default',
-    'page' => 'page',
+    'panel_pane_2' => 'panel_pane_2',
+    'commons_events_upcoming_global_block' => 0,
+    'panel_pane_1' => 0,
   );
 
   /* Display: Global Block */
