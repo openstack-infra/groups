@@ -581,6 +581,10 @@ function groups_feeds_feeds_presave($source, $entity, $item) {
       $geofield['geom'] = 'POINT (' . $location['lng'] . ' ' . $location['lat'] . ')';
       $entity->field_geofield = array('und'=>array($geofield));
     }
+    // skip group import where groups_sync_group_<nid> is disabled. Defaults to sync.
+    if (!$entity->is_new) {
+      $entity->feeds_item->skip = variable_get('groups_sync_group_'.$entity->nid, TRUE) == FALSE;
+    }
   }
   if (($entity->feeds_item->entity_type == 'node') &&
     ($entity->feeds_item->id == 'ical_feed_importer')) {

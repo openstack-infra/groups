@@ -161,6 +161,9 @@ function field_group_location_field_presave($entity_type, $entity, $field, $inst
   module_load_include('inc', 'field_group_location', 'field_group_lookup');
   $continent_lookup = _country_by_continent_predefined_list();
   foreach ($items as $delta => &$item) {
-    $item['continent'] = $continent_lookup[$item['country']];
+    if (!empty($item['country'])) {
+      // set continent by country lookup if country is available
+      $item['continent'] = $continent_lookup[$item['country']];
+    }
   }
 }
