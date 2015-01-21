@@ -15,7 +15,94 @@ function groups_feeds_menu() {
     'access callback' => TRUE,
     'file' => 'groups_feeds.groups_json.inc',
   );
+  $items['node/%node/sync'] = array(
+    'title' => 'Sync Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('groups_feeds_sync_settings', 1),
+    'access callback' => 'groups_feeds_sync_access',
+    'access arguments' => array(1),
+    'type' => MENU_LOCAL_TASK,
+  );
   return $items;
+}
+
+function groups_feeds_sync_access($group_node) {
+  global $user;
+  if ((empty($group_node)) || ($group_node->type != 'group')) {
+    return FALSE;
+  }
+  // allow modify sync settings for group administrator
+  if (og_user_access('node', $group_node->nid, 'administer group')) {
+    return TRUE;
+  }
+  // allow override sync settings for amabassadors and community manageres
+  if ((in_array("ambassador", $user->roles)) || (in_array("community_manager", $user->roles))) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Sync settings form callback.
+ */
+function groups_feeds_sync_settings($formid, $form_state, $group_node) {
+  $nid = $group_node->nid;
+  $meetup_url = NULL;
+  foreach ($group_node->field_resource_links[LANGUAGE_NONE] as $resource) {
+    if ($resource['key'] == '5') {
+      $meetup_url = $resource['value'];
+    }
+  }
+  $form['nid'] = array('#type' => 'value', '#value' => $nid);
+  $form['description'] = array(
+    '#markup' => '<p>' . t('Synchronization settings for group data. '). '</p>',
+  );
+  $url = 'https://github.com/openstack-infra/groups-static-pages';
+  $form['sync_groups'] = array(
+    '#type' => 'checkbox',
+    '#prefix' =>
+      '<h3>'.t('OpenStack static pages repository').'</h3>'.
+      '<div class="sync-link"><span class="label label-default">'.l($url, $url).'</span></div>',
+    '#title' => 'Import group data from groups.json',
+    '#default_value' => variable_get('groups_sync_group_'.$nid, TRUE),
+  );
+  if (!empty($meetup_url)) {
+    // show meetup sync only for groups with meetup link
+    $form['sync_events'] = array(
+      '#type' => 'checkbox',
+      '#prefix' => '<h3>'.t('Meetup.com synchronization').'</h3>'.
+        '<div class="sync-link"><span class="label label-default">'.l($meetup_url, $meetup_url).'</span></div>',
+      '#title' => 'Import event calendar from meetup.com',
+      '#default_value' => variable_get('groups_sync_event_'.$nid, TRUE),
+    );
+    $form['sync_meetup'] = array(
+      '#type' => 'checkbox',
+      '#title' => 'Import group stats from meetup.com',
+      '#default_value' => variable_get('groups_sync_meetup_'.$nid, TRUE),
+    );
+  }
+  $form['actions']['#type'] = 'actions';
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save configuration'),
+  );
+  return $form;
+}
+
+/**
+ * Implements hook_form_submit().
+ */
+function groups_feeds_sync_settings_submit($form, &$form_state) {
+  $nid = $form_state['values']['nid'];
+  if (!empty($nid)) {
+    variable_set('groups_sync_event_'.$nid, $form_state['values']['sync_events']);
+    if (isset($form_state['values']['sync_groups'])) {
+      variable_set('groups_sync_group_'.$nid, $form_state['values']['sync_groups']);
+    }
+    if (isset($form_state['values']['sync_meetup'])) {
+      variable_set('groups_sync_meetup_'.$nid, $form_state['values']['sync_meetup']);
+    }
+  }
 }
 
 /**

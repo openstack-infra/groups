@@ -171,3 +171,21 @@
     margin-right: 4px;
   }
 }
+
+/* sync settings page */
+
+#groups-feeds-sync-settings {
+  h3 {
+    color: #000;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 12px;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+}
