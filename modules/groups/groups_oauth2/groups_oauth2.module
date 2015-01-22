@@ -104,6 +104,17 @@ function groups_oauth2_response_handler() {
           $function = $module . '_oauth2_user_save';
           $function($account, $userinfo);
         }
+      } else {
+        // resave user profile if oauth2_picture_ttl expired
+        $oauth2_picture_ttl = isset($account->data['oauth2_picture_ttl']) ?
+          $account->data['oauth2_picture_ttl'] : 0;
+        if (time() >= $oauth2_picture_ttl) {
+          // Allow other modules to manipulate the user information after save.
+          foreach (module_implements('oauth2_user_save') as $module) {
+            $function = $module . '_oauth2_user_save';
+            $function($account, $userinfo);
+          }
+        }
       }
       $form_state['uid'] = $account->uid;
       user_login_submit(array(), $form_state);
