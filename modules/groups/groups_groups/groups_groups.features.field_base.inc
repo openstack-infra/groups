@@ -103,6 +103,22 @@ function groups_groups_field_default_field_bases() {
     'type' => 'list_text',
   );
 
+  // Exported field_base: 'field_meetup_members'
+  $field_bases['field_meetup_members'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_meetup_members',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_integer',
+  );
+
   // Exported field_base: 'field_resource_links'
   $field_bases['field_resource_links'] = array(
     'active' => 1,

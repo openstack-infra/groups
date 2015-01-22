@@ -37,6 +37,11 @@ function groups_feeds_drush_command() {
     'bootstrap' => DRUSH_BOOTSTRAP_DRUSH,
     'arguments' => array(),
   );
+  $items['import-meetup'] = array(
+    'description' => 'Import meetup data',
+    'bootstrap' => DRUSH_BOOTSTRAP_DRUSH,
+    'arguments' => array(),
+  );
   return $items;
 }
 
@@ -60,4 +65,11 @@ function drush_groups_feeds_import_static_pages() {
 
 function drush_groups_feeds_import_user_groups() {
   groups_feeds_user_groups_import(NULL);
+}
+
+/**
+ * Trigger meetup group data import
+ */
+function drush_groups_feeds_import_meetup() {
+  groups_feeds_meetup_import();
 }
