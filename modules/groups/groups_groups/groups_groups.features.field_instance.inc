@@ -132,6 +132,56 @@ function groups_groups_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-group-field_meetup_members'
+  $field_instances['node-group-field_meetup_members'] = array(
+    'bundle' => 'group',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 19,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_meetup_members',
+    'label' => 'meetup_members',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 49,
+    ),
+  );
+
   // Exported field_instance: 'node-group-field_resource_links'
   $field_instances['node-group-field_resource_links'] = array(
     'bundle' => 'group',
@@ -175,6 +225,7 @@ function groups_groups_field_default_field_instances() {
   t('Group status');
   t('Resource links');
   t('geofield');
+  t('meetup_members');
 
   return $field_instances;
 }

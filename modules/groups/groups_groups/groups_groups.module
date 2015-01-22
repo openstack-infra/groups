@@ -173,6 +173,8 @@ function groups_groups_form_alter(&$form, &$form_state, $form_id) {
     $form['field_geofield']['#access'] = $is_administrator;
     // hide privacy settings field
     $form['field_og_subscribe_settings']['#access'] = $is_administrator;
+    // hide meetup members field
+    $form['field_meetup_members']['#access'] = $is_administrator;
     // hide group logo
     $form['field_group_logo']['#access'] = false;
 
