@@ -1,0 +1,82 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  groups_homepage/groups_homepage.features.menu_custom.inc: n/a
+#  groups_homepage/groups_homepage.features.menu_links.inc: n/a
+#  groups_homepage/groups_homepage.info: n/a
+#  groups_homepage/groups_homepage.module: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-01-29 13:11+0100\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: groups_homepage/groups_homepage.features.menu_custom.inc:27
+msgid "Content Menu"
+msgstr ""
+
+#: groups_homepage/groups_homepage.features.menu_custom.inc:28
+msgid "Main menu"
+msgstr ""
+
+#: groups_homepage/groups_homepage.features.menu_custom.inc:29
+msgid "The <em>Main</em> menu is used on many sites to show the major sections of the site, often in a top navigation bar."
+msgstr ""
+
+#: groups_homepage/groups_homepage.features.menu_custom.inc:30
+msgid "The content menu contains links for static pages."
+msgstr ""
+
+#: groups_homepage/groups_homepage.features.menu_links.inc:30 /Users/martonkiss/Sites/groups-dev.local/profiles/groups/modules/groups/groups_homepage/groups_homepage.info:0
+msgid "Groups Home"
+msgstr ""
+
+#: groups_homepage/groups_homepage.module:14
+msgid "Groups welcome block"
+msgstr ""
+
+#: groups_homepage/groups_homepage.module:18
+msgid "Groups community map"
+msgstr ""
+
+#: groups_homepage/groups_homepage.module:22
+msgid "Groups community stats"
+msgstr ""
+
+#: groups_homepage/groups_homepage.module:26
+msgid "Groups find nearby"
+msgstr ""
+
+#: groups_homepage/groups_homepage.module:30
+msgid "Community Banner"
+msgstr ""
+
+#: groups_homepage/groups_homepage.module:34
+msgid "Community Guides"
+msgstr ""
+
+#: groups_homepage/groups_homepage.module:206
+msgid "Upcoming Events"
+msgstr ""
+
+#: groups_homepage/groups_homepage.module:181
+msgid "update community stats"
+msgstr ""
+
+#: groups_homepage/groups_homepage.module:181
+msgid "members:%members countries:%countries groups:%groups"
+msgstr ""
+
+#: groups_homepage/groups_homepage.info:0
+msgid "Groups - Landing Pages"
+msgstr ""
