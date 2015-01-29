@@ -372,10 +372,6 @@ projects[pm_existing_pages][type] = "module"
 projects[pm_existing_pages][subdir] = "contrib"
 projects[pm_existing_pages][version] = "1.4"
 
-projects[potx][type] = "module"
-projects[potx][subdir] = "contrib"
-projects[potx][version] = "1.0"
-
 projects[privatemsg][type] = "module"
 projects[privatemsg][subdir] = "contrib"
 projects[privatemsg][version] = "1.4"
@@ -603,9 +599,6 @@ projects[smtp][version] = "1.2"
 projects[potx][version] = 3.x-dev
 projects[potx][type] = "module"
 projects[potx][subdir] = "contrib"
-; Add drush integration for extraction
-; https://www.drupal.org/node/720986
-projects[potx][patch][] = "https://www.drupal.org/files/issues/potx-drush_integration-720986-44.patch"
 
 ; Contributed themes.
 
