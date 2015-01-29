@@ -1,0 +1,49 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  groups_events/groups_events.features.field_instance.inc: n/a
+#  groups_events/groups_events.info: n/a
+#  groups_events_pages/groups_events_pages.info: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-01-29 13:11+0100\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: groups_events/groups_events.features.field_instance.inc:56
+msgid "Venue name"
+msgstr ""
+
+#: groups_events/groups_events.info:0
+msgid "Groups Events"
+msgstr ""
+
+#: groups_events/groups_events.info:0
+msgid "Groups events building blocks"
+msgstr ""
+
+#: groups_events/groups_events.info:0
+msgid "Groups - Building Blocks"
+msgstr ""
+
+#: groups_events_pages/groups_events_pages.info:0
+msgid "groups_events_pages"
+msgstr ""
+
+#: groups_events_pages/groups_events_pages.info:0
+msgid "Provides the panelized Event page feature."
+msgstr ""
+
+#: groups_events_pages/groups_events_pages.info:0
+msgid "Groups - Landing Pages"
+msgstr ""
