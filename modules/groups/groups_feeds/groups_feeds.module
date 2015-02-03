@@ -256,6 +256,21 @@ function groups_feeds_cron() {
 }
 
 /**
+ * Helper callback to clean up feedSource object.
+ *
+ * reset states and drupal status messages.
+ */
+function _groups_feeds_cleanup(&$feedSource) {
+    // Clean up states.
+    $feedSource->state(FEEDS_FETCH);
+    $feedSource->state(FEEDS_PROCESS);
+    $feedSource->state(FEEDS_PROCESS_CLEAR);
+
+    // Clear messages from Feeds.
+    drupal_get_messages('status');
+}
+
+/**
  * Static pages import worker.
  *
  * @param  array $job Associative array of job parameters. When set to
@@ -279,6 +294,7 @@ function groups_feeds_static_pages_import($job) {
   } catch (Exception $e) {
     watchdog_exception('Groups Feeds', $e);
   }
+  _groups_feeds_cleanup($feedSource);
   // reschedule, reset the reserved flag here
   if ($job != NULL) {
     JobScheduler::get('static_pages_import')->set($job);
@@ -298,6 +314,7 @@ function groups_feeds_user_groups_import($job) {
   } catch (Exception $e) {
     watchdog_exception('Groups Feeds', $e);
   }
+  _groups_feeds_cleanup($feedSource);
   if ($job != NULL) {
     JobScheduler::get('user_groups_import')->set($job);
   }
@@ -345,6 +362,7 @@ function groups_feeds_meetup_events_import($job) {
         $feedSource->log('import', 'Failed to import feed: !url', array('!url' => $url), WATCHDOG_ERROR);
       }
     }
+    _groups_feeds_cleanup($feedSource);
   }
   // reschedule, reset the reserved flag here
   if ($job != NULL) {
