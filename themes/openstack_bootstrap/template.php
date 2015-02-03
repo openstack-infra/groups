@@ -234,15 +234,15 @@ function openstack_bootstrap_preprocess_views_view(&$variables) {
  * Implements template_preprocess_user_profile()
  */
 function openstack_bootstrap_preprocess_user_profile(&$variables) {
-  $user = $variables['user'];
-  if (in_array('ambassador', $user->roles)) {
+  $account = $variables['elements']['#account'];
+  if (in_array('ambassador', $account->roles)) {
     $variables['user_profile']['role_ambassador'] = array(
       '#prefix' => '<span class="label label-info">',
       '#markup' => t('Ambassador'),
       '#suffix' => '</span>',
     );
   }
-  if (in_array('community_manager', $user->roles)) {
+  if (in_array('community_manager', $account->roles)) {
     $variables['user_profile']['role_community_manager'] = array(
       '#prefix' => '<span class="label label-info">',
       '#markup' => t('Community Manager'),
