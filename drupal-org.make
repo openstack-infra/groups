@@ -129,6 +129,9 @@ projects[email_registration][download][revision] = "1656416"
 projects[entity][type] = "module"
 projects[entity][subdir] = "contrib"
 projects[entity][version] = "1.5"
+; Translatable fields: Not overriding language-none values with empty default-language values
+; https://www.drupal.org/node/1782134
+projects[entity][patch][] = "https://www.drupal.org/files/entity-translatable_fields_not_overriding_und_with_empty_values-1782134-5.patch"
 
 projects[entitycache][type] = "module"
 projects[entitycache][subdir] = "contrib"
