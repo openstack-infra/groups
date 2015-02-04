@@ -90,9 +90,13 @@ function field_property_list_field_formatter_view($entity_type, $entity, $field,
     // This formatter simply outputs the field as text and with a color.
     case 'field_property_list_raw':
       foreach ($items as $delta => $item) {
-        $value = preg_replace('@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.-]*'.
-          '(\?\S+)?)?)?)@', '<a href="$1">$1</a>', $item['value']);
-
+        if ($item['key'] == '19') {
+          // remove email address part from coordinator field
+          $value = strip_tags($item['value']);
+        } else {
+          $value = preg_replace('@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.-]*'.
+            '(\?\S+)?)?)?)@', '<a href="$1">$1</a>', $item['value']);
+        }
         $element[$delta] = array(
           'title' => array(
             '#type' => 'html_tag',
