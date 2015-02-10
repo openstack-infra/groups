@@ -52,6 +52,7 @@ function groups_feeds_drush_command() {
  */
 function drush_groups_feeds_import_meetup_events() {
   // execute meetup_events_import schedule job
+  module_load_include('inc', 'groups_feeds', 'includes/groups_feeds_meetup_events');
   groups_feeds_meetup_events_import(NULL);
 }
 
@@ -60,10 +61,15 @@ function drush_groups_feeds_import_meetup_events() {
  */
 function drush_groups_feeds_import_static_pages() {
   // execute static_pages_import schedule job
+  module_load_include('inc', 'groups_feeds', 'includes/groups_feeds_static_pages');
   groups_feeds_static_pages_import(NULL);
 }
 
+/**
+ * Trigger groups.json import
+ */
 function drush_groups_feeds_import_user_groups() {
+  module_load_include('inc', 'groups_feeds', 'includes/groups_feeds_user_groups');
   groups_feeds_user_groups_import(NULL);
 }
 
@@ -71,5 +77,6 @@ function drush_groups_feeds_import_user_groups() {
  * Trigger meetup group data import
  */
 function drush_groups_feeds_import_meetup() {
+  module_load_include('inc', 'groups_feeds', 'includes/groups_feeds_meetup');
   groups_feeds_meetup_import();
 }

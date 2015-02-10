@@ -7,3 +7,4 @@ project = groups_feeds
 
 dependencies[] = feeds
 dependencies[] = commons_pages
+dependencies[] = elysia_cron
