@@ -35,6 +35,7 @@ dependencies[] = date_ical
 dependencies[] = diff
 dependencies[] = ds
 dependencies[] = elements
+dependencies[] = elysia_cron
 dependencies[] = email_registration
 dependencies[] = entity
 dependencies[] = entityreference

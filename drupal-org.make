@@ -119,6 +119,10 @@ projects[elements][type] = "module"
 projects[elements][subdir] = "contrib"
 projects[elements][version] = "1.4"
 
+projects[elysia_cron][type] = "module"
+projects[elysia_cron][subdir] = "contrib"
+projects[elysia_cron][version] = "2.1"
+
 projects[email_registration][type] = "module"
 projects[email_registration][subdir] = "contrib"
 projects[email_registration][download][type] = "git"

@@ -92,6 +92,9 @@ function groups_install() {
   // Set this as the administrator role.
   variable_set('user_admin_role', $admin_role->rid);
 
+  // disable automatic ui cron
+  variable_set('cron_safe_threshold', 0);
+
   // Assign user 1 the "administrator" role.
   // db_insert('users_roles')
   //   ->fields(array('uid' => 1, 'rid' => $admin_role->rid))
@@ -282,6 +285,20 @@ function groups_update_7113() {
   _groups_add_language_selector_block();
   _groups_enable_default_languages();
   _groups_set_language_negotiation();
+}
+
+/**
+ * Enable elysia_cron module.
+ */
+function groups_update_7114() {
+  if (!module_exists('elysia_cron')) {
+    module_enable(array('elysia_cron'));
+  }
+  // remove job_scheduler's jobs
+  db_delete('job_schedule')->execute();
+  // disable automatic ui cron
+  variable_set('cron_safe_threshold', 0);
+  drupal_flush_all_caches();
 }
 
 /**

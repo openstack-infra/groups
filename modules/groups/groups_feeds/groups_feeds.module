@@ -26,6 +26,12 @@ function groups_feeds_menu() {
   return $items;
 }
 
+/**
+ * Implements a hook_access() callback.
+ *
+ * Allow override sync settings for group administrator,
+ * ambassador and community_manager roles.
+ */
 function groups_feeds_sync_access($group_node) {
   global $user;
   if ((empty($group_node)) || ($group_node->type != 'group')) {
@@ -136,123 +142,40 @@ function groups_feeds_ctools_plugin_api($owner, $api) {
 }
 
 /**
- * Rebuild scheduled jobs.
+ * Implements hook_cronapi()
  *
- * Defined variables:
- * - 'static_pages_import_period': the frequency of static
- *   pages import, defaults to 5m
- * - 'meetup_events_import_period': the frequency of meetup
- *   event import, defaults to 1h
- *
- * A job is disabled when the update frequency variable
- * is set to 0.
- *
+ * Define groups_feeds module's scheduled jobs.
  */
-function groups_feeds_rebuild_jobs() {
-  // setup static pages import
-  $job = array(
-    'type' => 'page-import',
-    'id' => 1,
-    'period' => 300, // defaults to 5m
-    'periodic' => TRUE
+function groups_feeds_cronapi($op, $job = NULL) {
+  $items['user_groups_import'] = array(
+    'description' => 'Import user group data from groups.json of openstack-infra/groups-static-pages repo',
+    'rule'        => '0 * * * *',
+    'callback'    => 'groups_feeds_user_groups_import',
+    'file'        => 'groups_feeds_user_groups.inc',
+    'file path'   => drupal_get_path('module', 'groups_feeds').'/includes',
   );
-  if ((int)variable_get('static_pages_import_period', 300) == 0) {
-    JobScheduler::get('static_pages_import')->remove($job);
-  } else {
-    JobScheduler::get('static_pages_import')->set($job);
-  }
-  // setup meetup events import
-    $job = array(
-    'type' => 'events-import',
-    'id' => 1,
-    'period' => 3600, // defaults to 1h
-    'periodic' => TRUE
+  $items['static_pages_import'] = array(
+    'description' => 'Import static page content from openstack-infra/groups-static-pages repo',
+    'rule'        => '*/5 * * * *',
+    'callback'    => 'groups_feeds_static_pages_import',
+    'file'        => 'groups_feeds_static_pages.inc',
+    'file path'   => drupal_get_path('module', 'groups_feeds').'/includes',
   );
-  if ((int)variable_get('meetup_events_import_period', 3600) == 0) {
-    JobScheduler::get('meetup_events_import')->remove($job);
-  } else {
-    JobScheduler::get('meetup_events_import')->set($job);
-  }
-  // setup groups import fro json
-  $job = array(
-    'type' => 'groups-import',
-    'id' => 1,
-    'period' => 3600, // defaults to 1h
-    'periodic' => TRUE
+  $items['meetup_events_import'] = array(
+    'description' => 'Import events from iCal feeds of meetup.com.',
+    'rule'        => '0 * * * *',
+    'callback'    => 'groups_feeds_meetup_events_import',
+    'file'        => 'groups_feeds_meetup_events.inc',
+    'file path'   => drupal_get_path('module', 'groups_feeds').'/includes',
   );
-  if ((int)variable_get('user_groups_import_period', 3600) == 0) {
-    JobScheduler::get('user_groups_import')->remove($job);
-  } else {
-    JobScheduler::get('user_groups_import')->set($job);
-  }
-}
-
-/**
- * Implements hook_cron_job_scheduler_info()
- *
- * Define feed import scheduler items.
- *
- * @return array
- *   An associative array including the periodically
- *   scheduled feed imports.
- */
-function groups_feeds_cron_job_scheduler_info() {
-  $schedulers = array();
-  $schedulers['static_pages_import'] = array(
-    'queue name' => 'static_pages_import_queue',
+  $items['meetup_groups_import'] = array(
+    'description' => 'Import groups data from meetup.com (requires API key).',
+    'rule'        => '0 2 * * *',
+    'callback'    => 'groups_feeds_meetup_import',
+    'file'        => 'groups_feeds_meetup_groups.inc',
+    'file path'   => drupal_get_path('module', 'groups_feeds').'/includes',
   );
-  $schedulers['meetup_events_import'] = array(
-    'queue name' => 'meetup_events_import_queue',
-  );
-  $schedulers['user_groups_import'] = array(
-    'queue name' => 'user_groups_import_queue',
-  );
-  return $schedulers;
-}
-
-/**
- * Implements hook_cron_queue_info()
- *
- * @return array
- *   An associative array that contains feed
- *   queues.
- */
-function groups_feeds_cron_queue_info() {
-  $queues = array();
-  $queues['static_pages_import_queue'] = array(
-    'worker callback' => 'groups_feeds_static_pages_import',
-    'time' => 120,
-  );
-  $queues['meetup_events_import_queue'] = array(
-    'worker callback' => 'groups_feeds_meetup_events_import',
-    'time' => 120,
-  );
-  return $queues;
-}
-
-/**
- * Implements hook_cron
- *
- * Variables:
- * `groups_meetup_group_import`
- *   enable/disable scheduled run of meetup.com group import
- *
- * `groups_meetup_group_import_interval`
- *   the interval of run in seconds
- *
- * `groups_meetup_group_import_execution`
- *   the next execution time of meetup.com group import
- */
-function groups_feeds_cron() {
-  // Execute meetup group import if scheduled
-  if (variable_get('groups_meetup_group_import', FALSE)) {
-    // interval defaults to 24h
-    $interval = variable_get('groups_meetup_group_import_interval', 60 * 60 * 24);
-    if (time() >= variable_get('groups_meetup_group_import_execution', 0)) {
-      groups_feeds_meetup_import();
-    }
-    variable_set('groups_meetup_group_import_execution', time() + $interval);
-  }
+  return $items;
 }
 
 /**
@@ -268,56 +191,6 @@ function _groups_feeds_cleanup(&$feedSource) {
 
     // Clear messages from Feeds.
     drupal_get_messages('status');
-}
-
-/**
- * Static pages import worker.
- *
- * @param  array $job Associative array of job parameters. When set to
- *   NULL, won't reschedule the job.
- */
-function groups_feeds_static_pages_import($job) {
-  watchdog('groups_feeds', 'start static page import', array(), WATCHDOG_INFO);
-  $feedSource = feeds_source('static_page_import');
-  $config = $feedSource->getConfig();
-  $directory = variable_get('groups_feeds_markdown_directory', NULL);
-  if (empty($directory)) {
-    watchdog('Groups Feeds', 'Variable groups_feeds_markdown_directory missing.', array(), WATCHDOG_ERROR);
-    return FALSE;
-  }
-  $config['feeds_fetcher_directory_fetcher']['source'] = $directory;
-  $config['feeds_fetcher_directory_fetcher']['feed_files_fetched'] = array();
-  $feedSource->setConfig($config);
-  try {
-    while (FEEDS_BATCH_COMPLETE != $feedSource->import());
-    $feedSource->log('import', 'Import static page: !source', array('!directory' => $directory), WATCHDOG_INFO);
-  } catch (Exception $e) {
-    watchdog_exception('Groups Feeds', $e);
-  }
-  _groups_feeds_cleanup($feedSource);
-  // reschedule, reset the reserved flag here
-  if ($job != NULL) {
-    JobScheduler::get('static_pages_import')->set($job);
-  }
-}
-
-function groups_feeds_user_groups_import($job) {
-  $url = 'https://raw.githubusercontent.com/openstack-infra/groups-static-pages/master/groups.json';
-  watchdog('groups_feeds', 'start user groups import', array(), WATCHDOG_INFO);
-  $feedSource = feeds_source('user_group_feed_importer');
-  $config = $feedSource->getConfig();
-  $config['FeedsHTTPFetcher']['source'] = $url;
-  $feedSource->setConfig($config);
-  try {
-    while (FEEDS_BATCH_COMPLETE != $feedSource->import());
-    $feedSource->log('import', 'Import user groups: !source', array('!source' => $url), WATCHDOG_INFO);
-  } catch (Exception $e) {
-    watchdog_exception('Groups Feeds', $e);
-  }
-  _groups_feeds_cleanup($feedSource);
-  if ($job != NULL) {
-    JobScheduler::get('user_groups_import')->set($job);
-  }
 }
 
 /**
@@ -337,191 +210,15 @@ function _groups_feeds_join_url($base, $path) {
 }
 
 /**
- * Meetup events import worker.
- *
- * Import events from meetup ical feed, if not disabled in
- * groups_sync_event_<group-id> variable.
- *
- * @param  array $job Associative array of job parameters. When set to
- *   NULL, won't reschedule the job.
- */
-function groups_feeds_meetup_events_import($job) {
-  $meetup_links = groups_feeds_get_meetup_links();
-  foreach ($meetup_links as $meetup_link) {
-    $url = _groups_feeds_join_url($meetup_link['url'], '/events/ical/');
-    $feedSource = feeds_source('ical_feed_importer');
-    $config = $feedSource->getConfig();
-    $config['FeedsHTTPFetcher']['source'] = $url;
-    $config['FeedsHTTPFetcher']['nid'] = $meetup_link['nid'];
-    $feedSource->setConfig($config);
-    if (variable_get('groups_sync_event_'.$meetup_link['nid'], TRUE)) {
-      try {
-        while (FEEDS_BATCH_COMPLETE != $feedSource->import());
-        $feedSource->log('import', 'Import meetup event: !url', array('!url' => $url), WATCHDOG_INFO);
-      } catch (Exception $e) {
-        $feedSource->log('import', 'Failed to import feed: !url', array('!url' => $url), WATCHDOG_ERROR);
-      }
-    }
-    _groups_feeds_cleanup($feedSource);
-  }
-  // reschedule, reset the reserved flag here
-  if ($job != NULL) {
-    JobScheduler::get('meetup_events_import')->set($job);
-  }
-}
-
-/**
- * Construct static pages feed importer
- */
-function groups_feeds_static_pages_importer() {
-  $feeds_importer = new stdClass();
-  $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
-  $feeds_importer->api_version = 1;
-  $feeds_importer->id = 'static_page_import';
-  $feeds_importer->config = array(
-    'name' => 'Static page import',
-    'description' => 'Import page nodes from markdown file.',
-    'fetcher' => array(
-      'plugin_key' => 'feeds_fetcher_directory_fetcher',
-      'config' => array(
-        'recursive' => 1,
-        'directory' => 'public://feeds',
-        'filemask' => '/\\.md$/',
-        'updated_files' => 1,
-      ),
-    ),
-    'parser' => array(
-      'plugin_key' => 'MarkdownParser',
-      'config' => array(),
-    ),
-    'processor' => array(
-      'plugin_key' => 'FeedsNodeProcessor',
-      'config' => array(
-        'expire' => '-1',
-        'author' => '1',
-        'authorize' => 1,
-        'mappings' => array(
-          0 => array(
-            'source' => 'guid',
-            'target' => 'guid',
-            'unique' => 1,
-          ),
-          1 => array(
-            'source' => 'title',
-            'target' => 'title_field',
-            'unique' => FALSE,
-          ),
-          2 => array(
-            'source' => 'body',
-            'target' => 'body',
-            'unique' => FALSE,
-          ),
-          3 => array(
-            'source' => 'path',
-            'target' => 'path_alias',
-            'unique' => FALSE,
-          ),
-        ),
-        'update_existing' => '2',
-        'input_format' => 'markdown',
-        'skip_hash_check' => 0,
-        'bundle' => 'page',
-      ),
-    ),
-    'content_type' => '',
-    'update' => 0,
-    'import_period' => '-1',
-    'expire_period' => 3600,
-    'import_on_create' => 1,
-    'process_in_background' => 1,
-  );
-  return $feeds_importer;
-}
-
-/**
- * Construct meetup.com ical importer
- */
-function groups_feeds_meetup_ical_importer() {
-  $feeds_importer = new stdClass();
-  $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
-  $feeds_importer->api_version = 1;
-  $feeds_importer->id = 'ical_feed_importer';
-  $feeds_importer->config = array(
-    'name' => 'meetup.com events',
-    'description' => 'meetup.com event feed importer',
-    'fetcher' => array(
-      'plugin_key' => 'FeedsHTTPFetcher',
-      'config' => array(
-        'auto_detect_feeds' => FALSE,
-        'use_pubsubhubbub' => FALSE,
-        'designated_hub' => '',
-        'request_timeout' => NULL,
-      ),
-    ),
-    'parser' => array(
-      'plugin_key' => 'DateiCalFeedsParser',
-      'config' => array(
-        'indefinite_count' => '52',
-        'until_not_utc' => FALSE,
-        'skip_days' => NULL,
-      ),
-    ),
-    'processor' => array(
-      'plugin_key' => 'FeedsNodeProcessor',
-      'config' => array(
-        'expire' => '-1',
-        'author' => '1',
-        'authorize' => 1,
-        'mappings' => array(
-          0 => array(
-            'source' => 'DTSTART',
-            'target' => 'field_date:start',
-            'unique' => FALSE,
-          ),
-          1 => array(
-            'source' => 'DTEND',
-            'target' => 'field_date:end',
-            'unique' => FALSE,
-          ),
-          2 => array(
-            'source' => 'SUMMARY',
-            'target' => 'title_field',
-            'unique' => FALSE,
-          ),
-          3 => array(
-            'source' => 'DESCRIPTION',
-            'target' => 'body',
-            'unique' => FALSE,
-          ),
-          4 => array(
-            'source' => 'UID',
-            'target' => 'guid',
-            'unique' => 1,
-          ),
-        ),
-        'update_existing' => '1',
-        'input_format' => 'plain_text',
-        'skip_hash_check' => 0,
-        'bundle' => 'event',
-      ),
-    ),
-    'content_type' => '',
-    'update' => 0,
-    'import_period' => '-1',
-    'expire_period' => 3600,
-    'import_on_create' => 1,
-    'process_in_background' => 0,
-  );
-  return $feeds_importer;
-}
-
-/**
  * Implement hook_feeds_importer_default()
  *
  * Add static page importer
  */
-
 function groups_feeds_feeds_importer_default() {
+  module_load_include('inc', 'groups_feeds', 'includes/groups_feeds_meetup');
+  module_load_include('inc', 'groups_feeds', 'includes/groups_feeds_meetup_events');
+  module_load_include('inc', 'groups_feeds', 'includes/groups_feeds_static_pages');
+  module_load_include('inc', 'groups_feeds', 'includes/groups_feeds_user_groups');
   $export = array();
   $export['staticpages'] = groups_feeds_static_pages_importer();
   $export['ical_feed_importer'] = groups_feeds_meetup_ical_importer();
@@ -533,7 +230,6 @@ function groups_feeds_feeds_importer_default() {
  * List of meetup.com links registered for
  * user groups.
  */
-
 function groups_feeds_get_meetup_links() {
   $result = db_select('node', 'n')
     ->fields('n')->condition('status', 1)
@@ -596,88 +292,9 @@ function groups_feeds_node_insert($node) {
   }
 }
 
-function groups_feeds_groups_importer() {
-  $feeds_importer = new stdClass();
-  $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
-  $feeds_importer->api_version = 1;
-  $feeds_importer->id = 'user_group_feed_importer';
-  $feeds_importer->config = array(
-    'name' => 'User group feed importer',
-    'description' => 'Import user group data from json',
-    'fetcher' => array(
-      'plugin_key' => 'FeedsHTTPFetcher',
-      'config' => array(
-        'auto_detect_feeds' => FALSE,
-        'use_pubsubhubbub' => FALSE,
-        'designated_hub' => '',
-        'request_timeout' => NULL,
-      ),
-    ),
-    'parser' => array(
-      'plugin_key' => 'FeedsJSONPathParser',
-      'config' => array(
-        'context' => '$.groups.*',
-        'sources' => array(
-          'jsonpath_parser:3' => 'id',
-          'jsonpath_parser:0' => 'title',
-          'jsonpath_parser:1' => 'location',
-          'jsonpath_parser:2' => 'attributes',
-        ),
-        'debug' => array(
-          'options' => array(
-            'context' => 0,
-            'jsonpath_parser:3' => 0,
-            'jsonpath_parser:0' => 0,
-            'jsonpath_parser:1' => 0,
-            'jsonpath_parser:2' => 0,
-          ),
-        ),
-      ),
-    ),
-    'processor' => array(
-      'plugin_key' => 'FeedsNodeProcessor',
-      'config' => array(
-        'expire' => '-1',
-        'author' => '1',
-        'authorize' => 1,
-        'mappings' => array(
-          0 => array(
-            'source' => 'jsonpath_parser:3',
-            'target' => 'guid',
-            'unique' => 1,
-          ),
-          1 => array(
-            'source' => 'jsonpath_parser:0',
-            'target' => 'title',
-            'unique' => FALSE,
-          ),
-          2 => array(
-            'source' => 'jsonpath_parser:1',
-            'target' => 'field_group_location',
-            'unique' => FALSE,
-          ),
-          3 => array(
-            'source' => 'jsonpath_parser:2',
-            'target' => 'field_resource_links',
-            'unique' => FALSE,
-          ),
-        ),
-        'update_existing' => '2',
-        'input_format' => 'plain_text',
-        'skip_hash_check' => 0,
-        'bundle' => 'group',
-      ),
-    ),
-    'content_type' => '',
-    'update' => 0,
-    'import_period' => '-1',
-    'expire_period' => 3600,
-    'import_on_create' => 1,
-    'process_in_background' => 0,
-  );
-  return $feeds_importer;
-}
-
+/**
+ * Implements hooks_feeds_presave()
+ */
 function groups_feeds_feeds_presave($source, $entity, $item) {
   static $list_lookup;
   if ($list_lookup == null) {
@@ -759,54 +376,6 @@ function _groups_feeds_rlimit_request($url, &$wait) {
   $ratelimit_reset = $response->headers['x-ratelimit-reset'];
   $wait = 6; // wait 6 sec between requests;
   return $response;
-}
-
-/**
- * Callback to import meetup data through meetup.com API
- */
-function groups_feeds_meetup_import() {
-  $meetup_api_key = variable_get('groups_meetup_api_key', '');
-  if (empty($meetup_api_key)) {
-    watchdog('Groups Feeds', 'Variable groups_meetup_api_key is missing.', array(), WATCHDOG_ERROR);
-    return FALSE;
-  }
-  $params = array(
-    'sign' => 'true',
-    'photo-host' => 'public',
-    'key' => $meetup_api_key,
-  );
-  $wait = 0; // reset limit wait to 0sec
-  $meetup_links = groups_feeds_get_meetup_links();
-  foreach ($meetup_links as $link) {
-    $meetup_name = _groups_feeds_get_meetup_name($link['url']);
-    $sync_group = variable_get('groups_sync_meetup_'.$link['nid'], TRUE);
-    if ($sync_group) {
-      $params['group_urlname'] = $meetup_name;
-      $request_url = "https://api.meetup.com/2/groups?";
-      foreach ($params as $k => $v) {
-        $request_url .= sprintf('&%s=%s', $k, $v);
-      }
-      $response = _groups_feeds_rlimit_request($request_url, $wait);
-      if ($response->code == 200) {
-        watchdog('Groups Feeds', 'Meetup.com API Import %meetup [nid:%nid]',
-          array('%meetup' => $meetup_name, '%nid' => $link['nid']), WATCHDOG_DEBUG);
-        $data = json_decode($response->data);
-        $group_node = node_load($link['nid']);
-        // Notify other modules about meetup data import.
-        foreach (module_implements('meetup_group_import') as $module) {
-          $function = $module . '_meetup_group_import';
-          $function($group_node, $data->results[0]);
-        }
-      } else {
-        // log error
-        watchdog('Groups Feeds', 'Failed to sync meetup group %name: %code %message',
-          array(
-            '%meetup' => $meetup_name,
-            'code' => $response->code,
-            '%message' => $response->status_message), WATCHDOG_ERROR);
-      }
-    }
-  }
 }
 
 /**
