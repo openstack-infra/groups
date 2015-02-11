@@ -151,6 +151,7 @@ function groups_feeds_cronapi($op, $job = NULL) {
     'description' => 'Import user group data from groups.json of openstack-infra/groups-static-pages repo',
     'rule'        => '0 * * * *',
     'callback'    => 'groups_feeds_user_groups_import',
+    'arguments'   => array(),
     'file'        => 'groups_feeds_user_groups.inc',
     'file path'   => drupal_get_path('module', 'groups_feeds').'/includes',
   );
@@ -158,6 +159,7 @@ function groups_feeds_cronapi($op, $job = NULL) {
     'description' => 'Import static page content from openstack-infra/groups-static-pages repo',
     'rule'        => '*/5 * * * *',
     'callback'    => 'groups_feeds_static_pages_import',
+    'arguments'   => array(),
     'file'        => 'groups_feeds_static_pages.inc',
     'file path'   => drupal_get_path('module', 'groups_feeds').'/includes',
   );
@@ -165,6 +167,7 @@ function groups_feeds_cronapi($op, $job = NULL) {
     'description' => 'Import events from iCal feeds of meetup.com.',
     'rule'        => '0 * * * *',
     'callback'    => 'groups_feeds_meetup_events_import',
+    'arguments'   => array(),
     'file'        => 'groups_feeds_meetup_events.inc',
     'file path'   => drupal_get_path('module', 'groups_feeds').'/includes',
   );
@@ -172,6 +175,7 @@ function groups_feeds_cronapi($op, $job = NULL) {
     'description' => 'Import groups data from meetup.com (requires API key).',
     'rule'        => '0 2 * * *',
     'callback'    => 'groups_feeds_meetup_import',
+    'arguments'   => array(),
     'file'        => 'groups_feeds_meetup_groups.inc',
     'file path'   => drupal_get_path('module', 'groups_feeds').'/includes',
   );
@@ -238,7 +242,8 @@ function groups_feeds_get_meetup_links() {
   $meetup_links = array();
   foreach ($result as $record) {
     $node = node_load($record->nid);
-    $resource_links = $node->field_resource_links['und'];
+    $resource_links = isset($node->field_resource_links['und']) ?
+      $node->field_resource_links['und'] : NULL;
     if (isset($resource_links)) {
       foreach ($resource_links as $resource_link) {
         $value = $resource_link['value'];

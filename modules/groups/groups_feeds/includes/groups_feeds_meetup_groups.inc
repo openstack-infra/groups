@@ -39,17 +39,25 @@ function groups_feeds_meetup_import() {
           array('%meetup' => $meetup_name, '%nid' => $link['nid']), WATCHDOG_DEBUG);
         $data = json_decode($response->data);
         $group_node = node_load($link['nid']);
-        // Notify other modules about meetup data import.
-        foreach (module_implements('meetup_group_import') as $module) {
-          $function = $module . '_meetup_group_import';
-          $function($group_node, $data->results[0]);
+        if (!isset($data->results[0])) {
+          watchdog('Groups Feeds', 'Failed to sync meetup group %name: %code %message',
+            array(
+              '%name' => $meetup_name,
+              '%code' => $response->code,
+              '%message' => 'empty resultset'), WATCHDOG_ERROR);
+        } else {
+          // Notify other modules about meetup data import.
+          foreach (module_implements('meetup_group_import') as $module) {
+            $function = $module . '_meetup_group_import';
+            $function($group_node, $data->results[0]);
+          }
         }
       } else {
         // log error
         watchdog('Groups Feeds', 'Failed to sync meetup group %name: %code %message',
           array(
-            '%meetup' => $meetup_name,
-            'code' => $response->code,
+            '%name' => $meetup_name,
+            '%code' => $response->code,
             '%message' => $response->status_message), WATCHDOG_ERROR);
       }
     }

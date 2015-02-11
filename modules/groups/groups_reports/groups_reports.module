@@ -33,6 +33,7 @@ function groups_reports_cronapi($op, $job = NULL) {
     'description' => 'Update group membership daily statistcs.',
     'rule'        => '0 4 * * *',
     'callback'    => 'groups_reports_update_membership_stat',
+    'arguments'   => array(),
   );
   return $items;
 }

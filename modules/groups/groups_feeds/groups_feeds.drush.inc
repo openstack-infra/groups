@@ -77,6 +77,6 @@ function drush_groups_feeds_import_user_groups() {
  * Trigger meetup group data import
  */
 function drush_groups_feeds_import_meetup() {
-  module_load_include('inc', 'groups_feeds', 'includes/groups_feeds_meetup');
+  module_load_include('inc', 'groups_feeds', 'includes/groups_feeds_meetup_groups');
   groups_feeds_meetup_import();
 }
