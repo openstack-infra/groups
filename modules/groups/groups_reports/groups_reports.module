@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * Update the daily membership statistics
+ */
+function groups_reports_update_membership_stat($timestamp = null) {
+  $timestr = date('Ymd', $timestamp ? $timestamp : time());
+  $result = db_select('node', 'n')
+    ->fields('n')->condition('status', 1)
+    ->condition('type', 'group', '=')
+    ->execute();
+  foreach ($result as $record) {
+    $node = node_load($record->nid);
+    db_merge('groups_membership_stat')
+      ->key(array('nid' => $node->nid, 'timestamp' => $timestr))
+      ->fields(array(
+        'nid' => $node->nid,
+        'timestamp' => $timestr,
+        'membercount' => (int)$node->field_meetup_members[LANGUAGE_NONE][0]['value'],
+        'datasrc' => 'M',
+      ))->execute();
+  }
+  watchdog('Groups Reports', 'Groups membership statistics had been updated.', array(), WATCHDOG_INFO);
+}
+
+/**
+ * Implements hook_cronapi()
+ *
+ * Define groups_reports module's scheduled jobs.
+ */
+function groups_reports_cronapi($op, $job = NULL) {
+  $items['groups_update_membership_stat'] = array(
+    'description' => 'Update group membership daily statistcs.',
+    'rule'        => '0 4 * * *',
+    'callback'    => 'groups_reports_update_membership_stat',
+  );
+  return $items;
+}

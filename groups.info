@@ -162,4 +162,5 @@ dependencies[] = groups_feeds
 dependencies[] = groups_events
 dependencies[] = groups_events_pages
 dependencies[] = groups_pages
+dependencies[] = groups_reports
 dependencies[] = groups_wikis

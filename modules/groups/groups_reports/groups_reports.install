@@ -1,0 +1,46 @@
+<?php
+/**
+ * @file
+ * Install, update, and uninstall functions for the groups_reports module.
+ */
+
+/**
+ * Implement hook_schema
+ */
+function groups_reports_schema() {
+  $schema['groups_membership_stat'] = array(
+    'description' => 'Stores group membership daily aggregated statistics.',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'The group\'s {node}.nid for these statistics.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'timestamp' => array(
+        'description' => 'The YYYYMMDD format date of membership record',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'membercount' => array(
+        'description' => 'The total number of members registered for the group.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'medium',
+      ),
+      'datasrc' => array(
+        'description' => 'The data source of the data',
+        'type' => 'varchar',
+        'length' => 1,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+    ),
+    'primary key' => array('nid', 'timestamp'),
+  );
+  return $schema;
+}
