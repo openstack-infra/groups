@@ -1,0 +1,8 @@
+Verified+2: Jenkins
+Code-Review+2: Marton Kiss <marton.kiss@gmail.com>
+Workflow+1: Marton Kiss <marton.kiss@gmail.com>
+Submitted-by: Jenkins
+Submitted-at: Wed, 11 Feb 2015 10:35:38 +0000
+Reviewed-on: https://review.openstack.org/154807
+Project: openstack-infra/groups
+Branch: refs/heads/master
