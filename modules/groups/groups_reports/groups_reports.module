@@ -1,10 +1,42 @@
 <?php
 
+define('REPORT_PERIOD_MONTHLY', 'monthly');
+define('REPORT_PERIOD_3MONTHS', '3months');
+define('REPORT_PERIOD_YEARLY', 'year');
+
+/**
+ * Implements hook_menu().
+ */
+function groups_reports_menu() {
+  $items['reports/groups-membership-report'] = array(
+    'title' => 'User group membership report',
+    'description' => 'View membership statistic aggregated by continents.',
+    'page callback' => 'groups_reports_groups_membership_report',
+    'access callback' => array('groups_reports_access'),
+    'weight' => -1,
+  );
+  return $items;
+}
+
+/**
+ * Implements a hook_access() callback.
+ *
+ * Allow access for ambassador and community_manager roles.
+ */
+function groups_reports_access() {
+  global $user;
+  return (
+    (in_array("administrator", $user->roles)) ||
+    (in_array("ambassador", $user->roles)) ||
+    (in_array("community_manager", $user->roles))
+  );
+}
+
 /**
  * Update the daily membership statistics
  */
 function groups_reports_update_membership_stat($timestamp = null) {
-  $timestr = date('Ymd', $timestamp ? $timestamp : time());
+  $timestr = gmdate('Ymd', $timestamp ? $timestamp : time());
   $result = db_select('node', 'n')
     ->fields('n')->condition('status', 1)
     ->condition('type', 'group', '=')
@@ -36,4 +68,175 @@ function groups_reports_cronapi($op, $job = NULL) {
     'arguments'   => array(),
   );
   return $items;
+}
+
+/**
+ * Display a membership report.
+ */
+function groups_reports_groups_membership_report() {
+  module_load_include('inc', 'field_group_location', 'field_group_lookup');
+  $continents = _continent_get_predefined_list();
+  $report = groups_report_get_regional_membership_report(time());
+  $total = 0;
+  foreach ($continents as $key => $value) {
+    $data[$key] = array();
+    $summary[$key] = array(
+      'title' => t('<a href="!url">@title</a>', array('!url' => '#'.$key, '@title' => $value)),
+      'count' => isset($report['totals'][$key]) ? $report['totals'][$key] : 0,
+    );
+    $total += $summary[$key]['count'];
+  }
+  $summary['XX'] = array(
+    'title' => '<b>Total</b>',
+    'count' => '<b>'.$total.'</b>',
+  );
+  $build['summary_table'] = array(
+    '#theme' => 'table',
+    '#header' => array(t('Continent'), t('Total members')),
+    '#rows' => $summary,
+    '#sticky' => FALSE,
+    '#attributes' => array('id' => 'group-report-summary'),
+    '#empty' => t('No membership data available.'),
+  );
+  foreach ($report['rows'] as $row) {
+    $data[$row['field_group_location_continent']][] = array(
+      'group' => $row['title'],
+      'count' => $row['membercount'],
+    );
+  }
+  $header = array(t('User Group'), t('Members'));
+  foreach ($continents as $key => $value) {
+    $data[$key][] = array(
+      'group' => '<b>Total</b>',
+      'count' => '<b>'.$summary[$key]['count'].'</b>',
+    );
+    $build['report_table_'.$key] = array(
+      '#prefix' => '<a name="'.$key.'"></a><h3>'.check_plain($value).'</h3>',
+      '#theme' => 'table',
+      '#header' => $header,
+      '#rows' => $data[$key],
+      '#sticky' => FALSE,
+      '#attributes' => array('id' => 'group-report-continent'),
+      '#empty' => t('No membership data available.'),
+    );
+  }
+
+  return $build;
+}
+
+/**
+ * Construct the date interval array based on a date
+ * argument and report period type.
+ *
+ * @param  $date
+ *   last date of the interval
+ * @param  $report_period
+ *   type of report period like monthly, last 3 months, yearly
+ * @return
+ *   array of timestamps.
+ */
+function groups_reports_get_axis_dates($date, $report_period, $timestamp_result = TRUE) {
+  $result = array();
+  switch ($report_period) {
+    case REPORT_PERIOD_MONTHLY:
+      for ($i = 0; $i < 30; $i++) {
+        $result[] = $date;
+        $date -= (24*60*60); // 1day
+      }
+      break;
+    case REPORT_PERIOD_3MONTHS:
+      for ($i = 0; $i < 15; $i++) {
+        $result[] = $date;
+        $date -= (24*60*60)*6; // 6days
+      }
+      break;
+    case REPORT_PERIOD_YEARLY:
+      // take 1st day of every month
+      $year = (int)gmdate('Y', $date);
+      $month = (int)gmdate('n', $date);
+      echo "year = $year\n";
+      echo "month = $month\n";
+      for ($i = 0; $i < 12; $i++) {
+        $result[] = gmmktime(0, 0, 0, $month, 1, $year);
+        $month--;
+        if ($month == 0) {
+          $month = 12;
+          $year--;
+        }
+      }
+      break;
+    default:
+      throw new Exeception('Invalid report period');
+  }
+  if ($timestamp_result == FALSE) {
+    array_walk($result, 'groups_reports_transform_gmdate');
+  }
+  return $result;
+}
+
+/**
+ * Transform a timestamp to a date string, used as
+ * an array_walk() callback.
+ */
+function groups_reports_transform_gmdate(&$item, $key) {
+  $item = gmdate('Ymd', $item);
+}
+
+/**
+ * Returns an aggregated membership report by date.
+ */
+function groups_report_get_members_report($date, $report_period = REPORT_PERIOD_MONTHLY) {
+  $date_interval = groups_reports_get_axis_dates($date, $report_period);
+  $date_interval = array_reverse($date_interval);
+  $interval_filter = $date_interval;
+  array_walk($interval_filter, 'groups_reports_transform_gmdate');
+  $query = db_select('groups_membership_stat', 's');
+  $query->fields('s', array('timestamp'));
+  $query->condition('s.timestamp', $interval_filter, 'in');
+  $query->addExpression('sum(s.membercount)', 'membercount');
+  $query->groupBy('s.timestamp');
+  $result = $query->execute();
+  $rows = array();
+  foreach ($date_interval as $ts) {
+    $key = gmdate('Ymd', $ts);
+    $rows[$key] = array(
+      'timestamp' => $ts,
+      'count' => 0,
+    );
+  }
+  foreach ($result as $membership) {
+    $rows[$membership->timestamp]['count'] = $membership->membercount;
+  }
+  return $rows;
+}
+
+/**
+ * Create a regional membership report for a given date.
+ */
+function groups_report_get_regional_membership_report($date) {
+  $query = db_select('node', 'n');
+  $query->join('field_data_field_group_location', 'l', 'n.nid = l.entity_id');
+  $query->leftJoin('groups_membership_stat', 's', 'n.nid = s.nid');
+  $query->fields('n', array('nid', 'title'));
+  $query->fields('l', array('field_group_location_continent', 'field_group_location_country'));
+  $query->fields('s', array('membercount'));
+  $query->condition('n.type', 'group', '=');
+  $query->condition('n.status', 1, '=');
+  $query->condition('s.timestamp', gmdate('Ymd', $date), '=');
+  $query->orderBy('l.field_group_location_continent', 'ASC');
+  $query->orderBy('n.title', 'ASC');
+  $result = $query->execute();
+  $rows = array();
+  $totals = array();
+  foreach ($result as $row) {
+    $rows[] = (array)$row;
+    if (!isset($totals[$row->field_group_location_continent])) {
+      $totals[$row->field_group_location_continent] = 0;
+    }
+    $totals[$row->field_group_location_continent] += $row->membercount;
+  }
+  return array(
+    'rows' => $rows,
+    'totals' => $totals,
+  );
 }
