@@ -10,6 +10,51 @@
 function groups_groups_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'node-group-field_ambassadors'
+  $field_instances['node-group-field_ambassadors'] = array(
+    'bundle' => 'group',
+    'default_value' => NULL,
+    'default_value_function' => '',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 20,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_ambassadors',
+    'label' => 'Ambassadors',
+    'required' => 0,
+    'settings' => array(
+      'behaviors' => array(
+        'prepopulate' => array(
+          'status' => 0,
+        ),
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 50,
+    ),
+  );
+
   // Exported field_instance: 'node-group-field_geofield'
   $field_instances['node-group-field_geofield'] = array(
     'bundle' => 'group',
@@ -221,6 +266,7 @@ function groups_groups_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Ambassadors');
   t('Group location');
   t('Group status');
   t('Resource links');

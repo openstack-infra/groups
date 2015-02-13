@@ -1,6 +1,12 @@
 <?php
 /**
  * @file
+ * Code for the groups Groups feature.
+ */
+
+include_once 'groups_groups.features.inc';
+/**
+ * @file
  * Groups groups content type related extensions.
  */
 
@@ -167,6 +173,7 @@ function groups_groups_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'group_node_form') {
     $node = $form_state['node'];
     $is_administrator = in_array('administrator', array_values($user->roles));
+    $is_community_mgr = in_array('community_manager', array_values($user->roles));
     // hide group status field
     $form['field_group_status']['#access'] = $is_administrator;
     // hide location geofield
@@ -177,6 +184,8 @@ function groups_groups_form_alter(&$form, &$form_state, $form_id) {
     $form['field_meetup_members']['#access'] = $is_administrator;
     // hide group logo
     $form['field_group_logo']['#access'] = false;
+    // allow ambassador assignment for admin or community managers
+    $form['field_ambassadors']['#access'] = $is_community_mgr || $is_administrator;
 
     $form['field_group_location']['und'][0]['location']['#title'] = 'City (optional)';
     // reorder resource links, group location
