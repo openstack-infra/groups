@@ -42,3 +42,30 @@ function groups_pages_preprocess_field(&$variables) {
     }
   }
 }
+
+/**
+ * Implements hook_views_pre_render()
+ */
+function groups_pages_views_pre_render(&$view) {
+  // override commons_contributor_groups view
+  if ($view->name == 'commons_contributors_group') {
+    // remove admin user (uid=1) from group member list
+    $i = count($view->result) - 1;
+    while ($i > -1) {
+      if ($view->result[$i]->uid == 1) {
+        unset($view->result[$i]);
+      }
+      $i--;
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view_list().
+ */
+function groups_pages_preprocess_views_view_list(&$variables, $hook) {
+  // Change the Contributors title in group contributors list to Members
+  if ($variables['view']->name == 'commons_contributors_group' && !empty($variables['title']) && $variables['title'] == t('Contributors')) {
+    $variables['title'] = t('Members');
+  }
+}
