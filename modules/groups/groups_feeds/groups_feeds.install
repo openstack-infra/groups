@@ -24,8 +24,6 @@ function groups_feeds_install() {
   $config['feeds_fetcher_directory_fetcher']['feed_files_fetched'] = "";
   $feedSource->setConfig($config);
   $feedSource->save();
-  // setup feed import frequency
-  groups_feeds_update_7302();
 }
 
 /**
