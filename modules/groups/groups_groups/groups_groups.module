@@ -200,7 +200,7 @@ function groups_groups_form_alter(&$form, &$form_state, $form_id) {
       $form['accept_terms'] = array(
         '#type' => 'checkbox',
         '#title' => t('I have read and agree the !termsurl and !eventurl', array(
-            '!termsurl' => l(t('Terms and Conditions'), '#'), // TODO: specify url here
+            '!termsurl' => l(t('Code of Conduct'), 'http://www.openstack.org/legal/community-code-of-conduct/'),
             '!eventurl' => l(t('OpenStack Event Policy'), 'http://www.openstack.org/brand/event-policy/'),
           )),
         '#weight' => 22,
