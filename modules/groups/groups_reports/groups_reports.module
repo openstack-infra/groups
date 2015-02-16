@@ -15,6 +15,13 @@ function groups_reports_menu() {
     'access callback' => array('groups_reports_access'),
     'weight' => -1,
   );
+  $items['reports/groups-membership-history-report'] = array(
+    'title' => 'Membership history report',
+    'description' => 'View membership history.',
+    'page callback' => 'groups_reports_groups_membership_history_report',
+    'access callback' => array('groups_reports_access'),
+    'weight' => -1,
+  );
   return $items;
 }
 
@@ -121,6 +128,27 @@ function groups_reports_groups_membership_report() {
     );
   }
 
+  return $build;
+}
+
+/**
+ * Implements group membership history report menu callback.
+ */
+function groups_reports_groups_membership_history_report() {
+  $report = groups_report_get_members_report(time());
+  $report = array_reverse($report);
+  foreach ($report as &$item) {
+    $item['timestamp'] = format_date($item['timestamp'], 'custom', 'm/d/Y', 'GMT');
+  }
+  $header = array(t('Date'), t('Members'));
+  $build['summary_table'] = array(
+    '#theme' => 'table',
+    '#header' => $header,
+    '#rows' => $report,
+    '#sticky' => FALSE,
+    '#attributes' => array('id' => 'group-report-summary'),
+    '#empty' => t('No membership data available.'),
+  );
   return $build;
 }
 
