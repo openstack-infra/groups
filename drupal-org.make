@@ -688,3 +688,8 @@ libraries[feeds_jsonpath_parser][download][type] = get
 libraries[feeds_jsonpath_parser][download][url] = http://jsonpath.googlecode.com/files/jsonpath-0.8.1.php
 libraries[feeds_jsonpath_parser][destination] = modules/contrib
 libraries[feeds_jsonpath_parser][install_path] = profiles/groups
+
+libraries[chartjs][download][type] = "get"
+libraries[chartjs][type] = "libraries"
+libraries[chartjs][download][url] = "https://github.com/nnnick/Chart.js/archive/v1.0.1.tar.gz"
+libraries[chartjs][destination] = "libraries"

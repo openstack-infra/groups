@@ -5,3 +5,4 @@ package = Groups - Building Blocks
 version = 7.x-1.0
 project = groups_reports
 dependencies[] = elysia_cron
+dependencies[] = chartjs

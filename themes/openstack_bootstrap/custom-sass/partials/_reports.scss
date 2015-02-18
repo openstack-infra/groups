@@ -13,3 +13,29 @@
     width: 50%;
   }
 }
+
+.totals-container {
+  background: #EDF2F7;
+  padding: 10px;
+  .totals_label {
+    color: #2A4E68;
+    font-size: 30px;
+    font-weight: 300;
+    display: inline-block;
+    padding-right: 10px;
+    margin-right: 10px;
+    border-right: 4px solid #ffffff;
+  }
+  .total {
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .suffix {
+    color: #2A4E68;
+    font-weight: 300;
+  }
+}
+
+#membership-history-chart {
+  height: 400px;
+}

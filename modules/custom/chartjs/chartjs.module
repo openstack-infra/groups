@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * Implements hook_libraries_info().
+ *
+ * @see Libraries module.
+ */
+function chartjs_libraries_info() {
+  $libraries['chartjs'] = array(
+    'name' => 'Chart.js',
+    'vendor url' => 'http://www.chartjs.org/',
+    'download url' => 'https://github.com/nnnick/Chart.js/archive/v1.0.1.tar.gz',
+    // 'version callback' => 'short_circuit_version',
+    'version arguments' => array(
+      'file' => 'Chart.js',
+      'pattern' => '/Version: (\d+\.+\d+\.+\d+)/',
+      'lines' => 4,
+    ),
+    'files' => array(
+      'js' => array(
+        'Chart.js',
+      ),
+    ),
+  );
+  return $libraries;
+}
+
+/**
+ * Implements hook_element_info()
+ */
+function chartjs_element_info() {
+  require_once 'chartjs_elements.inc';
+  return _chartjs_element_info();
+}
+
+/**
+ * Implements hook_theme()
+ */
+function chartjs_theme($existing, $type, $theme, $path) {
+  require_once 'chartjs_elements.inc';
+  return _chartjs_theme($existing, $type, $theme, $path);
+}
+
+/**
+ * Construct a new dataset with defaults
+ */
+function chartjs_create_dataset($data = array()) {
+  $dataSet = new stdClass();
+  $dataSet->label = 'Dataset label';
+  $dataSet->fillColor = 'rgba(128,197,229,1)';
+  $dataSet->strokeColor = 'rgba(128,197,229,1)';
+  $dataSet->highlightFill = 'rgba(0,153,218,1)';
+  $dataSet->highlightStroke = 'rgba(0,153,218,1)';
+  $dataSet->data = $data;
+  return $dataSet;
+}

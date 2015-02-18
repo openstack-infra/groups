@@ -1,0 +1,9 @@
+name = Chart.js
+description = Charting module for Drupal based on Chart.js javascript library.
+core = 7.x
+
+dependencies[] = libraries (>=2.0)
+
+version = "7.x-1.0"
+core = "7.x"
+project = "chartjs"

@@ -82,6 +82,10 @@ function groups_reports_cronapi($op, $job = NULL) {
  */
 function groups_reports_groups_membership_report() {
   module_load_include('inc', 'field_group_location', 'field_group_lookup');
+  $chart_data = array(
+    'labels' => array(),
+    'datasets' => array(chartjs_create_dataset()),
+  );
   $continents = _continent_get_predefined_list();
   $report = groups_report_get_regional_membership_report(time());
   $total = 0;
@@ -91,19 +95,20 @@ function groups_reports_groups_membership_report() {
       'title' => t('<a href="!url">@title</a>', array('!url' => '#'.$key, '@title' => $value)),
       'count' => isset($report['totals'][$key]) ? $report['totals'][$key] : 0,
     );
+    $chart_data['labels'][] = $value;
+    $chart_data['datasets'][0]->data[] = $summary[$key]['count'];
     $total += $summary[$key]['count'];
   }
-  $summary['XX'] = array(
-    'title' => '<b>Total</b>',
-    'count' => '<b>'.$total.'</b>',
+  $build['chart'] = array(
+    '#type' => 'chart',
+    '#labels' => $chart_data['labels'],
+    '#datasets' => $chart_data['datasets'],
+    '#options' => array('responsive' => true, 'maintainAspectRatio' => false),
   );
-  $build['summary_table'] = array(
-    '#theme' => 'table',
-    '#header' => array(t('Continent'), t('Total members')),
-    '#rows' => $summary,
-    '#sticky' => FALSE,
-    '#attributes' => array('id' => 'group-report-summary'),
-    '#empty' => t('No membership data available.'),
+  $build['totals'] = array(
+    '#prefix' => '<div class="totals-container">',
+    '#suffix' => '</div>',
+    '#markup' => t('<span class="totals_label">Community members worldwide</span> <span class="total">@total</span> <span class="suffix">people</span>', array('@total' => $total)),
   );
   foreach ($report['rows'] as $row) {
     $data[$row['field_group_location_continent']][] = array(
@@ -136,10 +141,37 @@ function groups_reports_groups_membership_report() {
  */
 function groups_reports_groups_membership_history_report() {
   $report = groups_report_get_members_report(time());
-  $report = array_reverse($report);
+  $chart_data = array(
+    'labels' => array(),
+    'datasets' => array(chartjs_create_dataset()),
+  );
+  $chart_data['datasets'][0]->strokeColor = '#0099da';
+  $chart_data['datasets'][0]->fillColor = '#d7edfb';
+  $chart_data['datasets'][0]->pointColor = '#0099da';
+  $chart_data['datasets'][0]->pointStrokeColor = '#0099da';
+  $chart_data['datasets'][0]->pointHighlightFill = '#000000';
+  $chart_data['datasets'][0]->pointHighlightStroke = '#000000';
   foreach ($report as &$item) {
     $item['timestamp'] = format_date($item['timestamp'], 'custom', 'm/d/Y', 'GMT');
+    $chart_data['labels'][] = $item['timestamp'];
+    $chart_data['datasets'][0]->data[] = $item['count'];
   }
+  $report = array_reverse($report);
+  $build['chart'] = array(
+    '#type' => 'chart',
+    '#chart_type' => 'line',
+    '#name' => 'membership-history-chart',
+    '#height' => '300px',
+    '#labels' => $chart_data['labels'],
+    '#datasets' => $chart_data['datasets'],
+    '#options' => array(
+      'responsive' => true,
+      'maintainAspectRatio' => false,
+      'datasetFill' => true,
+      'bezierCurve' => false,
+      'datasetStrokeWidth' => 3,
+    ),
+  );
   $header = array(t('Date'), t('Members'));
   $build['summary_table'] = array(
     '#theme' => 'table',

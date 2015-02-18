@@ -314,6 +314,16 @@ function groups_update_7115() {
 }
 
 /**
+ * Enable chartjs module.
+ */
+function groups_update_7116() {
+  if (!module_exists('chartjs')) {
+    module_enable(array('chartjs'));
+  }
+  drupal_flush_all_caches();
+}
+
+/**
  * Set language negotiation to URL based.
  */
 function _groups_set_language_negotiation() {
