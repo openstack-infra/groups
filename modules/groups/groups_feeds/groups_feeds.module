@@ -101,7 +101,9 @@ function groups_feeds_sync_settings($formid, $form_state, $group_node) {
 function groups_feeds_sync_settings_submit($form, &$form_state) {
   $nid = $form_state['values']['nid'];
   if (!empty($nid)) {
-    variable_set('groups_sync_event_'.$nid, $form_state['values']['sync_events']);
+    if (isset($form_state['values']['sync_events'])) {
+      variable_set('groups_sync_event_'.$nid, $form_state['values']['sync_events']);
+    }
     if (isset($form_state['values']['sync_groups'])) {
       variable_set('groups_sync_group_'.$nid, $form_state['values']['sync_groups']);
     }
