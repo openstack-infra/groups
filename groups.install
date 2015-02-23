@@ -37,8 +37,8 @@ function groups_requirements($phase) {
  * @see system_install()
  */
 function groups_install() {
-  // Enable the Origins theme and set it as the default.
-  theme_enable(array('adaptivetheme', 'commons_origins', 'adaptivetheme_admin', 'openstack', 'openstack_bootstrap'));
+  // Enable the openstack_bootstrap theme and set it as the default.
+  theme_enable(array('adaptivetheme', 'adaptivetheme_admin', 'openstack', 'openstack_bootstrap'));
 
     // The Bartik theme is automatically enabled during installation. Disable it.
   db_update('system')
@@ -106,7 +106,7 @@ function groups_install() {
   // and the resulting css files generated.
   // For more background, see http://drupal.org/node/1776730.
   module_load_include('inc', 'system', 'system.admin');
-  foreach (array('adaptivetheme', 'commons_origins') as $theme_name) {
+  foreach (array('adaptivetheme') as $theme_name) {
     $form_state = form_state_defaults();
     $form_state['build_info']['args'][0] = $theme_name;
     $form_state['values'] = array();
