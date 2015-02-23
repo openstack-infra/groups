@@ -46,4 +46,6 @@
   </div>
   <?php print render($user_profile['og_user_node']); ?>
   <?php print render($user_profile['summary']); ?>
+  <?php print render($user_profile['pending_groups']); ?>
+  <?php print render($user_profile['register_new_group']); ?>
 </div>

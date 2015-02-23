@@ -249,4 +249,29 @@ function openstack_bootstrap_preprocess_user_profile(&$variables) {
       '#suffix' => '</span>',
     );
   }
+  if ((in_array('community_manager', $account->roles)) ||
+       (in_array('ambassador', $account->roles))) {
+    $pending_groups = db_select('node', 'n')
+      ->fields('n')
+      ->condition('n.status', 0, '=')
+      ->countQuery()
+      ->execute()
+      ->fetchField();
+    if ($pending_groups > 0) {
+      $content = l(t('@pending group(s) waiting in the review queue', array('@pending' => $pending_groups)),
+          'admin/content/groups');
+    } else {
+      $content = t('No new groups waiting in the review queue.');
+    }
+    $variables['user_profile']['pending_groups'] = array(
+      '#prefix' => '<h3>'.t('Groups waiting for approval').'</h3>',
+      '#markup' => $content,
+    );
+  }
+  if (user_is_logged_in()) {
+    $variables['user_profile']['register_new_group'] = array(
+      '#prefix' => '<h3>'.t('Groups registration').'</h3>',
+      '#markup' => l('Register a new user group', 'node/add/group'),
+    );
+  }
 }

@@ -49,11 +49,12 @@ function groups_groups_field_default_field_instances_alter(&$fields) {
 /**
  * Implement hook_node_prepare
  *
- * Add a default published status to group content type.
+ * Add a default not published status to group content type,
+ * so group will be placed at review queue.
  */
 function groups_groups_node_prepare($node) {
   if (($node->type == 'group') && (empty($node->nid))) {
-    $node->status = NODE_PUBLISHED;
+    $node->status = NODE_NOT_PUBLISHED;
   }
 }
 
