@@ -234,6 +234,7 @@ function openstack_bootstrap_preprocess_views_view(&$variables) {
  * Implements template_preprocess_user_profile()
  */
 function openstack_bootstrap_preprocess_user_profile(&$variables) {
+  global $user;
   $account = $variables['elements']['#account'];
   if (in_array('ambassador', $account->roles)) {
     $variables['user_profile']['role_ambassador'] = array(
@@ -249,8 +250,9 @@ function openstack_bootstrap_preprocess_user_profile(&$variables) {
       '#suffix' => '</span>',
     );
   }
-  if ((in_array('community_manager', $account->roles)) ||
-       (in_array('ambassador', $account->roles))) {
+  if (((in_array('community_manager', $user->roles)) ||
+       (in_array('ambassador', $user->roles)) ||
+       (in_array('administrator', $user->roles))) && ($user->uid == $account->uid)) {
     $pending_groups = db_select('node', 'n')
       ->fields('n')
       ->condition('n.status', 0, '=')
@@ -266,6 +268,12 @@ function openstack_bootstrap_preprocess_user_profile(&$variables) {
     $variables['user_profile']['pending_groups'] = array(
       '#prefix' => '<h3>'.t('Groups waiting for approval').'</h3>',
       '#markup' => $content,
+    );
+    $variables['user_profile']['reports'] = array(
+      '#prefix' => '<h3>'.t('Reports').'</h3>',
+      '#markup' =>
+        '<div>'.l('User group membership report', 'reports/groups-membership-report').'</div>'.
+        '<div>'.l('Membership history report', 'reports/groups-membership-history-report').'</div>',
     );
   }
   if (user_is_logged_in()) {
