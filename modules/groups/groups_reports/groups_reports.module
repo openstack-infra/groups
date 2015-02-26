@@ -50,12 +50,16 @@ function groups_reports_update_membership_stat($timestamp = null) {
     ->execute();
   foreach ($result as $record) {
     $node = node_load($record->nid);
+    $membercount = 0;
+    if (isset($node->field_meetup_members[LANGUAGE_NONE])) {
+      $membercount = (int)$node->field_meetup_members[LANGUAGE_NONE][0]['value'];
+    }
     db_merge('groups_membership_stat')
       ->key(array('nid' => $node->nid, 'timestamp' => $timestr))
       ->fields(array(
         'nid' => $node->nid,
         'timestamp' => $timestr,
-        'membercount' => (int)$node->field_meetup_members[LANGUAGE_NONE][0]['value'],
+        'membercount' => $membercount,
         'datasrc' => 'M',
       ))->execute();
   }
