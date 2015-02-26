@@ -71,7 +71,8 @@ function _groups_directory_get_query_parameters() {
 function groups_directory_list() {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'group');
+    ->entityCondition('bundle', 'group')
+    ->propertyCondition('status', NODE_PUBLISHED);
   $query_params = _groups_directory_get_query_parameters();
   // filter status
   if (isset($query_params['status'])) {
