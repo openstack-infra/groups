@@ -16,7 +16,7 @@
   <div class="footer-block-community">
     <h3>Community</h3>
     <ul>
-      <li><a href="http://openstack.org/community/">User Groups</a></li>
+      <li><a href="http://openstack.org/community/">Community</a></li>
       <li><a href="http://openstack.org/events/">Events</a></li>
       <li><a href="http://openstack.org/jobs/">Jobs</a></li>
       <li><a href="http://openstack.org/companies/">Companies</a></li>
