@@ -11,7 +11,9 @@ function groups_reports_menu() {
   $items['reports/groups-membership-report'] = array(
     'title' => 'User group membership report',
     'description' => 'View membership statistic aggregated by continents.',
-    'page callback' => 'groups_reports_groups_membership_report',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('groups_reports_groups_membership_report_form'),
+    // 'page callback' => 'groups_reports_groups_membership_report',
     'access callback' => array('groups_reports_access'),
     'weight' => -1,
   );
@@ -82,16 +84,60 @@ function groups_reports_cronapi($op, $job = NULL) {
 }
 
 /**
- * Display a membership report.
+ * Return the default date of the membership report.
+ *
+ * @return string
+ *   return the current date if now groups_membership_stat record exists,
+ *   otherwise return the most recent date.
  */
-function groups_reports_groups_membership_report() {
+function _groups_reports_get_default_membership_date() {
+  $query = db_select('groups_membership_stat');
+  $query->addExpression('MAX(timestamp)');
+  $recent_date = $query->execute()->fetchField();
+  if (isset($recent_date)) {
+    $recent_ts = DateTime::createFromFormat( 'Ymd', $recent_date, new DateTimeZone('UTC'))
+      ->getTimestamp();
+  } else {
+    $recent_ts = time();
+  }
+  return gmdate('Y-m-d', $recent_ts);
+}
+
+/**
+ * Form constructor of groups membership report.
+ */
+function groups_reports_groups_membership_report_form($form = array(), &$form_state) {
+  $form['filter'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Report filters'),
+    '#attributes' => array('class' => array('container-inline')),
+  );
+  $form['filter']['date'] = array(
+    '#type' => 'date_popup',
+    '#title' => t('Report date'),
+    '#title_display' => 'invisible',
+    '#date_format' => 'Y-m-d',
+    '#default_value' => _groups_reports_get_default_membership_date(),
+  );
+  $form['filter']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Apply',
+  );
+  // get filter values
+  if (isset($form_state['values'])) {
+    $filter_date = $form_state['values']['date'];
+  } else {
+    $filter_date = $form['filter']['date']['#default_value'];
+  }
+  $report_date = DateTime::createFromFormat( 'Y-m-d', $filter_date, new DateTimeZone('UTC'))->getTimestamp();
+  // build report
   module_load_include('inc', 'field_group_location', 'field_group_lookup');
   $chart_data = array(
     'labels' => array(),
     'datasets' => array(chartjs_create_dataset()),
   );
   $continents = _continent_get_predefined_list();
-  $report = groups_report_get_regional_membership_report(time());
+  $report = groups_report_get_regional_membership_report($report_date);
   $total = 0;
   foreach ($continents as $key => $value) {
     $data[$key] = array();
@@ -103,13 +149,13 @@ function groups_reports_groups_membership_report() {
     $chart_data['datasets'][0]->data[] = $summary[$key]['count'];
     $total += $summary[$key]['count'];
   }
-  $build['chart'] = array(
+  $form['chart'] = array(
     '#type' => 'chart',
     '#labels' => $chart_data['labels'],
     '#datasets' => $chart_data['datasets'],
     '#options' => array('responsive' => true, 'maintainAspectRatio' => false),
   );
-  $build['totals'] = array(
+  $form['totals'] = array(
     '#prefix' => '<div class="totals-container">',
     '#suffix' => '</div>',
     '#markup' => t('<span class="totals_label">Community members worldwide</span> <span class="total">@total</span> <span class="suffix">people</span>', array('@total' => $total)),
@@ -126,7 +172,7 @@ function groups_reports_groups_membership_report() {
       'group' => '<b>Total</b>',
       'count' => '<b>'.$summary[$key]['count'].'</b>',
     );
-    $build['report_table_'.$key] = array(
+    $form['report_table_'.$key] = array(
       '#prefix' => '<a name="'.$key.'"></a><h3>'.check_plain($value).'</h3>',
       '#theme' => 'table',
       '#header' => $header,
@@ -136,8 +182,14 @@ function groups_reports_groups_membership_report() {
       '#empty' => t('No membership data available.'),
     );
   }
+  return $form;
+}
 
-  return $build;
+/**
+ * Form submit callback of groups membership report
+ */
+function groups_reports_groups_membership_report_form_submit($form = array(), &$form_state) {
+  $form_state['rebuild'] = TRUE;
 }
 
 /**
