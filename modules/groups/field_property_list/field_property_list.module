@@ -160,6 +160,7 @@ function field_property_list_field_widget_form(&$form, &$form_state, $field,
       $widget['value'] = array(
         '#type' => 'textfield',
         '#default_value' => $value,
+        '#maxlength' => 256,
       );
       $element['field_remove_item'] = array(
         '#type' => 'button',
