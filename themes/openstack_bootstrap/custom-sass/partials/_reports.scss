@@ -39,3 +39,55 @@
 #membership-history-chart {
   height: 400px;
 }
+
+#groups-reports-groups-status-report-form {
+  .col-user-group,
+  .col-organizers,
+  .col-messages,
+  .col-ambassadors {
+    white-space:nowrap;
+  }
+  .col-completeness {
+    width: 20px;
+  }
+  .col-status-new {
+    background: #FF0000;
+  }
+  .col-status-missing {
+    background: #e0e0e0;
+  }
+  .col-status-complete {
+    background: #00FF00;
+  }
+  .col-organizers,
+  .col-ambassadors,
+  .col-user-group {
+    width: 20%;
+  }
+  .col-status {
+    width: 5%;
+  }
+  .col-user-group {
+    font-weight: bold;
+  }
+  .status-point {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .status-max {
+    color: #808080;
+  }
+  td.col-organizers,
+  td.col-ambassadors {
+    font-size: 10px;
+  }
+  td.col-messages {
+    .glyphicon-exclamation-sign {
+      color: #FF0000;
+      margin-right: 0.5em;
+    }
+  }
+  a, a:hover, a:focus {
+    color: #30739C;
+  }
+}

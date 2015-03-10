@@ -13,7 +13,6 @@ function groups_reports_menu() {
     'description' => 'View membership statistic aggregated by continents.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('groups_reports_groups_membership_report_form'),
-    // 'page callback' => 'groups_reports_groups_membership_report',
     'access callback' => array('groups_reports_access'),
     'weight' => -1,
   );
@@ -21,6 +20,14 @@ function groups_reports_menu() {
     'title' => 'Membership history report',
     'description' => 'View membership history.',
     'page callback' => 'groups_reports_groups_membership_history_report',
+    'access callback' => array('groups_reports_access'),
+    'weight' => -1,
+  );
+  $items['reports/group-status-report'] = array(
+    'title' => 'Group status report',
+    'description' => 'View the completeness of user groups.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('groups_reports_groups_status_report_form'),
     'access callback' => array('groups_reports_access'),
     'weight' => -1,
   );
@@ -355,4 +362,204 @@ function groups_report_get_regional_membership_report($date) {
     'rows' => $rows,
     'totals' => $totals,
   );
+}
+
+/**
+ * Return organic group members filtered by group role.
+ * @param  $gid                 Group Id
+ * @param  $role_name           Role name
+ * @param  $remove_admin_user   Remove admin user (defaults to TRUE)
+ * @return Array of user entities.
+ */
+function _groups_reports_og_members_by_role($gid, $role_name, $remove_admin_user = TRUE) {
+   $query = db_select('og_users_roles', 'ogur');
+   $query->innerJoin('og_role', 'ogr', 'ogur.rid = ogr.rid');
+   $uids = $query
+    ->fields('ogur', array('uid'))
+    ->condition('ogr.gid', $gid, '=')
+    ->condition('ogr.name', $role_name, '=')
+    ->execute()
+    ->fetchCol();
+  // remove administrator
+  if (($key = array_search(1, $uids)) !== false) {
+    unset($uids[$key]);
+  }
+  $users = user_load_multiple($uids);
+  return $users;
+}
+
+/**
+ * Map uid, name, email from a user account.
+ */
+function _groups_reports_map_users($users) {
+  $items = array();
+  foreach ($users as $user) {
+    $items[] = array(
+      'uid' => $user->uid,
+      'name' => $user->data['oauth2_fullname'],
+      'email' => $user->mail);
+  }
+  return $items;
+}
+
+/**
+ * Create a group profile completeness status report.
+ */
+function groups_reports_group_status_report() {
+  $status_point_max = 3;
+  $items = array();
+  $query = db_select('node', 'n');
+  $query->join('field_data_field_group_location', 'l', 'n.nid = l.entity_id');
+  $query->fields('n', array('nid', 'title'));
+  $query->fields('l', array('field_group_location_continent', 'field_group_location_country'));
+  $query->condition('n.type', 'group', '=');
+  $query->condition('n.status', 1, '=');
+  $query->orderBy('l.field_group_location_continent', 'ASC');
+  $query->orderBy('n.title', 'ASC');
+  $result = $query->execute();
+  $rows = array();
+  $totals = array();
+  foreach ($result as $row) {
+    $node = node_load($row->nid);
+    $item = new stdClass;
+    $item->gid = $node->nid;
+    $item->title = $node->title;
+    $item->continent = $row->field_group_location_continent;
+    $item->organizers = _groups_reports_map_users(
+      _groups_reports_og_members_by_role($row->nid, 'administrator member'));
+    $uids = array();
+    if (isset($node->field_ambassadors[LANGUAGE_NONE][0])) {
+      foreach ($node->field_ambassadors[LANGUAGE_NONE][0] as $user_ref) {
+        $uids[] = $user_ref['target_id'];
+      }
+    }
+    $item->ambassadors = _groups_reports_map_users(user_load_multiple($uids));
+    // assign social links
+    $item->social_links = array();
+    if (isset($node->field_resource_links[LANGUAGE_NONE][0])) {
+      foreach ($node->field_resource_links[LANGUAGE_NONE] as $resource_link) {
+        // except Facebook, Google Plus, Meetup.com, Linkedin here
+        if (($resource_link['key'] == 18) || ($resource_link['key'] == 9) ||
+                  ($resource_link['key'] == 7) || ($resource_link['key'] == 5)) {
+          $item->social_links[] = $resource_link['value'];
+        }
+      }
+    }
+    $item->status_messages = array();
+    $item->status_point = 0;
+    $item->status_point_max = $status_point_max;
+    groups_reports_group_status_validate_organizers($item);
+    groups_reports_group_status_validate_ambassadors($item);
+    groups_reports_group_status_validate_social_links($item);
+    $items[] = $item;
+  }
+  return $items;
+}
+
+/**
+ * Group status report validation: check organizers
+ * +1 if organizers assigned to the group.
+ */
+function groups_reports_group_status_validate_organizers(&$item) {
+  if (count($item->organizers) > 0) {
+    $item->status_point++;
+  } else {
+    $item->status_messages[] = t('No organizers assigned to this group');
+  }
+}
+
+/**
+ * Group status report validation: check ambassadors
+ * +1 if ambassadors assigned to the group.
+ */
+function groups_reports_group_status_validate_ambassadors(&$item) {
+  if (count($item->ambassadors) > 0) {
+    $item->status_point++;
+  } else {
+    $item->status_messages[] = t('No Ambassadors assigned to this group');
+  }
+}
+
+/**
+ * Group status report validation: check social links
+ * +1 if a Facebook page, Meetup.com group, Linkedin group assigned to group.
+ */
+function groups_reports_group_status_validate_social_links(&$item) {
+  if (count($item->social_links) > 0) {
+    $item->status_point++;
+  } else {
+    $item->status_messages[] = t('No social link assigned to this group');
+  }
+}
+
+/**
+ * Form constructor of group status report
+ */
+function groups_reports_groups_status_report_form($form = array(), &$form_state) {
+  module_load_include('inc', 'field_group_location', 'field_group_lookup');
+  $continents = _continent_get_predefined_list();
+  $rows = groups_reports_group_status_report();
+  foreach ($rows as $row) {
+    $organizers = '';
+    foreach ($row->organizers as $organizer) {
+      $organizers .= l(sprintf('%s <%s>', $organizer['name'], $organizer['email']), 'user/'.$organizer['uid']).'<br/>';
+    }
+    $ambassadors = '';
+    foreach ($row->ambassadors as $ambassador) {
+      $ambassadors .= l(sprintf('%s <%s>', $ambassador['name'], $ambassador['email']), 'user/'.$ambassador['uid']).'<br/>';
+    }
+    $status_messages = '';
+    foreach ($row->status_messages as $msg) {
+      $status_messages .= '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>'.$msg.'<br/>';
+    }
+    $completeness_class = 'col-status-new';
+    if ($row->status_point > 0) {
+      $completeness_class = 'col-status-missing';
+    }
+    if ($row->status_point == $row->status_point_max) {
+      $completeness_class = 'col-status-complete';
+    }
+    $data[$row->continent][] = array(
+      'completeness' => array(
+        'data' => '',
+        'class' => array('col-completeness', $completeness_class)),
+      'title' => array(
+        'data' => $row->title,
+        'class' => array('col-user-group')),
+      'status' => array(
+        'data' => sprintf('<span class="status-point">%d</span><span class="status-max">/%d</span>', $row->status_point, $row->status_point_max),
+        'class' => array('col-status')),
+      'organizers' => array(
+        'data' => $organizers,
+        'class' => array('col-organizers')),
+      'ambassadors' => array(
+        'data' => $ambassadors,
+        'class' => array('col-ambassadors')),
+      'status_messages' => array(
+        'data' => $status_messages,
+        'class' => array('col-messages')),
+    );
+  }
+  $header = array(
+    array('data' => '', 'class' => array('col-completeness')),
+    array('data' => t('User Group'), 'class' => array('col-user-group')),
+    array('data' => t('Status'), 'class' => array('col-status')),
+    array('data' => t('Organizers'), 'class' => array('col-organizers')),
+    array('data' => t('Ambassadors'), 'class' => array('col-ambassadors')),
+    array('data' => t('Status messages'), 'class' => array('col-messages')),
+  );
+  foreach ($continents as $key => $value) {
+    if (isset($data[$key])) {
+      $form['report_table_'.$key] = array(
+        '#prefix' => '<a name="'.$key.'"></a><h3>'.check_plain($value).'</h3>',
+        '#theme' => 'table',
+        '#header' => $header,
+        '#rows' => $data[$key],
+        '#sticky' => FALSE,
+        '#attributes' => array('id' => 'group-report-continent'),
+        '#empty' => t('No membership data available.'),
+      );
+    }
+  }
+  return $form;
 }

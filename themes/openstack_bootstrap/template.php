@@ -273,7 +273,8 @@ function openstack_bootstrap_preprocess_user_profile(&$variables) {
       '#prefix' => '<h3>'.t('Reports').'</h3>',
       '#markup' =>
         '<div>'.l('User group membership report', 'reports/groups-membership-report').'</div>'.
-        '<div>'.l('Membership history report', 'reports/groups-membership-history-report').'</div>',
+        '<div>'.l('Membership history report', 'reports/groups-membership-history-report').'</div>'.
+        '<div>'.l('Group status report', 'reports/group-status-report').'</div>',
     );
   }
   if (user_is_logged_in()) {
