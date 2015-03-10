@@ -36,10 +36,12 @@ function groups_comment_form_comment_form_alter(&$form, &$form_state) {
  * Set default text format to markdown for the group/body field.
  */
 function groups_comment_text_format_alter(&$element) {
-  if (($element['#bundle'] == 'comment_node_post') && ($element['#field_name'] == 'comment_body')) {
-    // set default value to markdown
-    $element['format']['format']['#default_value'] = 'markdown';
-    // hide text format filter
-    $element['format']['#access'] = FALSE;
+  if ((isset($element['#bundle'])) && (isset($element['#field_name']))) {
+    if (($element['#bundle'] == 'comment_node_post') && ($element['#field_name'] == 'comment_body')) {
+      // set default value to markdown
+      $element['format']['format']['#default_value'] = 'markdown';
+      // hide text format filter
+      $element['format']['#access'] = FALSE;
+    }
   }
 }
