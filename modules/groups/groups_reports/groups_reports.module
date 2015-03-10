@@ -499,7 +499,12 @@ function groups_reports_groups_status_report_form($form = array(), &$form_state)
   module_load_include('inc', 'field_group_location', 'field_group_lookup');
   $continents = _continent_get_predefined_list();
   $rows = groups_reports_group_status_report();
+  $totals = new stdClass();
+  $totals->points = 0;
+  $totals->max = 0;
   foreach ($rows as $row) {
+    $totals->points += $row->status_point;
+    $totals->max += $row->status_point_max;
     $organizers = '';
     foreach ($row->organizers as $organizer) {
       $organizers .= l(sprintf('%s <%s>', $organizer['name'], $organizer['email']), 'user/'.$organizer['uid']).'<br/>';
@@ -540,6 +545,12 @@ function groups_reports_groups_status_report_form($form = array(), &$form_state)
         'class' => array('col-messages')),
     );
   }
+  $total_percents = (int)(($totals->points / $totals->max) * 100+.5);;
+  $form['totals'] = array(
+    '#prefix' => '<div class="totals-container">',
+    '#suffix' => '</div>',
+    '#markup' => t('<span class="totals_label">Process level</span> <span class="total">@total</span> <span class="suffix">%</span><br/>Total @points points from maximum @max', array('@total' => $total_percents, '@points' => $totals->points, '@max' => $totals->max)),
+  );
   $header = array(
     array('data' => '', 'class' => array('col-completeness')),
     array('data' => t('User Group'), 'class' => array('col-user-group')),
