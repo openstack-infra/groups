@@ -311,6 +311,8 @@ function groups_feeds_feeds_presave($source, $entity, $item) {
     ($entity->feeds_item->id == 'user_group_feed_importer')) {
     $location = $item['jsonpath_parser:1'];
     $entity->field_group_location[LANGUAGE_NONE][0] = $location;
+    // publish imported node as a default
+    $entity->status = 1;
     // update attributes
     $attributes = $item['jsonpath_parser:2'];
     if (isset($attributes)) {
