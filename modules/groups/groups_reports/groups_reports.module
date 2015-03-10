@@ -429,7 +429,7 @@ function groups_reports_group_status_report() {
       _groups_reports_og_members_by_role($row->nid, 'administrator member'));
     $uids = array();
     if (isset($node->field_ambassadors[LANGUAGE_NONE][0])) {
-      foreach ($node->field_ambassadors[LANGUAGE_NONE][0] as $user_ref) {
+      foreach ($node->field_ambassadors[LANGUAGE_NONE] as $user_ref) {
         $uids[] = $user_ref['target_id'];
       }
     }
