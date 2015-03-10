@@ -143,11 +143,13 @@ function groups_groups_theme() {
  */
 function groups_groups_text_format_alter(&$element) {
   $bundles = array('group', 'post');
-  if ((in_array($element['#bundle'], $bundles)) && ($element['#field_name'] == 'body')) {
-    // set default value to markdown
-    $element['format']['format']['#default_value'] = 'markdown';
-    // hide text format filter
-    $element['format']['#access'] = FALSE;
+  if ((isset($element['#bundle'])) && (isset($element['#field_name']))) {
+    if ((in_array($element['#bundle'], $bundles)) && ($element['#field_name'] == 'body')) {
+      // set default value to markdown
+      $element['format']['format']['#default_value'] = 'markdown';
+      // hide text format filter
+      $element['format']['#access'] = FALSE;
+    }
   }
 }
 
