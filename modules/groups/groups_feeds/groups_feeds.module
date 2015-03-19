@@ -349,6 +349,29 @@ function groups_feeds_feeds_presave($source, $entity, $item) {
     if (isset($config['FeedsHTTPFetcher']['nid'])) {
       $entity->og_group_ref[LANGUAGE_NONE][0]['target_id'] = $config['FeedsHTTPFetcher']['nid'];
     }
+    if ((isset($entity->field_address[LANGUAGE_NONE][0]['data'])) &&
+      (!empty($entity->field_address[LANGUAGE_NONE][0]['data']))) {
+      // map location data into field_address and field_venue_name
+      module_load_include('inc', 'groups_feeds', 'includes/groups_feeds_meetup_events');
+      $field_address = &$entity->field_address[LANGUAGE_NONE][0];
+      $location_map = _parse_meetup_location($field_address['data']);
+      foreach ($location_map as $k => $v) {
+        switch ($k) {
+          case 'country':
+            $field_address['country'] = _country_code_by_name($v);
+            break;
+          case 'city':
+            $field_address['locality'] = $v;
+            break;
+          case 'address':
+            $field_address['thoroughfare'] = $v;
+            break;
+          case 'venue':
+            $entity->field_venue_name[LANGUAGE_NONE][0] = $v;
+            break;
+        }
+      }
+    }
   }
 }
 
