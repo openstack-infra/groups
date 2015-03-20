@@ -22,3 +22,20 @@ function groups_events_menu_alter(&$items) {
   // show attendees tab for logged-in users only
   $items['node/%node/attendees']['access callback'] = 'user_is_logged_in';
 }
+
+/**
+ * Implements hook_field_default_field_instances_alter()
+ *
+ * Override event address field teaser display to show
+ * locality, country part of the address.
+ */
+function groups_events_field_default_field_instances_alter(&$fields) {
+  if (isset($fields['node-event-field_address'])) {
+    $field = &$fields['node-event-field_address'];
+    $field['display']['teaser']['settings']['components'] = array(
+      'administrative_area' => 'administrative_area',
+      'locality' => 'locality',
+      'country' => 'country',
+    );
+  }
+}
