@@ -97,4 +97,13 @@ class MeetupLocationParserTest extends DrupalUnitTestCase {
     $this->assertEqual('Blue Box Group', $result['venue']);
   }
 
+  function testAddressPartWithSlash() {
+    $location = 'Redapt Systems (12226 134th Ct Ne\, Redmond\, WA\, USA)';
+    $result = _parse_meetup_location($location);
+    $this->assertEqual('Redapt Systems', $result['venue']);
+    $this->assertEqual('12226 134th Ct Ne', $result['address']);
+    $this->assertEqual('Redmond, WA', $result['city']);
+    $this->assertEqual('United States', $result['country']);
+  }
+
 }

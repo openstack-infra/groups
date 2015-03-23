@@ -210,6 +210,9 @@ function _us_states_get_predefined_list() {
 function _match_us_location($elements) {
   $us_states = _us_states_get_predefined_list();
   $state_part = array_shift($elements);
+  if ($state_part == 'USA') {
+    $state_part = array_shift($elements);
+  }
   if (strlen($state_part == 2)) {
     $state_code = $state_part;
   } else {
@@ -250,6 +253,7 @@ function _match_location_by_country($elements) {
  *   address parts as array elements
  */
 function _normalize_address_elements($address_part) {
+  $address_part = stripslashes($address_part);
   $address_elements = explode(', ', rtrim($address_part, ')'));
   foreach ($address_elements as $k => $v) {
     $address_elements[$k] = trim($v);
