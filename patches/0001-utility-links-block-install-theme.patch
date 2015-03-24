@@ -1,30 +1,43 @@
-diff -Naur a/commons_utility_links.install b/commons_utility_links.install
---- a/commons_utility_links.install	2013-10-24 19:50:45.000000000 +0000
-+++ b/commons_utility_links.install	2013-10-24 20:56:41.575728538 +0000
-@@ -13,7 +13,7 @@
+diff -Naur commons_utility_links.orig/commons_utility_links.install commons_utility_links/commons_utility_links.install
+--- commons_utility_links.orig/commons_utility_links.install	2015-03-24 13:44:17.000000000 +0100
++++ commons_utility_links/commons_utility_links.install	2015-03-24 13:43:43.000000000 +0100
+@@ -9,11 +9,12 @@
+  */
+ function commons_utility_links_install() {
+   cache_clear_all('*', 'cache_block', TRUE);
++  $theme = variable_get('theme_default', 'openstack_bootstrap');
+  // Place site blocks in the menu_bar and header regions.
    $utility_block = array(
      'module' => 'commons_utility_links',
      'delta' => 'commons_utility_links',
 -    'theme' => 'commons_origins',
-+    'theme' => 'openstack',
++    'theme' => $theme,
      'visibility' => 0,
      'region' => 'header',
      'status' => 1,
-@@ -28,7 +28,7 @@
+@@ -28,7 +29,7 @@
      ->fields(array('cache' => DRUPAL_NO_CACHE))
      ->condition('delta', 'commons_utility_links')
      ->condition('module', 'commons_utility_links')
 -    ->condition('theme', 'commons_origins')
-+    ->condition('theme', 'openstack')
++    ->condition('theme', $theme)
      ->execute();
  }
  
-@@ -50,7 +50,7 @@
+@@ -36,6 +37,7 @@
+  * Remove utility_links block, and enable commons_utility_links, that never caches.
+  */
+ function commons_utility_links_update_7301() {
++  $theme = variable_get('theme_default', 'openstack_bootstrap');
+   db_delete('block')
+     ->condition('module', 'commons_utility_links')
+     ->condition('delta', 'utility_links')
+@@ -50,7 +52,7 @@
      ))
      ->condition('delta', 'commons_utility_links')
      ->condition('module', 'commons_utility_links')
 -    ->condition('theme', 'commons_origins')
-+    ->condition('theme', 'openstack')
++    ->condition('theme', $theme)
      ->execute();
    cache_clear_all('*', 'cache_block', TRUE);
  }

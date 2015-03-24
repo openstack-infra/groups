@@ -48,7 +48,6 @@ dependencies[] = googleanalytics
 dependencies[] = http_client
 dependencies[] = jquery_update
 dependencies[] = libraries
-dependencies[] = l10n_update
 dependencies[] = markdown
 dependencies[] = media
 dependencies[] = media_internet
@@ -147,20 +146,3 @@ dependencies[] = feeds_fetcher_directory
 ; Custom modules
 dependencies[] = field_property_list
 dependencies[] = field_group_location
-
-; Features
-dependencies[] = groups_groups
-dependencies[] = groups_directory
-dependencies[] = groups_footer
-dependencies[] = groups_homepage
-dependencies[] = groups_common
-dependencies[] = groups_comment
-dependencies[] = groups_auth
-dependencies[] = groups_oauth2
-dependencies[] = groups_oauth2_picture
-dependencies[] = groups_feeds
-dependencies[] = groups_events
-dependencies[] = groups_events_pages
-dependencies[] = groups_pages
-dependencies[] = groups_reports
-dependencies[] = groups_wikis

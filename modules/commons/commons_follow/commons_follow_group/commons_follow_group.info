@@ -1,20 +1,22 @@
 name = Commons Follow (Groups)
-description = Lets users follow individual organic groups.
-core = 7.x
+description = Provides Organic Groups integration for Commons Follow, allowing users to follow individual groups.
 package = Commons - Building blocks
+core = 7.x
+
 dependencies[] = ctools
 dependencies[] = flag
 dependencies[] = og
 dependencies[] = strongarm
+
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
 features[flag][] = commons_follow_group
 features[flag][] = email_group
 features[variable][] = message_subscribe_og
 
-; Information added by Drupal.org packaging script on 2014-06-25
-version = "7.x-3.15"
+; Information added by Drupal.org packaging script on 2015-03-18
+version = "7.x-3.23"
 core = "7.x"
 project = "commons"
-datestamp = "1403672628"
+datestamp = "1426714630"
 

@@ -1,20 +1,23 @@
-name = Commons Tabbed Browsing Widget
-core = 7.x
+name = Commons Browsing Widget
+description = Provides a single content area with multiple panels for adding and browsing content by content type.
 package = Commons - Building blocks
+core = 7.x
+
 dependencies[] = commons_groups
 dependencies[] = features
 dependencies[] = og
 dependencies[] = quicktabs
 dependencies[] = quicktabs_tabstyles
 dependencies[] = title
+
 features[features_api][] = api:2
 features[field_base][] = title_field
-files[] = includes/views/handlers/commons_bw_handler_node_partial_form.inc
-; Views handlers
 
-; Information added by Drupal.org packaging script on 2014-06-25
-version = "7.x-3.15"
+files[] = includes/views/handlers/commons_bw_handler_node_partial_form.inc
+
+; Information added by Drupal.org packaging script on 2015-03-18
+version = "7.x-3.23"
 core = "7.x"
 project = "commons"
-datestamp = "1403672628"
+datestamp = "1426714630"
 

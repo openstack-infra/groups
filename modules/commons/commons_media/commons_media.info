@@ -1,7 +1,8 @@
 name = Commons Media
 description = Provides media handling capabilities.
-core = 7.x
 package = Commons - Building blocks
+core = 7.x
+
 dependencies[] = ctools
 dependencies[] = features
 dependencies[] = file
@@ -10,6 +11,7 @@ dependencies[] = media
 dependencies[] = media_internet
 dependencies[] = media_oembed
 dependencies[] = strongarm
+
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
 features[field_base][] = field_media
@@ -23,9 +25,9 @@ features[variable][] = file_entity_file_upload_wizard_skip_file_type
 features[variable][] = file_entity_file_upload_wizard_skip_scheme
 features[variable][] = media_dialog_theme
 
-; Information added by Drupal.org packaging script on 2014-06-25
-version = "7.x-3.15"
+; Information added by Drupal.org packaging script on 2015-03-18
+version = "7.x-3.23"
 core = "7.x"
 project = "commons"
-datestamp = "1403672628"
+datestamp = "1426714630"
 

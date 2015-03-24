@@ -1,14 +1,15 @@
 name = Commons Images
-description = Image styles used in the Commons distribution
-core = 7.x
+description = Enhances the display of images by making them responsive and intelligently cropping them where necessary.
 package = Commons - Building blocks
-project = commons_images
+core = 7.x
+
 dependencies[] = breakpoints
 dependencies[] = ctools
 dependencies[] = file_entity
 dependencies[] = image
 dependencies[] = picture
 dependencies[] = smartcrop
+
 features[breakpoint_group][] = commons_default
 features[breakpoint_group][] = commons_full
 features[breakpoint_group][] = commons_origins
@@ -44,9 +45,9 @@ features[picture_mapping][] = commons_default
 features[picture_mapping][] = commons_full
 features[picture_mapping][] = commons_teaser
 
-; Information added by Drupal.org packaging script on 2014-06-25
-version = "7.x-3.15"
+; Information added by Drupal.org packaging script on 2015-03-18
+version = "7.x-3.23"
 core = "7.x"
 project = "commons"
-datestamp = "1403672628"
+datestamp = "1426714630"
 

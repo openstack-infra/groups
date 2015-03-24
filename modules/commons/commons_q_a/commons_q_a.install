@@ -174,3 +174,36 @@ function commons_q_a_update_3113() {
   features_revert($revert);
   return array();
 }
+
+/**
+ * Fix URL aliases for group references
+ */
+function commons_q_a_update_3114() {
+  $revert = array(
+    'commons_q_a' => array('variable'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Standardize browsing widget field weights.
+ */
+function commons_q_a_update_3115() {
+  $revert = array(
+    'commons_q_a' => array('field_instance'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Accommodate changes to message definitions.
+ */
+function commons_q_a_update_3116() {
+  $revert = array(
+    'commons_q_a' => array('message_type'),
+  );
+  features_revert($revert);
+  return array();
+}

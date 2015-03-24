@@ -1,6 +1,6 @@
 diff -Naur commons_events.orig/commons_events.features.inc commons_events/commons_events.features.inc
---- commons_events.orig/commons_events.features.inc	2014-07-21 16:24:34.000000000 +0200
-+++ commons_events/commons_events.features.inc	2014-07-21 16:17:30.000000000 +0200
+--- commons_events.orig/commons_events.features.inc	2015-03-24 11:51:25.000000000 +0100
++++ commons_events/commons_events.features.inc	2015-03-24 11:40:47.000000000 +0100
 @@ -8,9 +8,6 @@
   * Implements hook_ctools_plugin_api().
   */
@@ -12,28 +12,28 @@ diff -Naur commons_events.orig/commons_events.features.inc commons_events/common
      return array("version" => "1");
    }
 diff -Naur commons_events.orig/commons_events.info commons_events/commons_events.info
---- commons_events.orig/commons_events.info	2014-07-21 16:24:34.000000000 +0200
-+++ commons_events/commons_events.info	2014-07-21 16:22:45.000000000 +0200
-@@ -37,7 +37,6 @@
- dependencies[] = views
+--- commons_events.orig/commons_events.info	2015-03-24 11:51:25.000000000 +0100
++++ commons_events/commons_events.info	2015-03-24 11:42:17.000000000 +0100
+@@ -39,7 +39,6 @@
  dependencies[] = views_content
  dependencies[] = views_load_more
+ 
 -features[ctools][] = page_manager:pages_default:1
  features[ctools][] = strongarm:strongarm:1
  features[ctools][] = views:views_default:3.0
  features[features_api][] = api:2
-@@ -70,7 +69,6 @@
+@@ -72,7 +71,6 @@
  features[og_features_permission][] = node:group:delete own event content
  features[og_features_permission][] = node:group:update any event content
  features[og_features_permission][] = node:group:update own event content
 -features[page_manager_pages][] = views_events_landing_page
  features[registration_type][] = event
- features[schemaorg][] = node-event
  features[user_permission][] = create event content
+ features[user_permission][] = create event registration
 diff -Naur commons_events.orig/commons_events.pages_default.inc commons_events/commons_events.pages_default.inc
---- commons_events.orig/commons_events.pages_default.inc	2014-07-21 16:24:34.000000000 +0200
+--- commons_events.orig/commons_events.pages_default.inc	2015-03-24 11:51:25.000000000 +0100
 +++ commons_events/commons_events.pages_default.inc	1970-01-01 01:00:00.000000000 +0100
-@@ -1,193 +0,0 @@
+@@ -1,204 +0,0 @@
 -<?php
 -/**
 - * @file
@@ -56,7 +56,18 @@ diff -Naur commons_events.orig/commons_events.pages_default.inc commons_events/c
 -    'type' => 'none',
 -    'settings' => NULL,
 -  );
--  $page->menu = array();
+-  $page->menu = array(
+-    'type' => 'normal',
+-    'title' => 'Events',
+-    'weight' => '2',
+-    'name' => 'main-menu',
+-    'parent' => array(
+-      'type' => 'none',
+-      'title' => '',
+-      'weight' => 0,
+-      'name' => 'navigation',
+-    ),
+-  );
 -  $page->arguments = array();
 -  $page->conf = array(
 -    'admin_paths' => FALSE,
@@ -228,8 +239,8 @@ diff -Naur commons_events.orig/commons_events.pages_default.inc commons_events/c
 -
 -}
 diff -Naur commons_events.orig/modules/commons_events_pages/commons_events_pages.features.inc commons_events/modules/commons_events_pages/commons_events_pages.features.inc
---- commons_events.orig/modules/commons_events_pages/commons_events_pages.features.inc	2014-07-21 16:24:34.000000000 +0200
-+++ commons_events/modules/commons_events_pages/commons_events_pages.features.inc	2014-07-21 16:17:25.000000000 +0200
+--- commons_events.orig/modules/commons_events_pages/commons_events_pages.features.inc	2015-03-24 11:51:25.000000000 +0100
++++ commons_events/modules/commons_events_pages/commons_events_pages.features.inc	2015-03-24 11:41:11.000000000 +0100
 @@ -14,4 +14,7 @@
    if ($module == "strongarm" && $api == "strongarm") {
      return array("version" => "1");
@@ -239,10 +250,10 @@ diff -Naur commons_events.orig/modules/commons_events_pages/commons_events_pages
 +  }
  }
 diff -Naur commons_events.orig/modules/commons_events_pages/commons_events_pages.info commons_events/modules/commons_events_pages/commons_events_pages.info
---- commons_events.orig/modules/commons_events_pages/commons_events_pages.info	2014-07-21 16:24:34.000000000 +0200
-+++ commons_events/modules/commons_events_pages/commons_events_pages.info	2014-07-21 16:22:37.000000000 +0200
-@@ -7,7 +7,9 @@
- dependencies[] = strongarm
+--- commons_events.orig/modules/commons_events_pages/commons_events_pages.info	2015-03-24 11:51:25.000000000 +0100
++++ commons_events/modules/commons_events_pages/commons_events_pages.info	2015-03-24 11:41:52.000000000 +0100
+@@ -9,7 +9,9 @@
+ 
  features[ctools][] = panelizer:panelizer:1
  features[ctools][] = strongarm:strongarm:1
 +features[ctools][] = page_manager:pages_default:1
@@ -250,21 +261,21 @@ diff -Naur commons_events.orig/modules/commons_events_pages/commons_events_pages
 +features[page_manager_pages][] = views_events_landing_page
  features[panelizer_defaults][] = node:event:default
  features[variable][] = panelizer_defaults_node_event
- files[] = commons_events_pages.features.inc
+ 
 diff -Naur commons_events.orig/modules/commons_events_pages/commons_events_pages.pages_default.inc commons_events/modules/commons_events_pages/commons_events_pages.pages_default.inc
 --- commons_events.orig/modules/commons_events_pages/commons_events_pages.pages_default.inc	1970-01-01 01:00:00.000000000 +0100
-+++ commons_events/modules/commons_events_pages/commons_events_pages.pages_default.inc	2014-07-21 16:21:54.000000000 +0200
-@@ -0,0 +1,193 @@
++++ commons_events/modules/commons_events_pages/commons_events_pages.pages_default.inc	2015-03-24 10:33:46.000000000 +0100
+@@ -0,0 +1,204 @@
 +<?php
 +/**
 + * @file
-+ * commons_events_pages.pages_default.inc
++ * commons_events.pages_default.inc
 + */
 +
 +/**
 + * Implements hook_default_page_manager_pages().
 + */
-+function commons_events_pages_default_page_manager_pages() {
++function commons_events_default_page_manager_pages() {
 +  $page = new stdClass();
 +  $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
 +  $page->api_version = 1;
@@ -277,7 +288,18 @@ diff -Naur commons_events.orig/modules/commons_events_pages/commons_events_pages
 +    'type' => 'none',
 +    'settings' => NULL,
 +  );
-+  $page->menu = array();
++  $page->menu = array(
++    'type' => 'normal',
++    'title' => 'Events',
++    'weight' => '2',
++    'name' => 'main-menu',
++    'parent' => array(
++      'type' => 'none',
++      'title' => '',
++      'weight' => 0,
++      'name' => 'navigation',
++    ),
++  );
 +  $page->arguments = array();
 +  $page->conf = array(
 +    'admin_paths' => FALSE,

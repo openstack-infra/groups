@@ -10,6 +10,12 @@ include_once 'commons_radioactivity_groups.features.inc';
  * Implements hook_node_insert().
  */
 function commons_radioactivity_groups_node_insert($node) {
+  // If the node does not have radioactivity integration then there's nothing to
+  // do here.
+  if (!isset($node->field_radioactivity)) {
+    return;
+  }
+
   // If there are no groups associated with this node then there's nothing to do
   // here.
   if (!isset($node->og_group_ref)) {
@@ -24,6 +30,12 @@ function commons_radioactivity_groups_node_insert($node) {
  * Implements hook_node_delete().
  */
 function commons_radioactivity_groups_node_delete($node) {
+  // If the node does not have radioactivity integration then there's nothing to
+  // do here.
+  if (!isset($node->field_radioactivity)) {
+    return;
+  }
+
   // If there are no groups associated with this node then there's nothing to do
   // here.
   if (!isset($node->og_group_ref)) {
@@ -38,6 +50,12 @@ function commons_radioactivity_groups_node_delete($node) {
  * Implements hook_node_update().
  */
 function commons_radioactivity_groups_node_update($node) {
+  // If the node does not have radioactivity integration then there's nothing to
+  // do here.
+  if (!isset($node->field_radioactivity)) {
+    return;
+  }
+
   // If there are no groups associated with this node then there's nothing to do
   // here.
   if (!isset($node->og_group_ref)) {
@@ -62,15 +80,19 @@ function commons_radioactivity_groups_node_update($node) {
 function commons_radioactivity_groups_incident_groups($node, $value) {
   $gids = array();
 
-  foreach ($node->og_group_ref[LANGUAGE_NONE] as $field) {
-    $gids[] = $field['target_id'];
+  if ($items = field_get_items('node', $node, 'og_group_ref')) {
+    foreach ($items as $item) {
+      $gids[] = $item['target_id'];
+    }
   }
 
-  // @Todo: We may wish to instead simply select the types of these groups.
-  $groups = node_load_multiple($gids);
+  if (count($gids)) {
+    // @Todo: We may wish to instead simply select the types of these groups.
+    $groups = node_load_multiple($gids);
 
-  foreach ($groups as $group) {
-    commons_radioactivity_incident_node($group, $value);
+    foreach ($groups as $group) {
+      commons_radioactivity_incident_node($group, $value);
+    }
   }
 }
 
@@ -181,49 +203,5 @@ function commons_radioactivity_groups_default_page_manager_pages_alter(&$pages) 
     $pane->uuid = 'b6e290b7-1d2b-5db4-a181-28befdcde628';
     $display->content['new-b6e290b7-1d2b-5db4-a181-28befdcde628'] = $pane;
     $display->panels['three_33_second'][0] = 'new-b6e290b7-1d2b-5db4-a181-28befdcde628';
-  }
-}
-
-/**
- * Implements hook_panelizer_defaults_alter().
- */
-function commons_radioactivity_groups_panelizer_defaults_alter(&$panelizers) {
-  // Add the 'active in group' block to each group node.
-  $group_bundles = og_get_all_group_bundle();
-
-  if (!empty($group_bundles['node'])) {
-    foreach ($group_bundles['node'] as $bundle => $name) {
-      if (isset($panelizers["node:$bundle:default"])) {
-        $panelizer = $panelizers["node:$bundle:default"];
-        $display = $panelizer->display;
-
-        $pane = new stdClass();
-        $pane->pid = 'new-ba735f2b-4734-7724-098d-1925c6a4bb47';
-        $pane->panel = 'two_66_33_second';
-        $pane->type = 'views_panes';
-        $pane->subtype = 'commons_radioactivity_groups_active_in_group-panel_pane_1';
-        $pane->shown = TRUE;
-        $pane->access = array();
-        $pane->configuration = array(
-          'arguments' => array(
-            'gid' => '%node:nid',
-          ),
-          'context' => array(
-            0 => 'panelizer',
-          ),
-        );
-        $pane->cache = array();
-        $pane->style = array(
-          'settings' => NULL,
-        );
-        $pane->css = array();
-        $pane->extras = array();
-        $pane->position = 2;
-        $pane->locks = array();
-        $pane->uuid = 'ba735f2b-4734-7724-098d-1925c6a4bb47';
-        $display->content['new-ba735f2b-4734-7724-098d-1925c6a4bb47'] = $pane;
-        $display->panels['two_66_33_second'][2] = 'new-ba735f2b-4734-7724-098d-1925c6a4bb47';
-      }
-    }
   }
 }

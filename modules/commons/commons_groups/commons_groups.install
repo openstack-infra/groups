@@ -254,3 +254,36 @@ function commons_groups_update_3120() {
   features_revert($revert);
   return array();
 }
+
+/**
+ * Fix URL aliases for group references
+ */
+function commons_groups_update_3121() {
+  $revert = array(
+    'commons_groups' => array('variable'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Revert the contributors view to hide 'more' link and show a pager.
+ */
+function commons_groups_update_3122() {
+  $revert = array(
+    'commons_groups' => array('views_view'),
+  );
+  features_revert($revert);
+  return array();
+}
+
+/**
+ * Revert the group view to display a link to the groups a user contributes to.
+ */
+function commons_groups_update_3170() {
+  $revert = array(
+    'commons_groups' => array('views_view'),
+  );
+  features_revert($revert);
+  return array();
+}

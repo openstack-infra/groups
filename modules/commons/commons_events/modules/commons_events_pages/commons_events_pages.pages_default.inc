@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * commons_events_pages.pages_default.inc
+ * commons_events.pages_default.inc
  */
 
 /**
  * Implements hook_default_page_manager_pages().
  */
-function commons_events_pages_default_page_manager_pages() {
+function commons_events_default_page_manager_pages() {
   $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
   $page->api_version = 1;
@@ -20,7 +20,18 @@ function commons_events_pages_default_page_manager_pages() {
     'type' => 'none',
     'settings' => NULL,
   );
-  $page->menu = array();
+  $page->menu = array(
+    'type' => 'normal',
+    'title' => 'Events',
+    'weight' => '2',
+    'name' => 'main-menu',
+    'parent' => array(
+      'type' => 'none',
+      'title' => '',
+      'weight' => 0,
+      'name' => 'navigation',
+    ),
+  );
   $page->arguments = array();
   $page->conf = array(
     'admin_paths' => FALSE,

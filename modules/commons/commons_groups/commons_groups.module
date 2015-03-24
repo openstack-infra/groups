@@ -444,6 +444,29 @@ function commons_groups_system_info_alter(&$info, $file, $type) {
       }
     }
   }
+
+  // Dynamically adding a field instance to an entity type results in features
+  // automatically detecting Commons Groups as a dependency.
+  // We manually exclude the dependency in order to prevent entity type provider
+  // modules from appearing overridden and to allow them to be used
+  // independently of Commons Groups.
+  $commons_entity_integrations = &drupal_static(__FUNCTION__);
+
+  if (!isset($commons_entity_integrations)) {
+    foreach (module_implements('commons_entity_integration') as $module) {
+      $commons_entity_integrations[$module] = call_user_func($module . '_commons_entity_integration');
+    }
+  }
+
+  if (isset($commons_entity_integrations[$file->name])) {
+    foreach ($commons_entity_integrations[$file->name] as $entity_type => $integration) {
+      foreach ($integration as $bundle => $options) {
+        if (commons_groups_is_group_content($entity_type, $bundle)) {
+          $info['features_exclude']['dependencies']['commons_groups'] = 'commons_groups';
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -506,7 +529,7 @@ function commons_groups_token_info() {
   );
   $tokens['commons-groups']['in-groups-text'] = array(
     'name' => t('"In groups" text'),
-    'description' => t('The text (starting with "in the groups") indicating which groups a peice of content belongs to.'),
+    'description' => t('The text (starting with "in the groups") indicating which groups a piece of content belongs to.'),
   );
   $tokens['node']['commons-groups-first-group'] = array(
     'name' => t('First Group'),
@@ -521,7 +544,6 @@ function commons_groups_token_info() {
     'tokens' => $tokens,
   );
 }
-
 
 /**
  * Implements hook_tokens().
@@ -566,7 +588,7 @@ function commons_groups_tokens($type, $tokens, $data = array(), $options = array
           }
         }
       }
-      // If no groups are associated with any of the targett nodes,
+      // If no groups are associated with any of the target nodes,
       // then we have no "in the groups" text.
       if (empty($related_gids)) {
         $replacements['[commons-groups:in-groups-text]'] = '';
@@ -833,6 +855,24 @@ function commons_groups_set_group_permissions($node) {
 }
 
 /**
+ * Helper function to determine whether an entity bundle is considered group
+ * content.
+ *
+ * @param $entity_type
+ *   The entity type to check group content settings for.
+ * @param $bundle
+ *   The entity bundle to check group content settings for.
+ *
+ * @return boolean
+ *   The value of the group content setting if available, FALSE otherwise.
+ */
+function commons_groups_is_group_content($entity_type, $bundle) {
+  $commons_groups_entity_types = commons_groups_get_group_content_entity_types();
+
+  return isset($commons_groups_entity_types[$entity_type][$bundle]['is_group_content']) ? $commons_groups_entity_types[$entity_type][$bundle]['is_group_content'] : FALSE;
+}
+
+/**
  * Returns an array of entity types that are enabled via Commons Groups.
  */
 function commons_groups_get_group_content_entity_types($cache = TRUE) {
@@ -1046,13 +1086,18 @@ function commons_groups_field_formatter_view($entity_type, $entity, $field, $ins
     return;
   }
   if (og_is_member($entity_type, $id, 'user', $account)) {
-    // The user has an active membership. She can leave the group.
-    // For groups where anyone can contribute without joining, don't display
-    // a "Leave" link since users never went through
-    // the separate step of joining.
-    if (og_is_member($entity_type, $id, 'user', $account, array(OG_STATE_ACTIVE)) && $entity->field_og_subscribe_settings[LANGUAGE_NONE][0]['value'] != 'anyone') {
-      $links['title'] = t('Leave group');
-      $links['href'] = "group/$entity_type/$id/unsubscribe";
+    // The user has an active membership.
+    if (og_user_access($entity_type, $id, 'unsubscribe', $account)) {
+      // The user has the permission to unsubscribe himself,
+      // otherwise don't display a "Leave" link since the user can't leave
+      // anyways.
+      // For groups where anyone can contribute without joining, don't display
+      // a "Leave" link since users never went through
+      // the separate step of joining.
+      if (og_is_member($entity_type, $id, 'user', $account, array(OG_STATE_ACTIVE)) && $entity->field_og_subscribe_settings[LANGUAGE_NONE][0]['value'] != 'anyone') {
+        $links['title'] = t('Leave group');
+        $links['href'] = "group/$entity_type/$id/unsubscribe";
+      }
     }
   }
   else {
@@ -1160,6 +1205,11 @@ function commons_groups_features_permission_rebuild($module, $gid) {
   module_load_include('features.inc', 'og', '/includes/og_features_role');
 
   if ($defaults = features_get_default('og_features_permission', $module)) {
+    // Make sure the list of available group types is up to date, especially
+    // when installing multiple features at once, for example from an install
+    // profile or via drush.
+    drupal_static_reset();
+
     $grant = array();
     $revoke = array();
 
