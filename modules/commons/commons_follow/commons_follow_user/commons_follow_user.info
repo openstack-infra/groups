@@ -1,27 +1,35 @@
 name = Commons Follow (Users)
-description = Lets users follow other users.
-core = 7.x
+description = Provides User integration for Commons Follow, allowing users to follow other users.
 package = Commons - Building blocks
+core = 7.x
+
 dependencies[] = commons_follow
+dependencies[] = ctools
+dependencies[] = entity
 dependencies[] = entityreference
+dependencies[] = features
 dependencies[] = flag
 dependencies[] = message
+dependencies[] = strongarm
 dependencies[] = views
 dependencies[] = views_content
 dependencies[] = views_litepager
 dependencies[] = views_load_more
+
+features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[field_instance][] = message-commons_follow_user_user_followed-field_target_users
 features[flag][] = commons_follow_user
 features[message_type][] = commons_follow_user_user_followed
+features[variable][] = field_bundle_settings_message__commons_follow_user_user_followed
 features[views_view][] = commons_follow_user
 features[views_view][] = commons_follow_user_followers
 features[views_view][] = commons_follow_user_following
 
-; Information added by Drupal.org packaging script on 2014-06-25
-version = "7.x-3.15"
+; Information added by Drupal.org packaging script on 2015-03-18
+version = "7.x-3.23"
 core = "7.x"
 project = "commons"
-datestamp = "1403672628"
+datestamp = "1426714630"
 

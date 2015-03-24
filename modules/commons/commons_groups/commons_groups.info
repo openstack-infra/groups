@@ -1,9 +1,9 @@
 name = Commons Groups
-description = Commons Organic Groups Functionality
-core = 7.x
+description = Allows content to be organized into groups.
 package = Commons - Building blocks
+core = 7.x
+
 dependencies[] = commons_body
-dependencies[] = commons_bw
 dependencies[] = commons_topics
 dependencies[] = ctools
 dependencies[] = date
@@ -27,6 +27,7 @@ dependencies[] = views
 dependencies[] = views_content
 dependencies[] = views_litepager
 dependencies[] = views_load_more
+
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
@@ -39,8 +40,6 @@ features[field_base][] = group_group
 features[field_base][] = og_group_ref
 features[field_base][] = og_membership_request
 features[field_base][] = og_roles_permissions
-features[field_instance][] = node-group-body
-features[field_instance][] = node-group-group_group
 features[field_instance][] = og_membership-og_membership_type_default-og_membership_request
 features[image][] = 35x35
 features[image][] = 50x50
@@ -49,20 +48,8 @@ features[og_features_permission][] = user:user:subscribe
 features[og_features_permission][] = user:user:subscribe without approval
 features[user_permission][] = create group content
 features[user_permission][] = edit own group content
-features[variable][] = comment_anonymous_group
-features[variable][] = comment_default_mode_group
-features[variable][] = comment_default_per_page_group
-features[variable][] = comment_form_location_group
-features[variable][] = comment_group
-features[variable][] = comment_preview_group
-features[variable][] = comment_subject_field_group
-features[variable][] = field_bundle_settings_node__group
 features[variable][] = menu_options_group
 features[variable][] = menu_parent_group
-features[variable][] = node_options_group
-features[variable][] = node_preview_group
-features[variable][] = node_submitted_group
-features[variable][] = og_group_manager_default_rids_node_group
 features[variable][] = pathauto_node_group_pattern
 features[variable][] = pathauto_node_pattern
 features[views_view][] = commons_bw_all
@@ -72,12 +59,10 @@ features[views_view][] = commons_groups_contributors
 features[views_view][] = commons_groups_directory
 features[views_view][] = commons_groups_recent_content
 features[views_view][] = commons_groups_user_groups
-features_exclude[field][node-group-group_group] = node-group-group_group
-features_exclude[field][node-group-group_access] = node-group-group_access
 
-; Information added by Drupal.org packaging script on 2014-06-25
-version = "7.x-3.15"
+; Information added by Drupal.org packaging script on 2015-03-18
+version = "7.x-3.23"
 core = "7.x"
 project = "commons"
-datestamp = "1403672628"
+datestamp = "1426714630"
 

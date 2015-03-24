@@ -93,6 +93,11 @@ function groups_install_tasks() {
     'groups_revert_features' => array(
       'display' => FALSE,
     ),
+    'groups_install_additional_modules' => array(
+      'display_name' => st('Install additional functionality'),
+      'display' => FALSE,
+      'type' => 'batch',
+    ),
     'groups_demo_content' => array(
       'display' => FALSE,
       'type' => '',
@@ -258,6 +263,81 @@ function field_property_list_reverse_lookup() {
       'google-plus' => 18,
       'coordinators' => 19,
   );
+}
+
+/**
+ * array_filter() callback used to filter out already installed dependencies.
+ */
+function _groups_filter_dependencies($dependency) {
+  return !module_exists($dependency);
+}
+
+/**
+ * Install additional modules.
+ *
+ * The groups modules installed from this hook to avoid
+ * memory exhausted error messages.
+ *
+ * l10n_update module move to the end of the queue to
+ * avoid download of translations during module
+ * deployment.
+ */
+function groups_install_additional_modules() {
+  $modules = array(
+    'groups_common',
+    'groups_groups',
+    'groups_directory',
+    'groups_footer',
+    'groups_events',
+    'groups_homepage',
+    'groups_comment',
+    'groups_auth',
+    'groups_oauth2',
+    'groups_oauth2_picture',
+    'groups_feeds',
+    'groups_events_pages',
+    'groups_pages',
+    'groups_reports',
+    'groups_wikis',
+  );
+  // Resolve the dependencies now, so that module_enable() doesn't need
+  // to do it later for each individual module (which kills performance).
+  $files = system_rebuild_module_data();
+
+  // Add l10n_update module as last one to avoid translation file fetch
+  // during deployment.
+  $modules[] = 'l10n_update';
+  $files['l10n_update']->sort = -999;
+
+  $modules_sorted = array();
+  foreach ($modules as $module) {
+    if ($files[$module]->requires) {
+      // Create a list of dependencies that haven't been installed yet.
+      $dependencies = array_keys($files[$module]->requires);
+      $dependencies = array_filter($dependencies, '_groups_filter_dependencies');
+      // Add them to the module list.
+      $modules = array_merge($modules, $dependencies);
+    }
+  }
+  $modules = array_unique($modules);
+  foreach ($modules as $module) {
+    $modules_sorted[$module] = $files[$module]->sort;
+  }
+  arsort($modules_sorted);
+
+  $operations = array();
+  // Enable the selected modules.
+  foreach ($modules_sorted as $module => $weight) {
+    $operations[] = array('_groups_enable_module', array($module, $files[$module]->info['name']));
+  }
+
+  $batch = array(
+    'title' => st('Installing additional functionality'),
+    'operations' => $operations,
+    'file' => drupal_get_path('profile', 'groups') . '/groups.install_callbacks.inc',
+  );
+
+  return $batch;
 }
 
 /**

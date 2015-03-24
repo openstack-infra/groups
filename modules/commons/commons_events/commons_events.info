@@ -1,15 +1,16 @@
 name = Commons Events
-description = Provides the Event features for Drupal Commons.
-core = 7.x
+description = Provides an Event content type for hosting events.
 package = Commons - Content types
+core = 7.x
+
 dependencies[] = addressfield
 dependencies[] = addressfield_tokens
 dependencies[] = block
 dependencies[] = commons_body
-dependencies[] = commons_follow_node
-dependencies[] = commons_groups
-dependencies[] = commons_notify
 dependencies[] = commons_location
+; @todo Move message- field instances into another module in order to allow
+; Commons Events to function independently of Commons Notify.
+dependencies[] = commons_notify
 dependencies[] = commons_topics
 dependencies[] = ctools
 dependencies[] = date
@@ -22,7 +23,7 @@ dependencies[] = features
 dependencies[] = field_sql_storage
 dependencies[] = image
 dependencies[] = list
-dependencies[] = menu
+dependencies[] = message
 dependencies[] = node
 dependencies[] = number
 dependencies[] = og
@@ -37,6 +38,7 @@ dependencies[] = text
 dependencies[] = views
 dependencies[] = views_content
 dependencies[] = views_load_more
+
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
@@ -60,8 +62,8 @@ features[field_instance][] = node-event-field_registration
 features[field_instance][] = node-event-field_registration_type
 features[field_instance][] = message-commons_events_event_node_created-field_message_rendered_body
 features[field_instance][] = message-commons_events_event_node_created-field_message_rendered_subject
+features[field_instance][] = message-commons_events_event_node_created-field_target_comments
 features[field_instance][] = message-commons_events_event_node_created-field_target_nodes
-features[menu_links][] = main-menu:events
 features[message_type][] = commons_events_event_node_created
 features[node][] = event
 features[og_features_permission][] = node:group:create event content
@@ -70,7 +72,6 @@ features[og_features_permission][] = node:group:delete own event content
 features[og_features_permission][] = node:group:update any event content
 features[og_features_permission][] = node:group:update own event content
 features[registration_type][] = event
-features[schemaorg][] = node-event
 features[user_permission][] = create event content
 features[user_permission][] = create event registration
 features[user_permission][] = delete own event content
@@ -86,6 +87,7 @@ features[variable][] = comment_event
 features[variable][] = comment_form_location_event
 features[variable][] = comment_preview_event
 features[variable][] = comment_subject_field_event
+features[variable][] = field_bundle_settings_message__commons_events_event_node_created
 features[variable][] = field_bundle_settings_node__event
 features[variable][] = menu_options_event
 features[variable][] = menu_parent_event
@@ -96,16 +98,17 @@ features[views_view][] = commons_events_event_attendee_list
 features[views_view][] = commons_events_organizers
 features[views_view][] = commons_events_upcoming
 features[views_view][] = commons_events_user_upcoming_events
-files[] = commons_events.features.inc
-files[] = commons_events.features.field_base.inc
-files[] = commons_events.features.field_instance.inc
-files[] = commons_events.strongarm.inc
-files[] = includes/commons_events.forms.inc
-files[] = includes/commons_events.theme.inc
 
-; Information added by Drupal.org packaging script on 2014-06-25
-version = "7.x-3.15"
+; Manually remove the Commons Follow module as a dependency until
+; https://www.drupal.org/node/766264 is fixed. Commons Follow dynamically adds a
+; views pane for events the user follows which causes Commons Events to appear
+; overridden.
+features_exclude[dependencies][commons_follow] = commons_follow
+features_exclude[dependencies][commons_trusted_contacts] = commons_trusted_contacts
+
+; Information added by Drupal.org packaging script on 2015-03-18
+version = "7.x-3.23"
 core = "7.x"
 project = "commons"
-datestamp = "1403672628"
+datestamp = "1426714630"
 

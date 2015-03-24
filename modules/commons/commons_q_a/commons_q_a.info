@@ -1,13 +1,15 @@
-name = Commons Q&A
-description = Allows community members to ask questions and vote for the best answers
-core = 7.x
+name = Commons Questions & Answers
+description = Provides a Q&A content type for asking questions and allowing the community to vote for the best answers.
 package = Commons - Content types
+core = 7.x
+
 dependencies[] = commons_topics
 dependencies[] = ctools
 dependencies[] = entity
 dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = field_sql_storage
+dependencies[] = og
 dependencies[] = og_ui
 dependencies[] = options
 dependencies[] = strongarm
@@ -15,6 +17,7 @@ dependencies[] = text
 dependencies[] = views
 dependencies[] = views_content
 dependencies[] = views_litepager
+
 features[ctools][] = panelizer:panelizer:1
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
@@ -80,8 +83,9 @@ features[variable][] = node_submitted_question
 features[variable][] = pathauto_node_answer_pattern
 features[views_view][] = commons_bw_q_a
 features[views_view][] = commons_question_answers
-features_exclude[dependencies][message] = message
+
 features_exclude[dependencies][commons_trusted_contacts] = commons_trusted_contacts
+features_exclude[dependencies][message] = message
 features_exclude[field][message-commons_q_a_question_answered-field_target_nodes] = message-commons_q_a_question_answered-field_target_nodes
 features_exclude[field_base][og_group_ref_other_groups] = og_group_ref_other_groups
 features_exclude[field_base][og_group_ref] = og_group_ref
@@ -95,9 +99,9 @@ features_exclude[field_instance][og_group_ref] = og_group_ref
 features_exclude[field_instance][node-answer-og_group_ref] = node-answer-og_group_ref
 features_exclude[field_instance][node-question-og_group_ref] = node-question-og_group_ref
 
-; Information added by Drupal.org packaging script on 2014-06-25
-version = "7.x-3.15"
+; Information added by Drupal.org packaging script on 2015-03-18
+version = "7.x-3.23"
 core = "7.x"
 project = "commons"
-datestamp = "1403672628"
+datestamp = "1426714630"
 

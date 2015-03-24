@@ -30,7 +30,7 @@ function commons_events_attend_event_form($form, &$form_state, $event_node, $reg
   $form['count'] = array(
     '#type' => 'textfield',
     '#default_value' => '0',
-    '#description' => ' + Guests',
+    '#description' => t('+ Guests'),
     '#size' => 2,
     '#maxlength' => 2,
     '#required' => false,
@@ -94,7 +94,12 @@ function commons_events_attend_event_form_submit($form, $form_state) {
   $registration->count = $form_state['values']['count'];
   if (registration_save($registration)) {
     drupal_set_message(t('Your registration was saved.'));
-    commons_follow_node_follow_node($registration->entity_id, 'event', $user->uid);
+
+    // Have the user automatically follow the event if Commons Follow (Node) is
+    // enabled.
+    if (module_exists('commons_follow_node')) {
+      commons_follow_node_follow_node($registration->entity_id, 'event', $user->uid);
+    }
   }
   else {
     drupal_set_message(t('There was an error saving your registration.'));

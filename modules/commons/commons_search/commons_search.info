@@ -1,7 +1,8 @@
 name = Commons Search
-description = Provide the global search block.
-core = 7.x
+description = Provides a framework for searching site content.
 package = Commons - Search
+core = 7.x
+
 dependencies[] = ctools
 dependencies[] = custom_search
 dependencies[] = features
@@ -9,12 +10,11 @@ dependencies[] = search
 dependencies[] = strongarm
 dependencies[] = views
 dependencies[] = views_load_more
-stylesheets[all][] = css/commons_search.css
+
 features[ctools][] = panelizer:panelizer:1
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
-features[features_api][] = api:1
-features[menu_links][] = main-menu:search
+features[features_api][] = api:2
 features[user_permission][] = search content
 features[user_permission][] = use advanced search
 features[user_permission][] = use custom search
@@ -61,9 +61,10 @@ features[variable][] = custom_search_type_selector_all
 features[variable][] = custom_search_type_selector_label
 features[variable][] = custom_search_type_selector_label_visibility
 features[views_view][] = group_search
-; Information added by Drupal.org packaging script on 2014-06-25
-version = "7.x-3.15"
+
+; Information added by Drupal.org packaging script on 2015-03-18
+version = "7.x-3.23"
 core = "7.x"
 project = "commons"
-datestamp = "1403672628"
+datestamp = "1426714630"
 

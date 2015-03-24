@@ -1,16 +1,18 @@
 name = Commons Featured Content
 description = Allows community managers to display certain pieces of content more prominently on the site.
-core = 7.x
 package = Commons - Building blocks
+core = 7.x
+
 dependencies[] = views
 dependencies[] = views_content
+
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[views_view][] = commons_featured
 
-; Information added by Drupal.org packaging script on 2014-06-25
-version = "7.x-3.15"
+; Information added by Drupal.org packaging script on 2015-03-18
+version = "7.x-3.23"
 core = "7.x"
 project = "commons"
-datestamp = "1403672628"
+datestamp = "1426714630"
 

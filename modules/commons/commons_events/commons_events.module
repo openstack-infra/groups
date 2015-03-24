@@ -51,7 +51,7 @@ function commons_events_menu_alter(&$items) {
  * Access callback for showing the Attendees tab.
  */
 function commons_events_attendee_access($event_node) {
-  if ($event_node->type == 'event') {
+  if ($event_node->type == 'event' && user_access('view event registration')) {
     return TRUE;
   }
 
@@ -229,12 +229,18 @@ function commons_events_entity_view_alter(&$build, $type) {
 }
 
 /**
- * Implements hook_form_FORM_ID_alter().
+ * Implements hook_form_BASE_FORM_ID_alter().
  */
 function commons_events_form_node_form_alter(&$form, &$form_state, $form_id) {
   $node = $form_state['node'];
 
-  if ($node->type == 'event') {
+  list(, , $bundle) = entity_extract_ids('node', $node);
+
+  if ($bundle == 'event' && empty($node->nid)) {
+    drupal_set_title(t('Create an event'));
+  }
+
+  if ($bundle == 'event') {
     // Attach custom CSS and JS to the form.
     $form['#attached']['css'][] = drupal_get_path('module', 'commons_events') . '/css/commons_events.css';
     $form['#attached']['js'][] = drupal_get_path('module', 'commons_events') . '/js/commons_events.js';
@@ -319,11 +325,11 @@ function commons_events_form_node_form_alter(&$form, &$form_state, $form_id) {
     $form['event_registration_settings']['field_registration'] = $form['field_registration'];
 
     // Unset all of the original registration settings.
-    unset($form['field_organizers']);
-    unset($form['field_registration_type']);
-    unset($form['field_status']);
-    unset($form['field_number_of_attendees']);
-    unset($form['field_registration']);
+    hide($form['field_organizers']);
+    hide($form['field_registration_type']);
+    hide($form['field_status']);
+    hide($form['field_number_of_attendees']);
+    hide($form['field_registration']);
 
     // Add additional submission and validation handlers.
     $form['#validate'][] = 'commons_events_node_form_validate';
@@ -623,7 +629,7 @@ function theme_commons_events_date_display_range_advanced($variables) {
 }
 
 /**
- * Implements commons_notify_message_selection_alter().
+ * Implements hook_commons_notify_message_selection_alter().
  */
 function commons_events_commons_notify_message_selection_alter(&$message_type, $hook, $node) {
   // Provide a special message type that describes the event details

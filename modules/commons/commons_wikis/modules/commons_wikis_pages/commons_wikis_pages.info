@@ -1,20 +1,22 @@
-name = Commons Wikis Home
-description = Provides the panelizer feature for Wikis.
+name = Commons Wikis Pages
+description = Enhances the appearance of wiki nodes by listing the contributors to the wiki and allows them to be customized.
 core = 7.x
 package = Commons - Landing pages
+
 dependencies[] = commons_wikis
 dependencies[] = ctools
 dependencies[] = panelizer
 dependencies[] = strongarm
+
 features[ctools][] = panelizer:panelizer:1
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
 features[panelizer_defaults][] = node:wiki:default
 features[variable][] = panelizer_defaults_node_wiki
 
-; Information added by Drupal.org packaging script on 2014-06-25
-version = "7.x-3.15"
+; Information added by Drupal.org packaging script on 2015-03-18
+version = "7.x-3.23"
 core = "7.x"
 project = "commons"
-datestamp = "1403672628"
+datestamp = "1426714630"
 

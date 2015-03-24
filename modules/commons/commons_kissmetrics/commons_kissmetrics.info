@@ -1,7 +1,8 @@
 name = Commons KISSmetrics
 description = Integrates with KISSmetrics to tracks Commons-specific user metrics and actions.
-core = 7.x
 package = Commons - Building blocks
+core = 7.x
+
 dependencies[] = comment
 dependencies[] = entity
 dependencies[] = flag
@@ -10,6 +11,7 @@ dependencies[] = og
 dependencies[] = privatemsg_rules
 dependencies[] = rules
 dependencies[] = voting_rules
+
 features[features_api][] = api:2
 features[rules_config][] = rules_commons_kissmetrics_collect_referenced_groups
 features[rules_config][] = rules_commons_kissmetrics_user_adds_a_trusted_contact
@@ -30,9 +32,9 @@ features[rules_config][] = rules_commons_kissmetrics_user_registers
 features[rules_config][] = rules_commons_kissmetrics_user_replies_to_private_message_thread
 features[rules_config][] = rules_commons_kissmetrics_user_starts_new_private_message_thread
 
-; Information added by Drupal.org packaging script on 2014-06-25
-version = "7.x-3.15"
+; Information added by Drupal.org packaging script on 2015-03-18
+version = "7.x-3.23"
 core = "7.x"
 project = "commons"
-datestamp = "1403672628"
+datestamp = "1426714630"
 
