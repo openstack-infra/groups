@@ -18,7 +18,7 @@ function groups_pages_preprocess_field(&$variables) {
       ($variables['element']['#formatter'] == 'og_group_subscribe')) {
     // determine login status from element class
     $item = $variables['items'][0];
-    $class = isset($item['#options']) ? $item['#options']['attributes']['class'] : NULL;
+    $class = isset($item['#options']['attributes']) ? $item['#options']['attributes']['class'] : NULL;
     $class = isset($item['#attributes']['class']) ? $item['#attributes']['class'] : $class;
     $class = is_array($class) ? reset($class) : $class;
     switch ($class) {
