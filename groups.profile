@@ -192,6 +192,14 @@ function groups_install_finished(&$install_state) {
     ->condition('name', drupal_get_profile())
     ->execute();
 
+  // disable commons_utility_links on admin theme
+  db_update('block')
+    ->fields(array('status' => 0))
+    ->condition('delta', 'commons_utility_links')
+    ->condition('module', 'commons_utility_links')
+    ->condition('theme', 'adaptivetheme_admin')
+    ->execute();
+
   // Cache a fully-built schema.
   drupal_get_schema(NULL, TRUE);
 
