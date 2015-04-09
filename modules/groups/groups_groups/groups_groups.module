@@ -251,3 +251,22 @@ function groups_groups_og_user_access_alter(&$perm, $context) {
     $perm["create $type content"] = FALSE;
   }
 }
+
+/**
+ * Implements hook_node_access()
+ *
+ * Allows to view unpublished group nodes for users with
+ * ambassador or community manager role.
+ */
+function groups_node_access($node, $op, $account) {
+  if (is_string($node)) {
+    return NODE_ACCESS_IGNORE;
+  }
+  if ((in_array('ambassador', $account->roles)) ||
+     (in_array('community_manager', $account->roles))) {
+    if (($node->type == 'group') && ($node->status == 0)) {
+      return NODE_ACCESS_ALLOW;
+    }
+  }
+  return NODE_ACCESS_IGNORE;
+}
