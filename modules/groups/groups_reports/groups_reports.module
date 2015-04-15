@@ -31,6 +31,13 @@ function groups_reports_menu() {
     'access callback' => array('groups_reports_access'),
     'weight' => -1,
   );
+  $items['reports/group-contact-report/csv'] = array(
+    'title' => 'Group contact report CSV export',
+    'description' => 'Export group organizers in CSV format',
+    'page callback' => 'groups_reports_groups_contact_report_csv_export',
+    'access callback' => array('groups_reports_access'),
+    'weight' => -1,
+  );
   return $items;
 }
 
@@ -573,4 +580,20 @@ function groups_reports_groups_status_report_form($form = array(), &$form_state)
     }
   }
   return $form;
+}
+
+/**
+ * Export group organizer contacts in CSV format.
+ */
+function groups_reports_groups_contact_report_csv_export() {
+  drupal_add_http_header('Content-Type', 'text/csv; utf-8');
+  drupal_add_http_header('Content-Disposition', 'attachment; filename="groups-contacts.csv"');
+  $rows = groups_reports_group_status_report();
+  printf("'%s','%s','%s'\n", 'User group', 'Full name', 'Email');
+  foreach ($rows as $row) {
+    foreach ($row->organizers as $organizer) {
+      printf("'%s','%s','%s'\n", $row->title, $organizer['name'], $organizer['email']);
+    }
+  }
+  exit;
 }
