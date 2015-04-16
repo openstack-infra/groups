@@ -434,6 +434,13 @@ function groups_reports_group_status_report() {
     $item->continent = $row->field_group_location_continent;
     $item->organizers = _groups_reports_map_users(
       _groups_reports_og_members_by_role($row->nid, 'administrator member'));
+    // assign imported organizers
+    $v = _groups_reports_extract_resource($node, 19);
+    if (isset($v)) {
+      $item->organizers_orig = _groups_reports_parse_organizers($v);
+    } else {
+      $item->organizers_orig = array();
+    }
     $uids = array();
     if (isset($node->field_ambassadors[LANGUAGE_NONE][0])) {
       foreach ($node->field_ambassadors[LANGUAGE_NONE] as $user_ref) {
@@ -583,17 +590,79 @@ function groups_reports_groups_status_report_form($form = array(), &$form_state)
 }
 
 /**
+ * Display a row of contact data as a csv line.
+ */
+function _groups_report_contact_csv_row($row, $organizer, $source, &$seen) {
+  if (in_array($organizer['email'], $seen) == false) {
+    printf("'%s','%s','%s','%s'\n", $row->title, $organizer['name'], $organizer['email'], $source);
+    $seen[] = $organizer['email'];
+  }
+}
+
+/**
  * Export group organizer contacts in CSV format.
  */
 function groups_reports_groups_contact_report_csv_export() {
   drupal_add_http_header('Content-Type', 'text/csv; utf-8');
   drupal_add_http_header('Content-Disposition', 'attachment; filename="groups-contacts.csv"');
   $rows = groups_reports_group_status_report();
-  printf("'%s','%s','%s'\n", 'User group', 'Full name', 'Email');
+  printf("'%s','%s','%s'\n", 'User group', 'Full name', 'Email', 'Source');
   foreach ($rows as $row) {
+    $seen = array();
     foreach ($row->organizers as $organizer) {
-      printf("'%s','%s','%s'\n", $row->title, $organizer['name'], $organizer['email']);
+      _groups_report_contact_csv_row($row, $organizer, 'db', $seen);
+    }
+    foreach ($row->organizers_orig as $organizer) {
+      _groups_report_contact_csv_row($row, $organizer, 'json', $seen);
     }
   }
   exit;
+}
+
+/**
+ * Extract resource field value based on key from a group
+ * node.
+ * @param  $node
+ *   source node
+ * @param  $resource_id
+ *   id of resource to extract from resource field
+ * @return string|boolean
+ *   string representation of the resource value, or
+ *   returns false if not found.
+ */
+function _groups_reports_extract_resource($node, $resource_id) {
+  if (isset($node->field_resource_links[LANGUAGE_NONE])) {
+    foreach ($node->field_resource_links[LANGUAGE_NONE] as $resource) {
+      if ($resource['key'] == $resource_id) {
+        return $resource['value'];
+      }
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Parse delimiter parsed organizer names into array
+ * format.
+ * @param  $str
+ *   input string
+ * @return
+ *   parsed output as an array.
+ */
+function _groups_reports_parse_organizers($str) {
+  $organizers = array();
+  $elements = explode(';', $str);
+  if (isset($elements)) {
+    foreach ($elements as $element) {
+      $organizer['name'] = trim(strip_tags($element));
+      preg_match('#\<(.*?)\>#', $element, $match);
+      if (isset($match[1])) {
+        $organizer['email'] = $match[1];
+      }
+      if (!empty($organizer['name'])) {
+        $organizers[] = $organizer;
+      }
+    }
+  }
+  return $organizers;
 }
