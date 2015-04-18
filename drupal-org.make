@@ -576,7 +576,7 @@ projects[date_ical][version] = "3.2"
 
 projects[ds][type] = "module"
 projects[ds][subdir] = "contrib"
-projects[ds][version] = "2.6"
+projects[ds][version] = "2.8"
 
 projects[markdown][type] = "module"
 projects[markdown][subdir] = "contrib"
