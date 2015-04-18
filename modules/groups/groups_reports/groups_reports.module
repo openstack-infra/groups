@@ -593,6 +593,9 @@ function groups_reports_groups_status_report_form($form = array(), &$form_state)
  * Display a row of contact data as a csv line.
  */
 function _groups_report_contact_csv_row($row, $organizer, $source, &$seen) {
+  if (!isset($organizer['email'])) {
+    return;
+  }
   if (in_array($organizer['email'], $seen) == false) {
     printf("'%s','%s','%s','%s'\n", $row->title, $organizer['name'], $organizer['email'], $source);
     $seen[] = $organizer['email'];
