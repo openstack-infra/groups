@@ -1,0 +1,44 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  groups_pages/groups_pages.module: n/a
+#  groups_pages/groups_pages.info: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-01-29 13:11+0100\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: groups_pages/groups_pages.module:26
+msgid "Join us!"
+msgstr "Присоединяйтесь!"
+
+#: groups_pages/groups_pages.module:29
+msgid "Join to our user group, participate on local events, contribute to our community, and stay informed about latest news."
+msgstr "Присоединятесь к нашей пользовательской группе, участвуйте в локальным мероприятиях, вносите свой вклад в наше сообщество и узнавайте все последние новости."
+
+#: groups_pages/groups_pages.module:40
+msgid "You are an active member of this group."
+msgstr "Вы активный участник этой группы."
+
+#: groups_pages/groups_pages.info:0
+msgid "Groups Group Pages"
+msgstr "Страницы группы"
+
+#: groups_pages/groups_pages.info:0
+msgid "Enhances the appearance of group landing pages and allows them to be customized."
+msgstr ""
+
+#: groups_pages/groups_pages.info:0
+msgid "Groups - Landing pages"
+msgstr ""

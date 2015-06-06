@@ -1,0 +1,132 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  field_property_list/field_property_list.module: n/a
+#  field_property_list/field_property_list.info: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-01-29 13:11+0100\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: field_property_list/field_property_list.module:10
+msgid "Website"
+msgstr "Вебсайт"
+
+#: field_property_list/field_property_list.module:11
+msgid "IRC Channel"
+msgstr "IRC канал"
+
+#: field_property_list/field_property_list.module:12
+msgid "Twitter (handle)"
+msgstr "Twitter"
+
+#: field_property_list/field_property_list.module:13
+msgid "Twitter hashtag"
+msgstr "Хештег в Twitter"
+
+#: field_property_list/field_property_list.module:14
+msgid "Blog"
+msgstr "Блог"
+
+#: field_property_list/field_property_list.module:15
+msgid "Meetup"
+msgstr "Meetup"
+
+#: field_property_list/field_property_list.module:16
+msgid "Google groups"
+msgstr "Google группы"
+
+#: field_property_list/field_property_list.module:17
+msgid "Linkedin group"
+msgstr "Группа в Linkedin"
+
+#: field_property_list/field_property_list.module:18
+msgid "Google group"
+msgstr "Группа Google"
+
+#: field_property_list/field_property_list.module:19
+msgid "Facebook"
+msgstr "Facebook"
+
+#: field_property_list/field_property_list.module:20
+msgid "Facebook group"
+msgstr "Группа в Facebook"
+
+#: field_property_list/field_property_list.module:21
+msgid "Forum"
+msgstr "Форум"
+
+#: field_property_list/field_property_list.module:22
+msgid "E-mail"
+msgstr "E-mail"
+
+#: field_property_list/field_property_list.module:23
+msgid "Calendar"
+msgstr "Календарь"
+
+#: field_property_list/field_property_list.module:24
+msgid "Weibo"
+msgstr "Weibo"
+
+#: field_property_list/field_property_list.module:25
+msgid "Slideshare"
+msgstr "Slideshare"
+
+#: field_property_list/field_property_list.module:26
+msgid "Mailing list"
+msgstr "Лист рассылки"
+
+#: field_property_list/field_property_list.module:27
+msgid "Launchpad)"
+msgstr "Launchpad"
+
+#: field_property_list/field_property_list.module:28
+msgid "Google plus"
+msgstr "Google plus"
+
+#: field_property_list/field_property_list.module:29
+msgid "Coordinators"
+msgstr "Координаторы"
+
+#: field_property_list/field_property_list.module:41
+msgid "Property list"
+msgstr ""
+
+#: field_property_list/field_property_list.module:42
+msgid "Provide a key/value field implementation."
+msgstr ""
+
+#: field_property_list/field_property_list.module:71
+msgid "Raw property list"
+msgstr ""
+
+#: field_property_list/field_property_list.module:124
+msgid "Field property list"
+msgstr ""
+
+#: field_property_list/field_property_list.module:162
+msgid "Remove"
+msgstr "Удалить"
+
+#: field_property_list/field_property_list.info:0
+msgid "Property List field"
+msgstr ""
+
+#: field_property_list/field_property_list.info:0
+msgid "A key/value field where the key is selectable from a drop-down list."
+msgstr ""
+
+#: field_property_list/field_property_list.info:0
+msgid "Fields"
+msgstr ""
