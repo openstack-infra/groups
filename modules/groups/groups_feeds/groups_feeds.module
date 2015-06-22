@@ -149,14 +149,14 @@ function groups_feeds_ctools_plugin_api($owner, $api) {
  * Define groups_feeds module's scheduled jobs.
  */
 function groups_feeds_cronapi($op, $job = NULL) {
-  $items['user_groups_import'] = array(
+/*  $items['user_groups_import'] = array(
     'description' => 'Import user group data from groups.json of openstack-infra/groups-static-pages repo',
     'rule'        => '0 * * * *',
     'callback'    => 'groups_feeds_user_groups_import',
     'arguments'   => array(),
     'file'        => 'groups_feeds_user_groups.inc',
     'file path'   => drupal_get_path('module', 'groups_feeds').'/includes',
-  );
+  );*/
   $items['static_pages_import'] = array(
     'description' => 'Import static page content from openstack-infra/groups-static-pages repo',
     'rule'        => '*/5 * * * *',
