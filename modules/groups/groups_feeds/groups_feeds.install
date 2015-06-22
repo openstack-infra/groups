@@ -24,6 +24,8 @@ function groups_feeds_install() {
   $config['feeds_fetcher_directory_fetcher']['feed_files_fetched'] = "";
   $feedSource->setConfig($config);
   $feedSource->save();
+  // disable groups.json import by default
+  groups_feeds_update_7305();
 }
 
 /**
@@ -71,4 +73,11 @@ function groups_feeds_update_7304() {
     fields(array('hash' => '0'))
     ->condition('id', 'ical_feed_importer', '=')
     ->execute();
+}
+
+/**
+ * Disable groups.json user group data import.
+ */
+function groups_feeds_update_7305() {
+  elysia_cron_set_job_disabled('user_groups_import', true);
 }
