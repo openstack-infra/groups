@@ -532,7 +532,7 @@ projects[leaflet_more_maps][subdir] = "contrib"
 
 projects[feeds][type] = "module"
 projects[feeds][subdir] = "contrib"
-projects[feeds][version] = "2.0-alpha8"
+projects[feeds][version] = "2.0-alpha9"
 ; fix broken date import
 ; https://www.drupal.org/node/2237177
 projects[feeds][patch][] = "https://www.drupal.org/files/issues/feeds-date_import_fix.patch"
@@ -564,7 +564,7 @@ projects[feeds_fetcher_directory][patch][] = "https://drupal.org/files/feeds_fet
 
 projects[jquery_update][type] = "module"
 projects[jquery_update][subdir] = "contrib"
-projects[jquery_update][version] = "2.5"
+projects[jquery_update][version] = "2.6"
 
 projects[panels_ajax_tab][type] = "module"
 projects[panels_ajax_tab][subdir] = "contrib"

@@ -3,9 +3,9 @@ core = 7.x
 
 ; Download Drupal core and apply core patches if needed.
 projects[drupal][type] = "core"
-projects[drupal][version] = "7.37"
+projects[drupal][version] = "7.38"
 projects[drupal][download][type] = get
-projects[drupal][download][url] = http://ftp.drupal.org/files/projects/drupal-7.37.tar.gz
+projects[drupal][download][url] = http://ftp.drupal.org/files/projects/drupal-7.38.tar.gz
 
 ; This patch allows install profile to list requirements on the install page
 ; http://drupal.org/node/1971072
