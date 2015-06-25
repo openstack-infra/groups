@@ -572,7 +572,7 @@ projects[panels_ajax_tab][version] = "1.x-dev"
 
 projects[date_ical][type] = "module"
 projects[date_ical][subdir] = "contrib"
-projects[date_ical][version] = "3.2"
+projects[date_ical][version] = "3.4"
 
 projects[ds][type] = "module"
 projects[ds][subdir] = "contrib"
