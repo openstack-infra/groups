@@ -367,7 +367,8 @@ function groups_feeds_feeds_presave($source, $entity, $item) {
             $field_address['thoroughfare'] = $v;
             break;
           case 'venue':
-            $entity->field_venue_name[LANGUAGE_NONE][0] = $v;
+            $entity->field_venue_name[LANGUAGE_NONE][0]['value'] = $v;
+            $entity->field_venue_name[LANGUAGE_NONE][0]['format'] = 'plain_text';
             break;
         }
       }
