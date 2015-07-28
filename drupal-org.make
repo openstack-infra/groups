@@ -660,10 +660,13 @@ libraries[underscore][download][type] = "get"
 libraries[underscore][type] = "libraries"
 libraries[underscore][download][url] = "https://github.com/jashkenas/underscore/archive/1.5.2.zip"
 
-libraries[leaflet][download][type] = "get"
-libraries[leaflet][type] = "libraries"
-libraries[leaflet][download][url] = "http://leaflet-cdn.s3.amazonaws.com/build/leaflet-0.6.4.zip"
-libraries[leaflet][destination] = "libraries"
+; Relocate leaflet js library to local repository instead of fetching from
+; amazon cdn due this open leafletjs bug:
+; https://github.com/Leaflet/Leaflet/issues/3679
+;libraries[leaflet][download][type] = "get"
+;libraries[leaflet][type] = "libraries"
+;libraries[leaflet][download][url] = "http://leaflet-cdn.s3.amazonaws.com/build/leaflet-0.6.4.zip"
+;libraries[leaflet][destination] = "libraries"
 
 libraries[iCalcreator][type] = "libraries"
 libraries[iCalcreator][download][type] = "git"
