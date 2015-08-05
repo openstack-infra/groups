@@ -8,7 +8,7 @@ set -xe
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get install -y unzip php5-mysql php5-gd php5-cli libapache2-mod-php5 mysql-server mysql-client php-pear git
+apt-get install -y unzip php5-mysql php5-gd php5-cli libapache2-mod-php5 mysql-server mysql-client php-pear git ruby-bundler
 
 # install drush 6.0.0
 pear channel-discover pear.drush.org
