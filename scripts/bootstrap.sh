@@ -16,5 +16,5 @@ pear install drush/drush-6.0.0
 pear install Console_Table-1.1.3
 
 # add drupal-site-deployment drush extension
-wget https://github.com/mkissam/drush-dsd/archive/v0.3.tar.gz -O - | tar -xz
-mv drush-dsd-0.3 /usr/share/php/drush/commands/dsd
+wget https://github.com/mkissam/drush-dsd/archive/v0.10.tar.gz -O - | tar -xz
+mv drush-dsd-0.10 /usr/share/php/drush/commands/dsd
