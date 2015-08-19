@@ -33,8 +33,17 @@
   font-weight: $weight;
 }
 
-.not-front .main-container {
+// add .container to pages with non bleed margins.
+.no-bleed-margins .main-container {
   @extend .container;
+}
+
+.bleed-margins .main-container {
+  @extend .container-fluid;
+}
+
+.bleed-margins .main-container .row > .col-sm-12 {
+  padding: 0px;
 }
 
 /* Front container */
