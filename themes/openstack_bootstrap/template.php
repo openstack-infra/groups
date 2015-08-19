@@ -25,6 +25,24 @@ function openstack_bootstrap_preprocess_page(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_html().
+ *
+ * Add bleed-margins class to
+ *  - front page
+ *
+ * and add no-bleed-margins to each other page.
+ *
+ * @see html.tpl.php
+ */
+function openstack_bootstrap_preprocess_html(&$variables) {
+  if ($variables['is_front']) {
+    $variables['classes_array'][] = 'bleed-margins';
+  } else {
+    $variables['classes_array'][] = 'no-bleed-margins';
+  }
+}
+
+/**
  * Implements hook_preprocess_field().
  */
 function openstack_bootstrap_preprocess_field(&$variables, $hook) {

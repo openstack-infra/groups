@@ -33,7 +33,8 @@
   font-weight: $weight;
 }
 
-.not-front .main-container {
+// add .container to pages with non bleed margins.
+.no-bleed-margins .main-container {
   @extend .container;
 }
 
