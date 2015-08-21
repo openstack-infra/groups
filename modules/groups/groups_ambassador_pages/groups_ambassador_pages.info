@@ -1,0 +1,16 @@
+name = Groups Ambassador Pages
+description = Provides the panelized Ambassador page feature.
+core = 7.x
+package = Groups - Landing Pages
+version = 7.x-1.0
+project = groups_ambassador_pages
+dependencies[] = ctools
+dependencies[] = features
+dependencies[] = groups_ambassador
+dependencies[] = groups_homepage
+dependencies[] = menu
+dependencies[] = page_manager
+features[ctools][] = page_manager:pages_default:1
+features[features_api][] = api:2
+features[menu_links][] = main-menu_ambassador-program:ambassador-program
+features[page_manager_pages][] = ambassador_program_page

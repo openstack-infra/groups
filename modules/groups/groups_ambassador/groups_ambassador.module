@@ -1,0 +1,85 @@
+<?php
+
+/**
+ * @file
+ * Code for the Groups Ambassador feature.
+ */
+
+include_once 'groups_ambassador.features.inc';
+
+/**
+ * Implements hook_block_info()
+ */
+function groups_ambassador_block_info() {
+  $blocks['groups_ambassador_page_banner'] = array(
+    'info' => t('Groups Ambassador Page Banner block'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  $blocks['groups_ambassador_roleof'] = array(
+    'info' => t('Groups Ambassador Role of Ambassadors block'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  $blocks['groups_ambassador_selection'] = array(
+    'info' => t('Groups Ambassador Selection Process block'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  $blocks['groups_ambassador_faq'] = array(
+    'info' => t('Groups Ambassador FAQ block'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function groups_ambassador_block_view($delta='') {
+  $block = array();
+  switch ($delta) {
+    case 'groups_ambassador_page_banner':
+      $block['content'] = theme('groups_ambassador_page_banner', array());
+      $block['subject'] = 'Ambassador Program';
+      break;
+    case 'groups_ambassador_roleof':
+      $block['content'] = theme('groups_ambassador_roleof', array());
+      $block['subject'] = 'Role of Ambassadors';
+      break;
+    case 'groups_ambassador_selection':
+      $block['content'] = theme('groups_ambassador_selection', array());
+      $block['subject'] = 'Selection Process';
+      break;;
+    case 'groups_ambassador_faq':
+      $block['content'] = theme('groups_ambassador_faq', array());
+      $block['subject'] = 'Frequently Asked Questions';
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Implements hook_theme()
+ */
+function groups_ambassador_theme() {
+  $module_path = drupal_get_path('module', 'groups_ambassador');
+  $base = array(
+      'path' => "$module_path/templates",
+  );
+  return array(
+    'groups_ambassador_page_banner' => $base + array(
+      'template' => 'groups_ambassador_page_banner',
+      'variables' => array(),
+    ),
+    'groups_ambassador_roleof' => $base + array(
+      'template' => 'groups_ambassador_roleof',
+      'variables' => array(),
+    ),
+    'groups_ambassador_selection' => $base + array(
+      'template' => 'groups_ambassador_selection',
+      'variables' => array(),
+    ),
+    'groups_ambassador_faq' => $base + array(
+      'template' => 'groups_ambassador_faq',
+      'variables' => array(),
+    ),
+  );
+}

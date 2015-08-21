@@ -1,0 +1,117 @@
+
+.pane-groups-ambassador-groups-ambassador-roleof,
+.pane-groups-ambassador-groups-ambassador-selection {
+  p {
+    line-height: 20px;
+    margin-top: 5px;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  ul {
+    padding-left: 0px;
+    list-style: none;
+    padding-bottom: 1em;
+    color: #30739C;
+    li {
+      padding-bottom: 0.5em;
+    }
+  }
+  ul li:before {
+    content: "\0BB \020";
+  }
+  ul ul li:before {
+    content: "- \020";
+  }
+  ul ul {
+    padding-left: 20px;
+  }
+}
+
+.view-groups-ambassador-list {
+  .view-content {
+    @extend .container;
+  }
+  .views-row {
+    @extend .col-md-4;
+    @extend .col-lg-3;
+    @extend .col-xs-6;
+  }
+}
+
+.pane-groups-ambassador-list {
+  padding-top: 80px;
+  padding-bottom: 60px;
+  background: #EDF2F7;
+  h2.pane-title {
+    text-align: center;
+    margin-bottom: 60px;
+    font-size: 35px;
+    font-weight: 300;
+    font-family: "Open Sans",Helvetica,Arial,sans-serif;
+    color: #445059;
+  }
+  h3 {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    a {
+      color: #2A4E68;
+      font-family: "Open Sans",Helvetica,Arial,sans-serif;
+      font-weight: 400;
+      font-size: 18.2px;
+      line-height: 20px;
+    }
+  }
+}
+
+// override of page defaults
+.page-ambassador-program {
+
+  // reset background color for selection process block
+  .region-openstack-front-top-second {
+    background: inherit;
+  }
+
+  // container / row / columns for faq region
+  .openstack-front-bottom {
+    @extend .container;
+    margin-bottom: 70px;
+  }
+  // remove original page header
+  h1.page-header {
+    display: none;
+  }
+
+
+}
+
+// page banner design
+.pane-groups-ambassador-groups-ambassador-page-banner {
+  .ambassador-page-banner {
+    background: #2A4E68;
+  }
+  .ambassador-page-title h1 {
+    text-align: left;
+    text-transform: uppercase;
+    color: #EDF2F7;
+    font-size: 1em;
+    padding: 15px;
+    margin: 0px;
+    font-family: "Open Sans",Helvetica,Arial,sans-serif;
+    font-weight: 400;
+  }
+  .ambassador-banner-image {
+    background: url(../images/community-banner.jpg) no-repeat scroll center center / cover transparent;
+    min-height: 350px;
+  }
+}
+
+.pane-groups-ambassador-groups-ambassador-faq {
+  h3 {
+    color: #2A4E68;
+    font-family: "Open Sans",Helvetica,Arial,sans-serif;
+    font-weight: 400;
+  }
+  p {
+    margin-bottom: 2em;
+  }
+}
