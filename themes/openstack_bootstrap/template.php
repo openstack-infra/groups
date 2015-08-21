@@ -29,13 +29,15 @@ function openstack_bootstrap_preprocess_page(&$variables) {
  *
  * Add bleed-margins class to
  *  - front page
+ *  - ambassador program
  *
  * and add no-bleed-margins to each other page.
  *
  * @see html.tpl.php
  */
 function openstack_bootstrap_preprocess_html(&$variables) {
-  if ($variables['is_front']) {
+  $path_alias = drupal_get_path_alias();
+  if (($variables['is_front']) || ($path_alias == 'ambassador-program')) {
     $variables['classes_array'][] = 'bleed-margins';
   } else {
     $variables['classes_array'][] = 'no-bleed-margins';
