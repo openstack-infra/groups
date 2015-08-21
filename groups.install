@@ -324,6 +324,19 @@ function groups_update_7116() {
 }
 
 /**
+ * Enable groups ambassador modules.
+ */
+function groups_update_7117() {
+  if (!module_exists('groups_ambassador')) {
+    module_enable(array('groups_ambassador'));
+  }
+    if (!module_exists('groups_ambassador_pages')) {
+      module_enable(array('groups_ambassador_pages'));
+    }
+  drupal_flush_all_caches();
+}
+
+/**
  * Set language negotiation to URL based.
  */
 function _groups_set_language_negotiation() {

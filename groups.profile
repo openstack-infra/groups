@@ -307,6 +307,7 @@ function groups_install_additional_modules() {
     'groups_pages',
     'groups_reports',
     'groups_wikis',
+    'groups_ambassador_pages',
   );
   // Resolve the dependencies now, so that module_enable() doesn't need
   // to do it later for each individual module (which kills performance).
