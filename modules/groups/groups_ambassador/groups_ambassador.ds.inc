@@ -57,12 +57,14 @@ function groups_ambassador_ds_layout_settings_info() {
         0 => 'ds_user_picture',
         1 => 'name',
         2 => 'field_twitter_url',
+        3 => 'field_weibo_url',
       ),
     ),
     'fields' => array(
       'ds_user_picture' => 'ds_content',
       'name' => 'ds_content',
       'field_twitter_url' => 'ds_content',
+      'field_weibo_url' => 'ds_content',
     ),
     'classes' => array(),
     'wrappers' => array(

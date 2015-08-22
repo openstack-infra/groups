@@ -55,7 +55,7 @@
   }
   h3 {
     margin-top: 10px;
-    margin-bottom: 0px;
+    margin-bottom: 5px;
     a {
       color: #2A4E68;
       font-family: "Open Sans",Helvetica,Arial,sans-serif;
@@ -65,13 +65,17 @@
     }
   }
   .social-link {
-    font-size: 12px;
     i {
-      color: #888;
-      padding-right: 0.2em;
+      background: #29ABE2;
+      color: #FFFFFF;
+      font-size: 14px;
+      padding: 2px;
+      padding-left: 4px;
+      padding-right: 4px;
+      margin-right: 0.5em;
     }
     a {
-      color: #888;
+      color: #000000;
     }
   }
 }
