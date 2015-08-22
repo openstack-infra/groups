@@ -23,7 +23,7 @@ function groups_ambassador_ds_field_settings_info() {
       'format' => 'default',
       'formatter_settings' => array(
         'link' => '1',
-        'wrapper' => 'h2',
+        'wrapper' => 'h3',
         'class' => '',
       ),
     ),
@@ -56,11 +56,13 @@ function groups_ambassador_ds_layout_settings_info() {
       'ds_content' => array(
         0 => 'ds_user_picture',
         1 => 'name',
+        2 => 'field_twitter_url',
       ),
     ),
     'fields' => array(
       'ds_user_picture' => 'ds_content',
       'name' => 'ds_content',
+      'field_twitter_url' => 'ds_content',
     ),
     'classes' => array(),
     'wrappers' => array(

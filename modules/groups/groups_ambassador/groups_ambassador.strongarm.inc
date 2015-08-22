@@ -41,8 +41,8 @@ function groups_ambassador_strongarm() {
             'visible' => TRUE,
           ),
           'profile_teaser' => array(
-            'weight' => '5',
-            'visible' => TRUE,
+            'weight' => '11',
+            'visible' => FALSE,
           ),
         ),
         'summary' => array(
@@ -51,8 +51,8 @@ function groups_ambassador_strongarm() {
             'visible' => TRUE,
           ),
           'profile_teaser' => array(
-            'weight' => '5',
-            'visible' => TRUE,
+            'weight' => '10',
+            'visible' => FALSE,
           ),
         ),
       ),

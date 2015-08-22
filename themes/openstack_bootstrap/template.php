@@ -22,6 +22,7 @@ function openstack_bootstrap_preprocess_page(&$variables) {
     unset($variables['navbar_classes_array'][$key]);
     $variables['navbar_classes_array'][] = 'navbar-os';
   }
+  drupal_add_css('//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css', array('type' => 'external'));
 }
 
 /**

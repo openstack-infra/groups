@@ -337,6 +337,16 @@ function groups_update_7117() {
 }
 
 /**
+ * Enable groups social link module.
+ */
+function groups_update_7118() {
+  if (!module_exists('groups_social_link')) {
+    module_enable(array('groups_social_link'));
+  }
+  drupal_flush_all_caches();
+}
+
+/**
  * Set language negotiation to URL based.
  */
 function _groups_set_language_negotiation() {
