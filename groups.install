@@ -347,6 +347,17 @@ function groups_update_7118() {
 }
 
 /**
+ * Enable groups user profile module.
+ */
+function groups_update_7119() {
+  if (!module_exists('groups_user_profile')) {
+    module_enable(array('groups_user_profile'));
+  }
+  drupal_flush_all_caches();
+}
+
+
+/**
  * Set language negotiation to URL based.
  */
 function _groups_set_language_negotiation() {
