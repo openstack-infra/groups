@@ -30,7 +30,7 @@ function groups_ambassador_ds_field_settings_info() {
     'ds_user_picture' => array(
       'weight' => '0',
       'label' => 'hidden',
-      'format' => 'ds_picture_large',
+      'format' => 'ds_picture_300x300_avatar',
     ),
   );
   $export['user|user|profile_teaser'] = $ds_fieldsetting;

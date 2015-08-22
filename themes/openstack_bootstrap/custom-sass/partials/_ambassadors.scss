@@ -41,23 +41,29 @@
 .pane-groups-ambassador-list {
   padding-top: 80px;
   padding-bottom: 60px;
-  background: #EDF2F7;
+  background: #000;
+  color: #FFFFFF;
   h2.pane-title {
     text-align: center;
     margin-bottom: 60px;
     font-size: 35px;
     font-weight: 300;
     font-family: "Open Sans",Helvetica,Arial,sans-serif;
-    color: #445059;
+    color: #FFFFFF;
   }
   .views-row {
     margin-bottom: 2em;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .field-name-ds-user-picture img {
+    @extend .img-responsive;
   }
   h3 {
     margin-top: 10px;
     margin-bottom: 5px;
     a {
-      color: #2A4E68;
+      color: #FFFFFF;
       font-family: "Open Sans",Helvetica,Arial,sans-serif;
       font-weight: 400;
       font-size: 18.2px;
@@ -75,7 +81,7 @@
       margin-right: 0.5em;
     }
     a {
-      color: #000000;
+      color: #29ABE2;
     }
   }
 }
@@ -117,7 +123,7 @@
     font-weight: 400;
   }
   .ambassador-banner-image {
-    background: url(../images/community-banner.jpg) no-repeat scroll center center / cover transparent;
+    background: url(../images/ambassador-banner.jpg) no-repeat scroll center center / cover transparent;
     min-height: 350px;
   }
 }
