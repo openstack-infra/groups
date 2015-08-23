@@ -7,6 +7,22 @@
 include_once 'groups_user_profile.features.inc';
 
 /**
- * @file
- * Code for the Groups User Profile feature.
+ * Implements hook_field_default_field_instances_alter()
+ *
+ * Add profile teaser settings to user profile's twitter url
+ * field.
  */
+function groups_user_profile_field_default_field_instances_alter(&$fields) {
+  if (isset($fields['user-user-field_twitter_url'])) {
+    $field = &$fields['user-user-field_twitter_url'];
+    $field['display']['profile_teaser'] = array(
+      'label' => 'hidden',
+      'module' => 'groups_social_link',
+      'settings' => array(
+        'provider' => 'twitter',
+      ),
+      'type' => 'groups_social_link_formatter',
+      'weight' => 2,
+    );
+  }
+}
