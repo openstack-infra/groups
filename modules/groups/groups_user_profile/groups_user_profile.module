@@ -1,4 +1,10 @@
 <?php
+/**
+ * @file
+ * Code for the Groups User Profile feature.
+ */
+
+include_once 'groups_user_profile.features.inc';
 
 /**
  * @file
