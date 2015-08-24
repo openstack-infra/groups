@@ -26,3 +26,18 @@ function groups_user_profile_field_default_field_instances_alter(&$fields) {
     );
   }
 }
+
+/**
+ * Implements hook_form_user_profile_form_alter()
+ *
+ * Override ambassador-region field visibility.
+ */
+function groups_user_profile_form_user_profile_form_alter(&$form, &$form_state,
+  $form_id) {
+  $current_user = user_uid_optional_load();
+  $roles = array('ambassador', 'community_manager', 'administrator');
+  $check = array_intersect($roles, array_values($current_user->roles));
+  if (empty($check)) {
+    $form['field_ambassador_region']['#access'] = FALSE;
+  }
+}

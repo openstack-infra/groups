@@ -10,6 +10,44 @@
 function groups_user_profile_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'user-user-field_ambassador_region'
+  $field_instances['user-user-field_ambassador_region'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 11,
+      ),
+      'profile_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'display_in_partial_form' => 0,
+    'entity_type' => 'user',
+    'field_name' => 'field_ambassador_region',
+    'label' => 'Ambassador region',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 12,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_weibo_url'
   $field_instances['user-user-field_weibo_url'] = array(
     'bundle' => 'user',
@@ -73,6 +111,7 @@ function groups_user_profile_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Ambassador region');
   t('Weibo URL');
 
   return $field_instances;
