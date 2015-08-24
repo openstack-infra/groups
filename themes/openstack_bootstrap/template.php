@@ -257,6 +257,18 @@ function openstack_bootstrap_preprocess_views_view(&$variables) {
 function openstack_bootstrap_preprocess_user_profile(&$variables) {
   global $user;
   $account = $variables['elements']['#account'];
+  if ($variables['elements']['#view_mode'] == 'profile_teaser') {
+    $node_wrapper = entity_metadata_wrapper('user', $account);
+    $region_value = $node_wrapper->field_ambassador_region->value();
+    if (isset($region_value)) {
+      module_load_include('inc', 'field_group_location', 'field_group_lookup');
+      $continents = _continent_get_predefined_list();
+      $variables['user_profile']['name'][0] = array(
+        '#markup' => '<h3><a href="">'.$account->name.
+          ' <span class="ambassador-region">// '.$continents[$region_value].'</span></a></h3>',
+      );
+    }
+  }
   if (in_array('ambassador', $account->roles)) {
     $variables['user_profile']['role_ambassador'] = array(
       '#prefix' => '<span class="label label-info">',

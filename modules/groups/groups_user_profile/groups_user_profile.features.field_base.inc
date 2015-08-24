@@ -10,6 +10,37 @@
 function groups_user_profile_field_default_field_bases() {
   $field_bases = array();
 
+  // Exported field_base: 'field_ambassador_region'
+  $field_bases['field_ambassador_region'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_ambassador_region',
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        'AF' => 'Africa',
+        'AS' => 'Asia/Pacific',
+        'EU' => 'Europe',
+        'NA' => 'North America',
+        'SA' => 'South America',
+        'OC' => 'Oceania',
+        'AN' => 'Antarctica',
+        'ME' => 'Middle East',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
+  );
+
   // Exported field_base: 'field_weibo_url'
   $field_bases['field_weibo_url'] = array(
     'active' => 1,
