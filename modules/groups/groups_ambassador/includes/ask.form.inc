@@ -19,7 +19,16 @@ function groups_ambassador_ask_form($form = array(), &$form_state) {
  */
 function _groups_ambassador_ask_form_build($form, &$form_state) {
   module_load_include('inc', 'field_group_location', 'field_group_lookup');
-  $options = array_merge(array('--' => '-- Select a region --'), _continent_get_predefined_list());
+  // enlist available regions only
+  $filtered_regions = array();
+  $regions = _continent_get_predefined_list();
+  $ambassadors = _groups_ambassador_get_ambassador_list();
+  foreach ($ambassadors as $ambassador) {
+    $region = $ambassador->field_ambassador_region[LANGUAGE_NONE][0]['value'];
+    $filtered_regions[$region] = $regions[$region];
+  }
+
+  $options = array_merge(array('--' => '-- Select a region --'), $filtered_regions);
   $form['region'] = array(
     '#type' => 'select',
     '#title' => t('Your region'),
@@ -50,11 +59,48 @@ function groups_ambassador_ask_form_validate($form, &$form_state) {
 }
 
 /**
+ * Convert standard user array into _privatemsg recipient format.
+ */
+function groups_ambassador_get_privatemsg_recipients($recipient_users) {
+  $recipients = array();
+  foreach ($recipient_users as $user) {
+    $user->type = 'user';
+    $user->recipient = $user->uid;
+    $recipients['user_'.$user->uid] = $user;
+  }
+  return $recipients;
+}
+
+/**
  * Implements hook_form_submit()
  */
 function groups_ambassador_ask_form_submit($form, &$form_state) {
   $form_state['rebuild'] = TRUE;
   $current_user = user_uid_optional_load();
-  // TODO: send message to ambassadors
+
+  // filter ambassadors by region
+  $recipient_users = array();
   $ambassadors = _groups_ambassador_get_ambassador_list();
+  foreach ($ambassadors as $ambassador) {
+    $region = $ambassador->field_ambassador_region[LANGUAGE_NONE][0]['value'];
+    if ($region == $form_state['values']['region']) {
+      $recipient_users[] = $ambassador;
+    }
+  }
+  $recipients = groups_ambassador_get_privatemsg_recipients($recipient_users);
+  $message = (object)array(
+    'author' => $current_user,
+    'format' => 'filtered_html',
+    'timestamp' => time(),
+    'recipients' => $recipients,
+    'has_tokens' => false,
+  );
+
+  $message->subject = t('[Ambassador] Question from @username',
+    array('@username' => $current_user->name));
+
+  $message->body = t('You got a question from a groups portal user through '.
+    'the ask the ambassador page.<br/><br/>@content',
+    array('@content' => $form_state['values']['message']));
+  $message = _privatemsg_send($message);
 }
