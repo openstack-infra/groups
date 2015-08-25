@@ -134,6 +134,29 @@ function groups_ambassador_pages_default_page_manager_pages() {
     $display->content['new-4c8a52b1-d3ec-45ee-8950-efd18888858f'] = $pane;
     $display->panels['os_middle'][0] = 'new-4c8a52b1-d3ec-45ee-8950-efd18888858f';
     $pane = new stdClass();
+    $pane->pid = 'new-773e55a9-0642-480c-8f46-cad7edc9e6c7';
+    $pane->panel = 'os_middle';
+    $pane->type = 'block';
+    $pane->subtype = 'groups_ambassador-groups_ambassador_ask';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'override_title' => 1,
+      'override_title_text' => '<none>',
+      'override_title_heading' => 'h2',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 1;
+    $pane->locks = array();
+    $pane->uuid = '773e55a9-0642-480c-8f46-cad7edc9e6c7';
+    $display->content['new-773e55a9-0642-480c-8f46-cad7edc9e6c7'] = $pane;
+    $display->panels['os_middle'][1] = 'new-773e55a9-0642-480c-8f46-cad7edc9e6c7';
+    $pane = new stdClass();
     $pane->pid = 'new-b014ccc9-fa9c-488b-9a83-6238f145fc53';
     $pane->panel = 'os_top';
     $pane->type = 'block';

@@ -132,6 +132,27 @@
   }
 }
 
+.pane-groups-ambassador-groups-ambassador-ask {
+  background: #29ABE2;
+  color: #FFFFFF;
+  padding-top: 60px;
+  padding-bottom: 40px;
+  h3 {
+    margin: 0px;
+    text-align: right;
+    font-size: 1.3em;
+    text-transform: uppercase;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  p {
+    border-left: 1px solid #FFFFFF;
+    padding-left: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+
 .pane-groups-ambassador-groups-ambassador-faq {
   h3 {
     color: #2A4E68;
@@ -140,5 +161,39 @@
   }
   p {
     margin-bottom: 2em;
+  }
+}
+
+a.ambassador-ask-btn {
+  display: block;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 400;
+  font-family: 'PT Sans', sans-serif;
+  border-radius: 3px;
+  background: #31739c;
+  padding: 15px 5%;
+  float: left;
+  &:hover {
+    background: #20547D;
+    text-decoration: none;
+  }
+  i {
+    margin-left: 10px;
+  }
+}
+
+// Ambassador ask page
+.page-ambassador-program-ask {
+  .ask-form-thankyou {
+    .ambassador-link {
+      margin-top: 60px;
+    }
+    a {
+      color: #30739C;
+      i {
+        padding-right: 5px;
+      }
+    }
   }
 }

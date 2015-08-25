@@ -8,6 +8,20 @@
 include_once 'groups_ambassador.features.inc';
 
 /**
+ * Implements hook_menu()
+ */
+function groups_ambassador_menu() {
+  $items['ambassador-program/ask'] = array(
+    'title' => 'Ask the Ambassadors',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('groups_ambassador_ask_form'),
+    'access callback' => 'user_is_logged_in',
+    'file' => 'includes/ask.form.inc',
+  );
+  return $items;
+}
+
+/**
  * Implements hook_block_info()
  */
 function groups_ambassador_block_info() {
@@ -25,6 +39,10 @@ function groups_ambassador_block_info() {
   );
   $blocks['groups_ambassador_faq'] = array(
     'info' => t('Groups Ambassador FAQ block'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  $blocks['groups_ambassador_ask'] = array(
+    'info' => t('Groups Ambassador Ask Questions'),
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
   return $blocks;
@@ -47,10 +65,14 @@ function groups_ambassador_block_view($delta='') {
     case 'groups_ambassador_selection':
       $block['content'] = theme('groups_ambassador_selection', array());
       $block['subject'] = 'Selection Process';
-      break;;
+      break;
     case 'groups_ambassador_faq':
       $block['content'] = theme('groups_ambassador_faq', array());
       $block['subject'] = 'Frequently Asked Questions';
+      break;
+    case 'groups_ambassador_ask':
+      $block['content'] = theme('groups_ambassador_ask', array());
+      $block['subject'] = 'Ask Questions';
       break;
   }
   return $block;
@@ -81,5 +103,29 @@ function groups_ambassador_theme() {
       'template' => 'groups_ambassador_faq',
       'variables' => array(),
     ),
+    'groups_ambassador_ask' => $base + array(
+      'template' => 'groups_ambassador_ask',
+      'variables' => array(),
+    ),
+    'groups_ambassador_submission' => $base + array(
+      'template' => 'groups_ambassador_submission',
+      'variables' => array(),
+    ),
   );
+}
+
+/**
+ * Return the list of ambassador profiles.
+ */
+function _groups_ambassador_get_ambassador_list() {
+  $uids = array();
+  $ambassador_role = user_role_load_by_name('ambassador');
+  $query = 'SELECT DISTINCT(ur.uid)
+    FROM {users_roles} AS ur
+    WHERE ur.rid = :rid';
+  $result = db_query($query, array(':rid' => $ambassador_role->rid));
+  foreach ($result as $row) {
+    $uids[] = $row->uid;
+  }
+  return user_load_multiple($uids);
 }
