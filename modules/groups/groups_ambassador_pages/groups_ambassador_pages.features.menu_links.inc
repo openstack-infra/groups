@@ -26,7 +26,7 @@ function groups_ambassador_pages_menu_default_menu_links() {
       'identifier' => 'main-menu_ambassador-program:ambassador-program',
     ),
     'module' => 'menu',
-    'hidden' => 1,
+    'hidden' => 0,
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
