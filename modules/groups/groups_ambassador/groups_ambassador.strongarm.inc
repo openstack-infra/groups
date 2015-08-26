@@ -37,21 +37,21 @@ function groups_ambassador_strongarm() {
       'display' => array(
         'privatemsg_send_new_message' => array(
           'default' => array(
-            'weight' => '5',
+            'weight' => '3',
             'visible' => TRUE,
           ),
           'profile_teaser' => array(
-            'weight' => '12',
+            'weight' => '14',
             'visible' => FALSE,
           ),
         ),
         'summary' => array(
           'default' => array(
-            'weight' => '5',
+            'weight' => '4',
             'visible' => TRUE,
           ),
           'profile_teaser' => array(
-            'weight' => '11',
+            'weight' => '13',
             'visible' => FALSE,
           ),
         ),

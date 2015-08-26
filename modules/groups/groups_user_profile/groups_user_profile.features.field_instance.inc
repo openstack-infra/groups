@@ -10,6 +10,56 @@
 function groups_user_profile_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'user-user-field_alternate_user_picture'
+  $field_instances['user-user-field_alternate_user_picture'] = array(
+    'bundle' => 'user',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 12,
+      ),
+      'profile_teaser' => array(
+        'label' => 'hidden',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => 'content',
+          'image_style' => '300x300_avatar',
+        ),
+        'type' => 'image',
+        'weight' => 0,
+      ),
+    ),
+    'display_in_partial_form' => 0,
+    'entity_type' => 'user',
+    'field_name' => 'field_alternate_user_picture',
+    'label' => 'Alternate User Picture',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 13,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_ambassador_region'
   $field_instances['user-user-field_ambassador_region'] = array(
     'bundle' => 'user',
@@ -28,7 +78,7 @@ function groups_user_profile_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 6,
       ),
     ),
     'display_in_partial_form' => 0,
@@ -69,7 +119,7 @@ function groups_user_profile_field_default_field_instances() {
           'provider' => 'weibo',
         ),
         'type' => 'groups_social_link_formatter',
-        'weight' => 3,
+        'weight' => 4,
       ),
     ),
     'display_in_partial_form' => 0,
@@ -111,6 +161,7 @@ function groups_user_profile_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Alternate User Picture');
   t('Ambassador region');
   t('Weibo URL');
 

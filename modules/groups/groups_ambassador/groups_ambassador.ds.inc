@@ -27,11 +27,6 @@ function groups_ambassador_ds_field_settings_info() {
         'class' => '',
       ),
     ),
-    'ds_user_picture' => array(
-      'weight' => '0',
-      'label' => 'hidden',
-      'format' => 'ds_picture_300x300_avatar',
-    ),
   );
   $export['user|user|profile_teaser'] = $ds_fieldsetting;
 
@@ -54,14 +49,14 @@ function groups_ambassador_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'regions' => array(
       'ds_content' => array(
-        0 => 'ds_user_picture',
+        0 => 'field_alternate_user_picture',
         1 => 'name',
         2 => 'field_twitter_url',
         3 => 'field_weibo_url',
       ),
     ),
     'fields' => array(
-      'ds_user_picture' => 'ds_content',
+      'field_alternate_user_picture' => 'ds_content',
       'name' => 'ds_content',
       'field_twitter_url' => 'ds_content',
       'field_weibo_url' => 'ds_content',
