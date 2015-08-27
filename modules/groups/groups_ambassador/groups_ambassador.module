@@ -18,6 +18,13 @@ function groups_ambassador_menu() {
     'access callback' => 'user_is_logged_in',
     'file' => 'includes/ask.form.inc',
   );
+  $items['ambassador-program/apply'] = array(
+    'title' => 'OpenStack Ambassador Application',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('groups_ambassador_apply_form'),
+    'access callback' => 'user_is_logged_in',
+    'file' => 'includes/apply.form.inc',
+  );
   return $items;
 }
 
@@ -111,6 +118,10 @@ function groups_ambassador_theme() {
       'template' => 'groups_ambassador_submission',
       'variables' => array(),
     ),
+    'groups_ambassador_apply_confirm' => $base + array(
+      'template' => 'groups_ambassador_apply_confirm',
+      'variables' => array(),
+    ),
   );
 }
 
@@ -128,4 +139,17 @@ function _groups_ambassador_get_ambassador_list() {
     $uids[] = $row->uid;
   }
   return user_load_multiple($uids);
+}
+
+/**
+ * Convert standard user array into _privatemsg recipient format.
+ */
+function groups_ambassador_get_privatemsg_recipients($recipient_users) {
+  $recipients = array();
+  foreach ($recipient_users as $user) {
+    $user->type = 'user';
+    $user->recipient = $user->uid;
+    $recipients['user_'.$user->uid] = $user;
+  }
+  return $recipients;
 }
