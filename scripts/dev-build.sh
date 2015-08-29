@@ -1,8 +1,7 @@
-#!/bin/bash
-#
+#!/usr/bin/env bash
+
 # Build groups distribution from local filesystem instead of fetching
 # directly from git
-#
 
 TARGET_DIR=${TARGET_DIR:-publish}
 PROFILE_NAME=${PROFILE_NAME:-groups}
