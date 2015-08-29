@@ -1,5 +1,5 @@
-#!/bin/bash
-#
+#!/usr/bin/env bash
+
 # Gating test script for Community portal
 # 1. prepare mysql database
 # 2. build distribution tarball
@@ -8,7 +8,6 @@
 # Prerequisites:
 #   bootstrap.sh required for setup php/drush environment.
 #   git clone the project into groups directory.
-#
 
 set -xe
 

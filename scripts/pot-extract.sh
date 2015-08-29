@@ -1,5 +1,5 @@
-#!/bin/bash
-#
+#!/usrbin/env bash
+
 # Extract translation template files from groups modules
 #
 # templates will be created in translations/ directory as
@@ -7,7 +7,7 @@
 #
 # Usage:
 # cd profiles/groups
-# bash ./scripts/pot-extract.sh
+# ./scripts/pot-extract.sh
 
 PROFILE_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )
 mkdir -p $PROFILE_DIR/translations/templates
