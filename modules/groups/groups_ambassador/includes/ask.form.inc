@@ -59,19 +59,6 @@ function groups_ambassador_ask_form_validate($form, &$form_state) {
 }
 
 /**
- * Convert standard user array into _privatemsg recipient format.
- */
-function groups_ambassador_get_privatemsg_recipients($recipient_users) {
-  $recipients = array();
-  foreach ($recipient_users as $user) {
-    $user->type = 'user';
-    $user->recipient = $user->uid;
-    $recipients['user_'.$user->uid] = $user;
-  }
-  return $recipients;
-}
-
-/**
  * Implements hook_form_submit()
  */
 function groups_ambassador_ask_form_submit($form, &$form_state) {
