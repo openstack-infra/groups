@@ -1,0 +1,24 @@
+<?php
+/**
+ * @file
+ * Code for the Groups Messages feature.
+ */
+
+include_once 'groups_messages.features.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function groups_messages_menu() {
+  $items['user/%user/message-settings'] = array(
+    'title' => 'Message settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('groups_messages_message_settings_form', 1),
+    'access callback' => 'user_access',
+    'access arguments' => array('read privatemsg'),
+    'file' => 'includes/message_settings.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  return $items;
+}

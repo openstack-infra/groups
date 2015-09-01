@@ -69,6 +69,7 @@ dependencies[] = paranoia
 dependencies[] = pathauto
 dependencies[] = privatemsg
 dependencies[] = privatemsg_realname
+dependencies[] = privatemsg_notify_sender
 dependencies[] = quicktabs
 dependencies[] = r4032login
 dependencies[] = radioactivity

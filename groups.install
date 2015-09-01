@@ -356,6 +356,18 @@ function groups_update_7119() {
   drupal_flush_all_caches();
 }
 
+/**
+ * Enable groups messages and privatemsg_notify_sender contrib module.
+ */
+function groups_update_7120() {
+  if (!module_exists('groups_messages')) {
+    module_enable(array('groups_messages'));
+  }
+  if (!module_exists('privatemsg_notify_sender')) {
+    module_enable(array('privatemsg_notify_sender'));
+  }
+  drupal_flush_all_caches();
+}
 
 /**
  * Set language negotiation to URL based.

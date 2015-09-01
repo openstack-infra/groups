@@ -378,6 +378,10 @@ projects[privatemsg][patch][] = "http://drupal.org/files/privatemsg-1573000-64.p
 ; https://drupal.org/node/2070719
 projects[privatemsg][patch][] = "http://drupal.org/files/2077223-privatemsg-realname-enabled-1.patch"
 
+projects[privatemsg_notify_sender][type] = "module"
+projects[privatemsg_notify_sender][subdir] = "contrib"
+projects[privatemsg_notify_sender][version] = "1.1"
+
 projects[quicktabs][type] = "module"
 projects[quicktabs][subdir] = "contrib"
 projects[quicktabs][version] = "3.6"
