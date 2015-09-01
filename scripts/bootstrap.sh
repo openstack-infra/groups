@@ -1,8 +1,7 @@
-#!/bin/bash
-#
+#!/usr/bin/env bash
+
 # Bootstrap a minimal environment required to build
-# a Drupal distribution tarball on Ubuntu 12.04LTS (precise)
-#
+# a Drupal distribution tarball on Ubuntu 12.04 LTS (Precise Pangolin)
 
 set -xe
 

@@ -1,7 +1,6 @@
-#!/bin/bash
-#
+#!/usr/bin/env bash
+
 # Create a new language skeleton from pot template files
-#
 
 if [ -z "$1" ]; then
     echo "Usage: $0 <lang-code>"
