@@ -98,12 +98,6 @@
   .region-openstack-front-top-second {
     background: inherit;
   }
-
-  // container / row / columns for faq region
-  .openstack-front-bottom {
-    @extend .container;
-    margin-bottom: 70px;
-  }
   // remove original page header
   h1.page-header {
     display: none;
@@ -138,6 +132,7 @@
   color: #FFFFFF;
   padding-top: 60px;
   padding-bottom: 40px;
+  margin-bottom: 70px;
   h3 {
     margin: 0px;
     text-align: right;
@@ -155,6 +150,7 @@
 }
 
 .pane-groups-ambassador-groups-ambassador-faq {
+  @extend .container;
   h3 {
     color: #2A4E68;
     font-family: "Open Sans",Helvetica,Arial,sans-serif;

@@ -15,7 +15,7 @@ $panel_suffix = isset($panel_suffix) ? $panel_suffix : '';
     </div>
   <?php endif; ?>
 
-  <div class="openstack-front-container">
+  <div class="openstack-front-container openstack-front-two-column">
     <div class="region region-openstack-front-top-first">
       <div class="region-inner clearfix">
         <?php print $content['os_top_left']; ?>
@@ -28,6 +28,7 @@ $panel_suffix = isset($panel_suffix) ? $panel_suffix : '';
     </div>
   </div>
 
+  <?php if (($content['os_left']) || ($content['os_center']) || ($content['os_right'])): ?>
   <div class="openstack-front-container">
     <div class="region region-openstack-front-first">
       <div class="region-inner clearfix">
@@ -45,6 +46,7 @@ $panel_suffix = isset($panel_suffix) ? $panel_suffix : '';
       </div>
     </div>
   </div>
+  <?php endif; ?>
 
   <?php if ($content['os_middle']): ?>
     <div class="region openstack-front-middle region-conditional-stack">
@@ -54,6 +56,7 @@ $panel_suffix = isset($panel_suffix) ? $panel_suffix : '';
     </div>
   <?php endif; ?>
 
+  <?php if (($content['os_bottom_left']) || ($content['os_bottom_right'])): ?>
   <div class="openstack-front-container">
     <div class="region region-openstack-front-bottom-first">
       <div class="region-inner clearfix">
@@ -66,6 +69,7 @@ $panel_suffix = isset($panel_suffix) ? $panel_suffix : '';
       </div>
     </div>
   </div>
+  <?php endif; ?>
 
   <?php if ($content['os_bottom']): ?>
     <div class="region openstack-front-bottom region-conditional-stack">
