@@ -67,11 +67,11 @@ function groups_ambassador_block_view($delta='') {
       break;
     case 'groups_ambassador_roleof':
       $block['content'] = theme('groups_ambassador_roleof', array());
-      $block['subject'] = 'Role of Ambassadors';
+      $block['subject'] = 'Ambassadors are here to help';
       break;
     case 'groups_ambassador_selection':
       $block['content'] = theme('groups_ambassador_selection', array());
-      $block['subject'] = 'Selection Process';
+      $block['subject'] = 'Are you Ambassador material?';
       break;
     case 'groups_ambassador_faq':
       $block['content'] = theme('groups_ambassador_faq', array());

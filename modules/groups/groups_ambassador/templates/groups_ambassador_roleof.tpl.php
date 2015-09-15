@@ -1,21 +1,32 @@
-<p>Ambassadors will be recognised on the OpenStack website for their
-efforts, and provided with support from foundation staff to conduct their
-duties. They will also get access to a funding program – allowing them to
-request funds for activities of impact in their region. We’d also expect
-ambassadors to attend the summits, and the Foundation would likely assist
-if it wasn’t possible for them to be there using their own methods.</p>
+<p>For many people, their user group is the first insight into the
+OpenStack community, and an important part of their ongoing involvement.
+The Ambassadors help us tie the groups together, and work with each one
+to mentor it to be the best it can be.</p>
+
+<p>If you are looking to start a new user group, are a member of an existing group,
+or are looking to get involved in your local community but don't know how
+the Ambassadors are here to help. Reasons you might contact your local
+Ambassador include:
+
 <ul>
-  <li>Act as a liason between multiple user groups, the Foundation, and the
-  general community, for example:</li>
-  <ul>
-    <li>helping to solicit feedback on OpenStack and aggregate it to the global level</li>
-    <li>promoting key messages into the user communities (eg “ask questions on ask.openstack.org!”)</li>
-    <li>finding people to help localise content</li>
-    <li>helping onboard new users and contributors</li>
-  </ul>
-  <li>Assist in user group best practice – from nurturing new groups to cementing the quality of existing ones</li>
-  <li>Help people find the ‘right people’ to talk to</li>
-  <li>Represent the community via speaking and visibility opportunities with the official title</li>
-  <li>Report on the activities in their region</li>
-  <li>Be a good leader, wranging activity from others and mobilising the global OpenStack community!</li>
+   <li>You don't know how to find your local group, or are looking for a way to start contributing.</li>
+   <li>Needing to find the 'right person' to talk to in the OpenStack Community.</li>
+   <li>Wanting to move forward through the Official User Group process.</li>
+   <li>Wanting more information about what is going on with the OpenStack Foundation.</li>
+   <li>Providing feedback you heard from your attendees that should be delivered to developers.</li>
+   <li>Putting an item in the community newsletter.</li>
+   <li>Wanting to move forward through the Official User Group process.</li>
+   <li>Needing help to onboard new contributors.</li>
+   <li>Looking for good speakers, or need help finding sponsors.</li>
 </ul>
+</p>
+
+<p>
+Reasons Ambassadors might contact you could include:
+  <ul>
+  <li>Involving you and your group in global efforts and events.</li>
+  <li>Assisting with user group best practice – from nurturing new groups to cementing the quality of existing ones.</li>
+  <li>Asking for help with translating some content.</li>
+  <li>Asking for your a quick report on the activities in your region.</li>
+</ul>
+</p>

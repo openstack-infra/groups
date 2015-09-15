@@ -1,10 +1,11 @@
-<p>The title is designed to recognise those who are already good leaders
-with a proven track record in the community. With the title, new users,
-contributors and community members should easily be able to recognize their
-Ambassador as a go-to resource. While the role provides inherent
-credibility, it also comes with accountability, meaning decisions and
-actions made by the Ambassador should benefit the whole community, not just
-one person or company.</p>
+<p>The Ambassador title is designed to recognise those who are already good leaders
+with a proven track record in the community. If you want to become an Ambassador,
+you should start by doing good work - not requesting the title!
+ The title is designed so that new users, contributors and community members should
+easily be able to recognize their Ambassador as a go-to resource.
+While the role provides inherent credibility, it also comes with accountability,
+meaning decisions and actions made by the Ambassador should benefit the whole community,
+not just one person or company.</p>
 <p>We believe that the Ambassadors will already be active participants in our community. Think about those people who are already working across multiple user groups, submitting OpenStack mini-events to related conferences, helping onboard new users and contributors, arranging hackfests or just generally going above and beyond in the name of making Openstack great.
 </p>
 <p>To that end, we intend to ask that potential ambassadors provide some information about themselves, namely:
