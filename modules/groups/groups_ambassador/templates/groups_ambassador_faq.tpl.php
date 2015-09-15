@@ -1,18 +1,15 @@
 <h3>When is all this going to happen?</h3>
-<p>We hope to have our first tranche of ambassadors entitled by September, so
-we can get the program running before the summit. We want to get this done as
-soon as manageable, since we expect it to go a long way to solving some
-problems that exist right now. </p>
+<p>The Ambassador program was launched in August 2013. </p>
 <h3>How much do ambassadors get paid?</h3>
 <p>hey are paid in love – this is a volunteer position.</p>
-<h3>How big will the regions be?</h3>
+<h3>How big will the regions each Ambassador covers be?</h3>
 <p>Initially: big. We’re starting with a small number of ambassadors so we can
 learn before scaling up. We also want to avoid situations where there are many
 ambassadors in one region – hence the selection criteria related to geography.
 </p>
 <h3>How does “Ambassador” relate to “User Group Leader”?</h3>
 
-<p>OpenStack Ambassador and OpenStack User Group leader are two distinct roles, which can of course be fulfilled by one person, but they have distinct responsibilities. The Ambassador may be involved in running their local meetup group, but they’ll be chatting to the User Group Leaders in their region about how to best help – not taking over!
+<p>OpenStack Ambassador and OpenStack User Group leader are two distinct roles, which can of course be fulfilled by one person, but they have distinct responsibilities. The Ambassador may be involved in running their local meetup group, but with their Ambassador hat on they’ll be chatting to the User Group Leaders in their region about how to best help – not taking over!
 </p>
 <h3>What will the term length be for ambassadors?</h3>
 
