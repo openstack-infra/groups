@@ -300,6 +300,23 @@
       text-decoration: underline;
     }
   }
+  .pane-content {
+    a {
+      color: #30739C;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    li {
+      margin-bottom: 0.5em;
+    }
+    /* hide user picture and duplicated headline on node page */
+    a.user-picture,
+    .field-name-body h1 {
+      display: none;
+    }
+  }
   .pane-node-field-resource-links {
     @extend .clearfix;
     border-top: 1px dotted #C5E2EA;
