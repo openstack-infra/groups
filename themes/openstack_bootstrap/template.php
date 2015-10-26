@@ -264,7 +264,7 @@ function openstack_bootstrap_preprocess_user_profile(&$variables) {
       module_load_include('inc', 'field_group_location', 'field_group_lookup');
       $continents = _continent_get_predefined_list();
       $variables['user_profile']['name'][0] = array(
-        '#markup' => '<h3><a href="">'.$account->name.
+        '#markup' => '<h3><a href="">'.format_username($account).
           ' <span class="ambassador-region">// '.$continents[$region_value].'</span></a></h3>',
       );
     }
