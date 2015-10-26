@@ -568,7 +568,7 @@ projects[feeds_fetcher_directory][patch][] = "https://drupal.org/files/feeds_fet
 
 projects[jquery_update][type] = "module"
 projects[jquery_update][subdir] = "contrib"
-projects[jquery_update][version] = "2.6"
+projects[jquery_update][version] = "2.7"
 
 projects[panels_ajax_tab][type] = "module"
 projects[panels_ajax_tab][subdir] = "contrib"
