@@ -63,7 +63,7 @@ function groups_feeds_sync_settings($formid, $form_state, $group_node) {
   $form['description'] = array(
     '#markup' => '<p>' . t('Synchronization settings for group data. '). '</p>',
   );
-  $url = 'https://github.com/openstack-infra/groups-static-pages';
+  $url = 'https://git.openstack.org/cgit/openstack-infra/groups-static-pages';
   $form['sync_groups'] = array(
     '#type' => 'checkbox',
     '#prefix' =>
