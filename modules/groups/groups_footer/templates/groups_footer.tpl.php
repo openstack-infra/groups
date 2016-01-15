@@ -11,6 +11,7 @@
       <li><a href="http://openstack.org/openstack-security/">OpenStack Security</a></li>
       <li><a href="http://openstack.org/projects/openstack-faq/">Common Questions</a></li>
       <li><a href="http://openstack.org/blog/">Blog</a></li>
+      <li><a href="http://openstack.org/news/">News</a></li>
     </ul>
   </div>
   <div class="footer-block-community">
@@ -28,7 +29,7 @@
     <ul>
       <li><a href="http://docs.openstack.org/">OpenStack Manuals</a></li>
       <li><a href="http://www.openstack.org/software/start/">Getting Started</a></li>
-      <li><a href="http://api.openstack.org/">API Documentation</a></li>
+      <li><a href="http://developer.openstack.org/">API Documentation</a></li>
       <li><a href="http://wiki.openstack.org/">Wiki</a></li>
     </ul>
   </div>
@@ -38,7 +39,7 @@
       <li><a href="http://openstack.org/brand/">Logos &amp; Guidelines</a></li>
       <li><a href="http://openstack.org/brand/openstack-trademark-policy/">Trademark Policy</a></li>
       <li><a href="http://openstack.org/privacy/">Privacy Policy</a></li>
-      <li><a href="http://wiki.openstack.org/CLA">OpenStack CLA</a></li>
+      <li><a href="https://wiki.openstack.org/wiki/How_To_Contribute#Contributor_License_Agreement">OpenStack CLA</a></li>
     </ul>
   </div>
   <div class="footer-block-stay-in-touch">
