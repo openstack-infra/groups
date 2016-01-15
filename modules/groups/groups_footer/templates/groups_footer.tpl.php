@@ -28,7 +28,7 @@
     <ul>
       <li><a href="http://docs.openstack.org/">OpenStack Manuals</a></li>
       <li><a href="http://www.openstack.org/software/start/">Getting Started</a></li>
-      <li><a href="http://api.openstack.org/">API Documentation</a></li>
+      <li><a href="http://developer.openstack.org/">API Documentation</a></li>
       <li><a href="http://wiki.openstack.org/">Wiki</a></li>
     </ul>
   </div>
