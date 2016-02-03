@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Implements hook_instal()
+ * Implements hook_install()
  *
  */
 function groups_groups_install() {
