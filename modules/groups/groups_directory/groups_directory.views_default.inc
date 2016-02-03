@@ -106,7 +106,7 @@ function groups_directory_views_default_views() {
   $handler->display->display_options['style_options']['name_field'] = 'title';
   $handler->display->display_options['style_options']['description_field'] = '#rendered_entity';
   $handler->display->display_options['style_options']['view_mode'] = 'teaser';
-  $handler->display->display_options['style_options']['map'] = 'mapbox-warden';
+  $handler->display->display_options['style_options']['map'] = 'leaflet-mapbox';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';

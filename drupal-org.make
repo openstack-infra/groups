@@ -526,7 +526,7 @@ projects[leaflet][version] = "1.1"
 projects[leaflet][type] = "module"
 projects[leaflet][subdir] = "contrib"
 
-projects[leaflet_mapbox][version] = "1.2"
+projects[leaflet_mapbox][version] = "1.3"
 projects[leaflet_mapbox][type] = "module"
 projects[leaflet_mapbox][subdir] = "contrib"
 
