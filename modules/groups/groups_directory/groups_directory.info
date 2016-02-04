@@ -5,7 +5,6 @@ package = Groups - Landing Pages
 version = 7.x-1.0
 project = groups_directory
 dependencies[] = leaflet_mapbox
-dependencies[] = leaflet_more_maps
 dependencies[] = page_manager
 dependencies[] = views_content
 features[ctools][] = page_manager:pages_default:1

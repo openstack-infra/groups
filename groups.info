@@ -136,7 +136,6 @@ dependencies[] = geofield
 dependencies[] = leaflet
 dependencies[] = leaflet_views
 dependencies[] = leaflet_mapbox
-dependencies[] = leaflet_more_maps
 dependencies[] = job_scheduler
 dependencies[] = feeds
 dependencies[] = feeds_jsonpath_parser

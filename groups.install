@@ -370,6 +370,19 @@ function groups_update_7120() {
 }
 
 /**
+ * Disable leaflet_more_maps module.
+ *
+ * The site no longer depends on this module, disabled now, so the entire
+ * module should be removed in a later version.
+ */
+function groups_update_7121() {
+  if (module_exists('leaflet_more_maps')) {
+    module_disable(array('leaflet_more_maps'));
+    drupal_flush_all_caches();
+  }
+}
+
+/**
  * Set language negotiation to URL based.
  */
 function _groups_set_language_negotiation() {
