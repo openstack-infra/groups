@@ -32,7 +32,8 @@ function groups_directory_block_view($delta='') {
       $block['subject'] = t('Filter Groups');
       break;
     case 'groups_directory_list':
-      $block['content'] = render(groups_directory_list());
+      $element = groups_directory_list();
+      $block['content'] = render($element);
       $block['subject'] = t('Groups');
       break;
   }
