@@ -235,7 +235,8 @@ function _groups_oauth2_request_token($grant_type, $code, $redirect_uri) {
  */
 function _groups_oauth2_get_profile_picture_filename($url) {
   $parts = parse_url($url);
-  $basename = end(explode('/', $parts['path']));
+  $element = explode('/', $parts['path']);
+  $basename = end($element);
   return 'public://profile-images/'.$basename;
 }
 
