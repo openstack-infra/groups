@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash -x
 
 # Build groups distribution from local filesystem instead of fetching
 # directly from git
@@ -24,8 +24,8 @@ cd $TARGET_DIR/profiles/$PROFILE_NAME/themes/$THEME_NAME
 if [ -f Gemfile ]; then
   mkdir .bundled_gems
   export GEM_HOME=`pwd`/.bundled_gems
-  bundle install
-  bundle exec compass compile
+  $GEM_HOME/bin/bundle install
+  $GEM_HOME/bin/bundle exec compass compile
   # cleanup
   rm -rf .bundled_gems .sass-cache
 fi
