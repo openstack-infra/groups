@@ -538,12 +538,15 @@ function groups_reports_groups_status_report_form($form = array(), &$form_state)
     if ($row->status_point == $row->status_point_max) {
       $completeness_class = 'col-status-complete';
     }
+    $group_url = str_replace(' ', '-', $row->title)
+    $group_url = preg_replace('/[^A-Za-z0-9\-]/', '-', $group_url)
+    $group_url = pref_replace('/-+/', '-', $group_url)
     $data[$row->continent][] = array(
       'completeness' => array(
         'data' => '',
         'class' => array('col-completeness', $completeness_class)),
       'title' => array(
-        'data' => $row->title,
+        'data' => sprintf('<a href="%s">%s</a>', $group_url, $row->title),
         'class' => array('col-user-group')),
       'status' => array(
         'data' => sprintf('<span class="status-point">%d</span><span class="status-max">/%d</span>', $row->status_point, $row->status_point_max),
