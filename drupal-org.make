@@ -318,7 +318,7 @@ projects[oembed][patch][] = "https://drupal.org/files/issues/remove-media-submod
 
 projects[og][type] = "module"
 projects[og][subdir] = "contrib"
-projects[og][version] = "2.7"
+projects[og][version] = "2.9"
 
 ; Auto-assign role to group manager broken on groups with overridden roles.
 ; https://drupal.org/node/2005800#comment-7684873
