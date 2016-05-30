@@ -18,6 +18,7 @@ Ambassador include:
    <li>Wanting to move forward through the Official User Group process.</li>
    <li>Needing help to onboard new contributors.</li>
    <li>Looking for good speakers, or need help finding sponsors.</li>
+   <li>Applying for funding for special activities.</li>
 </ul>
 </p>
 
