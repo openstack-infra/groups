@@ -42,7 +42,7 @@ projects[apachesolr_user][subdir] = "contrib"
 projects[apachesolr_user][download][type] = "git"
 projects[apachesolr_user][download][url] = "http://git.drupal.org/project/apachesolr_user.git"
 projects[apachesolr_user][download][branch] = "7.x-1.x"
-projects[apachesolr_user][download]revision] = "a86c5aebfceaf4a3fc53544762a36ca1b70809d5"
+projects[apachesolr_user][download][revision] = "a86c5aebfceaf4a3fc53544762a36ca1b70809d5"
 
 ; Check the user object before trying to display a result.
 ; https://drupal.org/node/2077281#comment-7807937
