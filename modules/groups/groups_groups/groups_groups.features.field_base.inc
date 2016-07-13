@@ -181,5 +181,26 @@ function groups_groups_field_default_field_bases() {
     'type' => 'field_property_list',
   );
 
+  // Exported field_base: 'field_timezone'.
+  $field_bases['field_timezone'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_timezone',
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'tzfield',
+    'settings' => array(
+      'exclude' => array(),
+    ),
+    'translatable' => 0,
+    'type' => 'tzfield',
+  );
+
   return $field_bases;
 }

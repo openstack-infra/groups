@@ -177,6 +177,7 @@ function groups_groups_form_alter(&$form, &$form_state, $form_id) {
     $node = $form_state['node'];
     $is_administrator = in_array('administrator', array_values($user->roles));
     $is_community_mgr = in_array('community_manager', array_values($user->roles));
+    $is_group_admin = og_user_access('node', $node->nid, 'administer group');
     // hide group status field
     $form['field_group_status']['#access'] = $is_administrator;
     // hide location geofield
@@ -189,6 +190,10 @@ function groups_groups_form_alter(&$form, &$form_state, $form_id) {
     $form['field_group_logo']['#access'] = false;
     // allow ambassador assignment for admin or community managers
     $form['field_ambassadors']['#access'] = $is_community_mgr || $is_administrator;
+
+    // allow group admins to modify timezone field
+    $form['field_timezone']['#access'] = $is_community_mgr || $is_group_admin
+      || $is_administrator;
 
     $form['field_group_location']['und'][0]['location']['#title'] = 'City (optional)';
     // reorder resource links, group location

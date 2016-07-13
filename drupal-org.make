@@ -594,6 +594,10 @@ projects[potx][version] = 3.x-dev
 projects[potx][type] = "module"
 projects[potx][subdir] = "contrib"
 
+projects[tzfield][version] = "1.1"
+projects[tzfield][type] = "module"
+projects[tzfield][subdir] = "contrib"
+
 ; Contributed themes.
 
 projects[zen][type] = "theme"

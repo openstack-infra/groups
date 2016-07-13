@@ -39,3 +39,77 @@ function groups_events_field_default_field_instances_alter(&$fields) {
     );
   }
 }
+
+/**
+ * Implements hook_date_formatter_dates_alter().
+ *
+ * Alter the date output of event fields based on the timezone of
+ * the group.
+ */
+function groups_events_date_formatter_dates_alter(&$dates, $context) {
+  $field = $context['field'];
+  $instance = $context['instance'];
+  $format = $context['format'];
+  $entity_type = $context['entity_type'];
+  $entity = $context['entity'];
+  $date1 = $dates['value']['local']['object'];
+  $date2 = $dates['value2']['local']['object'];
+
+  $is_groups_event = groups_events_is_groups_event($entity);
+
+  if ($is_groups_event) {
+
+    $target_id = $entity->og_group_ref[LANGUAGE_NONE][0]['target_id'];
+    $node = node_load($target_id);
+
+    $timezone = $node->field_timezone[LANGUAGE_NONE][0]['value'];
+    if (empty($timezone)) {
+      $timezone = 'UTC';
+    }
+
+    $process = date_process_values($field);
+    foreach ($process as $processed) {
+      $date = &$dates[$processed]['local']['object'];
+      $date->setTimezone(new DateTimeZone($timezone));
+      $dates[$processed]['local']['datetime'] = date_format($date, DATE_FORMAT_DATETIME);
+      $dates[$processed]['local']['timezone'] = $timezone;
+      $dates[$processed]['local']['offset'] = date_offset_get($date);
+
+      // Format the date, special casing the 'interval' format which doesn't
+      // need to be processed.
+      $dates[$processed]['formatted'] = '';
+      $dates[$processed]['formatted_iso'] = date_format_date($date, 'custom', 'c');
+      if (is_object($date)) {
+        if ($format == 'format_interval') {
+           $dates[$processed]['interval'] = date_format_interval($date);
+        }
+        elseif ($format == 'format_calendar_day') {
+           $dates[$processed]['calendar_day'] = date_format_calendar_day($date);
+        }
+        elseif ($format == 'U' || $format == 'r' || $format == 'c') {
+          $dates[$processed]['formatted'] = date_format_date($date, 'custom', $format);
+          $dates[$processed]['formatted_date'] = date_format_date($date, 'custom', $format);
+          $dates[$processed]['formatted_time'] = '';
+          $dates[$processed]['formatted_timezone'] = '';
+        }
+        elseif (!empty($format)) {
+          $dates[$processed]['formatted'] = date_format_date($date, 'custom', $format);
+          $dates[$processed]['formatted_date'] = date_format_date($date, 'custom', date_limit_format($format, array('year', 'month', 'day')));
+          $dates[$processed]['formatted_time'] = date_format_date($date, 'custom', date_limit_format($format, array('hour', 'minute', 'second')));
+          $dates[$processed]['formatted_timezone'] = date_format_date($date, 'custom', date_limit_format($format, array('timezone')));
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Determine whether the event is a group event or not.
+ */
+function groups_events_is_groups_event($entity) {
+  if (empty($entity) || !is_object($entity)) {
+    return FALSE;
+  }
+  return (($entity->type == 'event') &&
+    (isset($entity->og_group_ref[LANGUAGE_NONE][0]['target_id'])));
+}

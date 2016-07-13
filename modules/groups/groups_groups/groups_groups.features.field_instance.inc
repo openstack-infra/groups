@@ -264,6 +264,47 @@ function groups_groups_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-group-field_timezone'.
+  $field_instances['node-group-field_timezone'] = array(
+    'bundle' => 'group',
+    'default_value' => array(
+      0 => array(
+        'value' => 'UTC',
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'tzfield',
+        'settings' => array(),
+        'type' => 'tzfield_default',
+        'weight' => 21,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_timezone',
+    'label' => 'Timezone',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 51,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Ambassadors');
@@ -272,6 +313,7 @@ function groups_groups_field_default_field_instances() {
   t('Resource links');
   t('geofield');
   t('meetup_members');
+  t('Timezone');
 
   return $field_instances;
 }
