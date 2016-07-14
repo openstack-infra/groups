@@ -3,9 +3,9 @@ core = 7.x
 
 ; Download Drupal core and apply core patches if needed.
 projects[drupal][type] = "core"
-projects[drupal][version] = "7.44"
+projects[drupal][version] = "7.50"
 projects[drupal][download][type] = get
-projects[drupal][download][url] = http://ftp.drupal.org/files/projects/drupal-7.44.tar.gz
+projects[drupal][download][url] = http://ftp.drupal.org/files/projects/drupal-7.50.tar.gz
 
 ; This patch allows install profile to list requirements on the install page
 ; http://drupal.org/node/1971072
@@ -30,3 +30,7 @@ projects[drupal][patch][] = https://drupal.org/files/issues/node_access_grants-s
 ; File_get_file_references is slow and buggy
 ; https://drupal.org/node/1805690#comment-8734045
 projects[drupal][patch][] = https://drupal.org/files/issues/1805690_11.patch
+
+; Fix an installation profile issue caused by release 7.50 and
+; https://www.drupal.org/files/issues/I1971072.patch
+projects[drupal][patch][] = "patches/0004-drupal750-1971072.patch"
