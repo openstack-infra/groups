@@ -75,7 +75,7 @@ function groups_oauth2_response_handler() {
          drupal_goto();
          return;
       }
-      $username = check_plain(strtolower($userinfo->name).'-'.strtolower($userinfo->family_name));
+      $username = check_plain(strtolower($userinfo->name));
       $query = "SELECT uid FROM {users} WHERE name = :name";
       $uid = db_query($query, array(':name' => $username))->fetchField();
       $i = 0;
@@ -95,7 +95,7 @@ function groups_oauth2_response_handler() {
           'status' => 1,
           'timezone' => variable_get('date_default_timezone'),
           'data' => array(
-            'oauth2_fullname' => check_plain($userinfo->name.' '.$userinfo->family_name),
+            'oauth2_fullname' => check_plain($userinfo->name),
           ),
         );
         $account = user_save(NULL, $edit);
