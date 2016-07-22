@@ -383,6 +383,16 @@ function groups_update_7121() {
 }
 
 /**
+ * Enable tzfield module related to https://review.openstack.org/#/c/341385/
+ */
+function groups_update_7122() {
+  if (!module_exists('tzfield')) {
+    module_enable(array('tzfield'));
+  }
+  drupal_flush_all_caches();
+}
+
+/**
  * Set language negotiation to URL based.
  */
 function _groups_set_language_negotiation() {
