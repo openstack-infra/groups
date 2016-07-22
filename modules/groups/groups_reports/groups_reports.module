@@ -35,8 +35,16 @@ function groups_reports_menu() {
     'title' => 'Group contact report CSV export',
     'description' => 'Export group organizers in CSV format',
     'page callback' => 'groups_reports_groups_contact_report_csv_export',
-    'access callback' => array('groups_reports_access'),
+    'access callback' => TRUE,
     'weight' => -1,
+  );
+  $items['admin/config/system/reports'] = array(
+    'title' => 'Groups report Settings',
+    'description' => 'Groups report settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('groups_reports_admin_settings'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'groups_reports.admin.inc',
   );
   return $items;
 }
@@ -605,8 +613,20 @@ function _groups_report_contact_csv_row($row, $organizer, $source, &$seen) {
 
 /**
  * Export group organizer contacts in CSV format.
+ *
+ * The groups_contact_report_key variable contains the token required for
+ * public access.
  */
 function groups_reports_groups_contact_report_csv_export() {
+  $access = groups_reports_access();
+  // check for token if not authenticated
+  if (($access == FALSE) && (isset($_GET['token']))) {
+    $access = (variable_get('groups_contact_report_key', 'dummytoken') == $_GET['token']);
+  }
+  if ($access == FALSE) {
+    drupal_access_denied();
+    return;
+  }
   drupal_add_http_header('Content-Type', 'text/csv; utf-8');
   drupal_add_http_header('Content-Disposition', 'attachment; filename="groups-contacts.csv"');
   $rows = groups_reports_group_status_report();
