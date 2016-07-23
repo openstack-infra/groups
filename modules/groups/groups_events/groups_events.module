@@ -62,9 +62,9 @@ function groups_events_date_formatter_dates_alter(&$dates, $context) {
     $target_id = $entity->og_group_ref[LANGUAGE_NONE][0]['target_id'];
     $node = node_load($target_id);
 
-    $timezone = $node->field_timezone[LANGUAGE_NONE][0]['value'];
-    if (empty($timezone)) {
-      $timezone = 'UTC';
+    $timezone = 'UTC';
+    if (isset($node->field_timezone[LANGUAGE_NONE])) {
+      $timezone = $node->field_timezone[LANGUAGE_NONE][0]['value'];
     }
 
     $process = date_process_values($field);
