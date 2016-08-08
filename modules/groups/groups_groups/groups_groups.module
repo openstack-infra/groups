@@ -195,6 +195,12 @@ function groups_groups_form_alter(&$form, &$form_state, $form_id) {
     $form['field_timezone']['#access'] = $is_community_mgr || $is_group_admin
       || $is_administrator;
 
+    // allow group admins to manage group membership field
+    $form['field_group_members']['#access'] = $is_community_mgr || $is_group_admin
+      || $is_administrator;
+    $form['field_group_members_source']['#access'] = $is_community_mgr || $is_group_admin
+      || $is_administrator;
+
     $form['field_group_location']['und'][0]['location']['#title'] = 'City (optional)';
     // reorder resource links, group location
     $form['field_resource_links']['#weight'] = 21;

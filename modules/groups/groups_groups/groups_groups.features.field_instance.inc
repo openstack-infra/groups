@@ -51,7 +51,7 @@ function groups_groups_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 50,
+      'weight' => 13,
     ),
   );
 
@@ -90,7 +90,7 @@ function groups_groups_field_default_field_instances() {
       'module' => 'geofield',
       'settings' => array(),
       'type' => 'geofield_latlon',
-      'weight' => 47,
+      'weight' => 8,
     ),
   );
 
@@ -132,11 +132,98 @@ function groups_groups_field_default_field_instances() {
       'module' => 'field_group_location',
       'settings' => array(),
       'type' => 'field_group_location',
-      'weight' => 46,
+      'weight' => 7,
     ),
   );
 
-  // Exported field_instance: 'node-group-field_group_status'
+  // Exported field_instance: 'node-group-field_group_members'.
+  $field_instances['node-group-field_group_members'] = array(
+    'bundle' => 'group',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Number of user group members from other source than meetup.com.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_integer',
+        'weight' => 22,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_group_members',
+    'label' => 'group_members',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 12,
+    ),
+  );
+
+  // Exported field_instance: 'node-group-field_group_members_source'.
+  $field_instances['node-group-field_group_members_source'] = array(
+    'bundle' => 'group',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 23,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_group_members_source',
+    'label' => 'group_members_source',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 11,
+    ),
+  );
+
+  // Exported field_instance: 'node-group-field_group_status'.
   $field_instances['node-group-field_group_status'] = array(
     'bundle' => 'group',
     'default_value' => array(
@@ -173,7 +260,7 @@ function groups_groups_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 48,
+      'weight' => 9,
     ),
   );
 
@@ -223,7 +310,7 @@ function groups_groups_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 49,
+      'weight' => 10,
     ),
   );
 
@@ -260,7 +347,7 @@ function groups_groups_field_default_field_instances() {
       'module' => 'field_property_list',
       'settings' => array(),
       'type' => 'field_property_list',
-      'weight' => 45,
+      'weight' => 5,
     ),
   );
 
@@ -301,7 +388,7 @@ function groups_groups_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 51,
+      'weight' => 14,
     ),
   );
 
@@ -310,8 +397,12 @@ function groups_groups_field_default_field_instances() {
   t('Ambassadors');
   t('Group location');
   t('Group status');
+  t('Number of user group members from other source than meetup.com.');
   t('Resource links');
+  t('Timezone');
   t('geofield');
+  t('group_members');
+  t('group_members_source');
   t('meetup_members');
   t('Timezone');
 

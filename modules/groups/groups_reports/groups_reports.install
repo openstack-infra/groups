@@ -40,7 +40,15 @@ function groups_reports_schema() {
         'default' => '',
       ),
     ),
-    'primary key' => array('nid', 'timestamp'),
+    'primary key' => array('nid', 'timestamp', 'datasrc'),
   );
   return $schema;
+}
+
+/**
+ * Update primary key of groups_membership_stat table
+ */
+function groups_reports_update_7100() {
+  db_drop_primary_key('groups_membership_stat');
+  db_add_primary_key('groups_membership_stat', array('nid', 'timestamp', 'datasrc'));
 }

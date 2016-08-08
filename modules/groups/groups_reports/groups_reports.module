@@ -74,17 +74,31 @@ function groups_reports_update_membership_stat($timestamp = null) {
     ->execute();
   foreach ($result as $record) {
     $node = node_load($record->nid);
+    // update meetup.com membership data
     $membercount = 0;
     if (isset($node->field_meetup_members[LANGUAGE_NONE])) {
       $membercount = (int)$node->field_meetup_members[LANGUAGE_NONE][0]['value'];
     }
     db_merge('groups_membership_stat')
-      ->key(array('nid' => $node->nid, 'timestamp' => $timestr))
+      ->key(array('nid' => $node->nid, 'timestamp' => $timestr, 'datasrc' => 'M'))
       ->fields(array(
         'nid' => $node->nid,
         'timestamp' => $timestr,
         'membercount' => $membercount,
         'datasrc' => 'M',
+      ))->execute();
+    // update alternate membership data
+    $membercount = 0;
+    if (isset($node->field_group_members[LANGUAGE_NONE])) {
+      $membercount = (int)$node->field_group_members[LANGUAGE_NONE][0]['value'];
+    }
+    db_merge('groups_membership_stat')
+      ->key(array('nid' => $node->nid, 'timestamp' => $timestr, 'datasrc' => 'C'))
+      ->fields(array(
+        'nid' => $node->nid,
+        'timestamp' => $timestr,
+        'membercount' => $membercount,
+        'datasrc' => 'C',
       ))->execute();
   }
   watchdog('Groups Reports', 'Groups membership statistics had been updated.', array(), WATCHDOG_INFO);
@@ -357,12 +371,14 @@ function groups_report_get_regional_membership_report($date) {
   $query->leftJoin('groups_membership_stat', 's', 'n.nid = s.nid');
   $query->fields('n', array('nid', 'title'));
   $query->fields('l', array('field_group_location_continent', 'field_group_location_country'));
-  $query->fields('s', array('membercount'));
+  $query->addExpression('sum(s.membercount)', 'membercount');
   $query->condition('n.type', 'group', '=');
   $query->condition('n.status', 1, '=');
   $query->condition('s.timestamp', gmdate('Ymd', $date), '=');
-  $query->orderBy('l.field_group_location_continent', 'ASC');
-  $query->orderBy('n.title', 'ASC');
+  $query->groupBy('n.title');
+  $query->groupBy('n.nid');
+  $query->groupBy('l.field_group_location_continent');
+  $query->groupBy('l.field_group_location_country');
   $result = $query->execute();
   $rows = array();
   $totals = array();
