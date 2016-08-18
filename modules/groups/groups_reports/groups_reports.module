@@ -436,13 +436,19 @@ function _groups_reports_map_users($users) {
 /**
  * Create a group profile completeness status report.
  */
-function groups_reports_group_status_report() {
+function groups_reports_group_status_report($filter_status = FALSE) {
   $status_point_max = 3;
   $items = array();
   $query = db_select('node', 'n');
   $query->join('field_data_field_group_location', 'l', 'n.nid = l.entity_id');
+  $query->join('field_data_field_group_status', 'gs', 'n.nid = gs.entity_id');
   $query->fields('n', array('nid', 'title'));
   $query->fields('l', array('field_group_location_continent', 'field_group_location_country'));
+  $query->fields('gs', array('field_group_status_value'));
+  if ($filter_status != FALSE) {
+    $status = $filter_status == 'official' ? 1 : 0;
+    $query->condition('gs.field_group_status_value', $status, '=');
+  }
   $query->condition('n.type', 'group', '=');
   $query->condition('n.status', 1, '=');
   $query->orderBy('l.field_group_location_continent', 'ASC');
@@ -456,6 +462,7 @@ function groups_reports_group_status_report() {
     $item->gid = $node->nid;
     $item->title = $node->title;
     $item->continent = $row->field_group_location_continent;
+    $item->group_status = $row->field_group_status_value;
     $item->organizers = _groups_reports_map_users(
       _groups_reports_og_members_by_role($row->nid, 'administrator member'));
     // assign imported organizers
@@ -536,11 +543,15 @@ function groups_reports_group_status_validate_social_links(&$item) {
 function groups_reports_groups_status_report_form($form = array(), &$form_state) {
   module_load_include('inc', 'field_group_location', 'field_group_lookup');
   $continents = _continent_get_predefined_list();
-  $rows = groups_reports_group_status_report();
+  $status = (isset($_GET['status'])) ? $_GET['status'] : FALSE;
+  $rows = groups_reports_group_status_report($status);
   $totals = new stdClass();
   $totals->points = 0;
   $totals->max = 0;
   foreach ($rows as $row) {
+    if ($row->group_status == 1) {
+      $row->title = sprintf('%s (official)', $row->title);
+    }
     $totals->points += $row->status_point;
     $totals->max += $row->status_point_max;
     $organizers = '';
@@ -645,7 +656,8 @@ function groups_reports_groups_contact_report_csv_export() {
   }
   drupal_add_http_header('Content-Type', 'text/csv; utf-8');
   drupal_add_http_header('Content-Disposition', 'attachment; filename="groups-contacts.csv"');
-  $rows = groups_reports_group_status_report();
+  $status = (isset($_GET['status'])) ? $_GET['status'] : FALSE;
+  $rows = groups_reports_group_status_report($status);
   printf("'%s','%s','%s'\n", 'User group', 'Full name', 'Email', 'Source');
   foreach ($rows as $row) {
     $seen = array();
