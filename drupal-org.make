@@ -180,7 +180,7 @@ projects[flag_abuse][version] = "2.0"
 
 projects[google_analytics][type] = "module"
 projects[google_analytics][subdir] = "contrib"
-projects[google_analytics][version] = "2.1"
+projects[google_analytics][version] = "2.3"
 
 projects[gravatar][type] = "module"
 projects[gravatar][subdir] = "contrib"
@@ -338,14 +338,11 @@ projects[og][patch][] = "https://drupal.org/files/og-Do_not_export_nonexisting_r
 
 projects[panelizer][type] = "module"
 projects[panelizer][subdir] = "contrib"
-projects[panelizer][version] = "3.1"
+projects[panelizer][version] = "3.2"
 
 projects[panels][type] = "module"
 projects[panels][subdir] = "contrib"
-projects[panels][download][type] = "git"
-projects[panels][download][url] = "http://git.drupal.org/project/panels.git"
-projects[panels][download][branch] = "7.x-3.x"
-projects[panels][download][revision] = "8059bda2b"
+projects[panels][version] = "3.6"
 
 projects[paranoia][type] = "module"
 projects[paranoia][subdir] = "contrib"
