@@ -12,6 +12,10 @@ features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
 features[flag][] = commons_follow_group
 features[flag][] = email_group
+features[user_permission][] = flag commons_follow_group
+features[user_permission][] = flag email_group
+features[user_permission][] = unflag commons_follow_group
+features[user_permission][] = unflag email_group
 features[variable][] = message_subscribe_og
 
 ; Information added by Drupal.org packaging script on 2015-03-18
