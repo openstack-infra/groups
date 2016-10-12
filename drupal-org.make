@@ -148,8 +148,8 @@ libraries[leaflet][download][url] = "http://cdn.leafletjs.com/downloads/leaflet-
 libraries[leaflet][destination] = "libraries"
 
 libraries[iCalcreator][type] = "libraries"
-libraries[iCalcreator][download][type] = "git"
-libraries[iCalcreator][download][url] = "git://github.com/iCalcreator/iCalcreator.git"
+libraries[iCalcreator][download][type] = "get"
+libraries[iCalcreator][download][url] = "https://github.com/iCalcreator/iCalcreator/archive/e3dbec2cb3bb91a8bde989e467567ae8831a4026.zip"
 libraries[iCalcreator][destination] = "libraries"
 
 libraries[feeds_jsonpath_parser][download][type] = get
