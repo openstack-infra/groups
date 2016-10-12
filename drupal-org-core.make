@@ -26,3 +26,10 @@ projects[drupal][patch][] = https://drupal.org/files/issues/node_access_grants-s
 ; File_get_file_references is slow and buggy
 ; https://drupal.org/node/1805690#comment-8734045
 projects[drupal][patch][] = https://drupal.org/files/issues/1805690_11.patch
+
+; Enables multi-profile inheritance with deep dependency checking.
+; https://www.drupal.org/node/2067229
+projects[drupal][patch][] = https://www.drupal.org/files/issues/allow_install_profiles-2067229-76.patch
+
+; Multi profile inheritance provides duplicated hook entries.
+projects[drupal][patch][] = "patches/0008-core-profile-duplicated-hook-group.patch"

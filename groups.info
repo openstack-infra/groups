@@ -2,6 +2,7 @@ name = OpenStack User Groups
 project = groups
 distribution_name = "OpenStack User Groups"
 description = Ready-to-use solution for managing OpenStack communities.
+base profile = commons
 core = 7.x
 php_memory_limit = 192M
 

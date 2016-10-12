@@ -3,7 +3,9 @@
 /**
  * Define minimum execution time required to operate.
  */
-define('DRUPAL_MINIMUM_MAX_EXECUTION_TIME', 120);
+if (!defined('DRUPAL_MINIMUM_MAX_EXECUTION_TIME')) {
+  define('DRUPAL_MINIMUM_MAX_EXECUTION_TIME', 120);
+}
 
 /**
  * Implements hook_hook_info().
@@ -20,33 +22,6 @@ function groups_hook_info() {
 }
 
 /**
- * Get Commons entity integration information.
- *
- * @param $entity_type
- *   (optional) The entity type to load, e.g. node or user.
- *
- * @return
- *   An associative array of entity integrations whose keys define the entity
- *   type for each integration and whose values contain the bundles which have
- *   been integrated. Each bundle is itself an associative array, whose keys
- *   define the type of integration to enable and whose values contain the
- *   status of the integration. TRUE = enabled, FALSE = disabled.
- */
-function commons_entity_integration_info($entity_type = NULL) {
-  $info = &drupal_static(__FUNCTION__);
-  if (!$info) {
-    $info = module_invoke_all('commons_entity_integration');
-    drupal_alter('commons_entity_integration', $info);
-  }
-  if ($entity_type) {
-    return isset($info[$entity_type]) ? $info[$entity_type] : array();
-  }
-  else {
-    return $info;
-  }
-}
-
-/**
  * Implements hook_admin_paths_alter().
  */
 function groups_admin_paths_alter(&$paths) {
@@ -60,6 +35,12 @@ function groups_admin_paths_alter(&$paths) {
  */
 function groups_install_tasks_alter(&$tasks, $install_state) {
   global $install_state;
+
+  // Remove commons profile install tasks
+  $commons_tasks = commons_install_tasks();
+  foreach ($commons_tasks as $k => $v) {
+    unset($tasks[$k]);
+  }
 
   // Skip profile selection step.
   $tasks['install_select_profile']['display'] = FALSE;
@@ -166,7 +147,8 @@ function groups_set_language_negotiation() {
 function groups_install_finished(&$install_state) {
   // BEGIN copy/paste from install_finished().
   // Remove the bookmarks flag
-  include_once DRUPAL_ROOT . '/profiles/groups/modules/contrib/flag/includes/flag.admin.inc';
+  // include_once DRUPAL_ROOT . '/profiles/groups/modules/contrib/flag/includes/flag.admin.inc';
+  module_load_include('inc', 'flag', 'includes/flag.admin');
   $flag = flag_get_flag('bookmarks');
   if($flag) {
     $flag->delete();
@@ -198,6 +180,30 @@ function groups_install_finished(&$install_state) {
     ->condition('delta', 'commons_utility_links')
     ->condition('module', 'commons_utility_links')
     ->condition('theme', 'adaptivetheme_admin')
+    ->execute();
+
+  // disable main menu on admin theme
+  db_update('block')
+    ->fields(array('status' => 0))
+    ->condition('delta', 'main-menu')
+    ->condition('module', 'system')
+    ->condition('theme', 'adaptivetheme_admin')
+    ->execute();
+
+  // disable search form on admin theme
+  db_update('block')
+    ->fields(array('status' => 0))
+    ->condition('delta', 'form')
+    ->condition('module', 'search')
+    ->condition('theme', 'adaptivetheme_admin')
+    ->execute();
+
+  // disable main-menu on openstack_bootstrap theme
+  db_update('block')
+    ->fields(array('status' => 0))
+    ->condition('delta', 'main-menu')
+    ->condition('module', 'system')
+    ->condition('theme', 'openstack_bootstrap')
     ->execute();
 
   // Cache a fully-built schema.

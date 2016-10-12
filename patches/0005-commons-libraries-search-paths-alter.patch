@@ -1,0 +1,15 @@
+diff --git a/drupal-org.make.orig b/drupal-org.make
+index 1833c7e..0676541 100644
+--- a/drupal-org.make.orig
++++ b/drupal-org.make
+@@ -212,6 +212,10 @@ projects[libraries][type] = "module"
+ projects[libraries][subdir] = "contrib"
+ projects[libraries][version] = "2.3"
+
++; Allow modules to alter libraries search paths
++; https://www.drupal.org/files/issues/2081579-7-libraries-search-paths-alter.patch
++projects[libraries][patch][] = "https://www.drupal.org/files/issues/2081579-7-libraries-search-paths-alter.patch"
++
+ projects[lingotek][type] = "module"
+ projects[lingotek][subdir] = "contrib"
+ projects[lingotek][version] = "6.02"
