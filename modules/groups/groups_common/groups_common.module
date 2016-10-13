@@ -65,3 +65,14 @@ function _groups_common_filter_process_format($element) {
   }
   return $element;
 }
+
+/**
+ * Implements hook_libraries_search_paths_alter()
+ *
+ * Add commons profile libraries to library path as part of the base profile
+ * inheritance.
+ */
+function groups_common_libraries_search_paths_alter(&$searchdir) {
+  $profile_commons = drupal_get_path('profile', 'commons');
+  $searchdir[] = "$profile_commons/libraries";
+}
