@@ -122,6 +122,10 @@ projects[potx][version] = 3.x-dev
 projects[potx][type] = "module"
 projects[potx][subdir] = "contrib"
 
+projects[registry_rebuild][version] = 2.4
+projects[registry_rebuild][type] = "module"
+projects[registry_rebuild][subdir] = "contrib"
+
 projects[tzfield][version] = "1.1"
 projects[tzfield][type] = "module"
 projects[tzfield][subdir] = "contrib"
