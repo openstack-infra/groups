@@ -21,7 +21,7 @@ projects[privatemsg_notify_sender][version] = "1.1"
 
 projects[elysia_cron][type] = "module"
 projects[elysia_cron][subdir] = "contrib"
-projects[elysia_cron][version] = "2.3"
+projects[elysia_cron][version] = "2.4"
 
 projects[google_analytics][type] = "module"
 projects[google_analytics][subdir] = "contrib"
