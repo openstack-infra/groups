@@ -138,7 +138,7 @@ projects[zen][version] = "5.5"
 
 projects[bootstrap][type] = "theme"
 projects[bootstrap][subdir] = "contrib"
-projects[bootstrap][version] = "3.0"
+projects[bootstrap][version] = "3.10"
 
 ; Libraries.
 ; NOTE: These need to be listed in http://drupal.org/packaging-whitelist.
