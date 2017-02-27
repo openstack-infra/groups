@@ -1,0 +1,12 @@
+diff -Naur commons.orig/drupal-org.make commons/drupal-org.make
+--- commons.orig/drupal-org.make	2017-02-27 15:23:28.000000000 +0100
++++ commons/drupal-org.make	2017-02-27 15:47:17.000000000 +0100
+@@ -262,7 +262,7 @@
+ 
+ projects[metatag][type] = "module"
+ projects[metatag][subdir] = "contrib"
+-projects[metatag][version] = "1.17"
++projects[metatag][version] = "1.21"
+ 
+ projects[module_filter][type] = "module"
+ projects[module_filter][subdir] = "contrib"

@@ -11,3 +11,4 @@ projects[commons][patch][] = "patches/0010-commons-activity-streams-warning.patc
 projects[commons][patch][] = "patches/0011-commons-media-beta12.patch"
 projects[commons][patch][] = "patches/0012-commons-title-alpha9.patch"
 projects[commons][patch][] = "patches/0013-commons-views-3.15.patch"
+projects[commons][patch][] = "patches/0014-commons-metatag-1.21.patch"
