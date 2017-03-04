@@ -35,7 +35,8 @@ function openstack_bootstrap_preprocess_page(&$variables) {
  *  - front page
  *  - ambassador program
  *
- * and add no-bleed-margins to each other page.
+ * and add no-bleed-margins to each other page,
+ * add new favicon with version number to the html header.
  *
  * @see html.tpl.php
  */
@@ -46,6 +47,26 @@ function openstack_bootstrap_preprocess_html(&$variables) {
   } else {
     $variables['classes_array'][] = 'no-bleed-margins';
   }
+
+  // add new favicon with version to clear the browser's favicon cache
+  $favicon = theme_get_setting('favicon');
+  $element = array(
+    'rel' => 'shortcut icon',
+    'href' => drupal_strip_dangerous_protocols($favicon.'?v=2'),
+  );
+  drupal_add_html_head_link($element);
+}
+
+/**
+ * Implements hook_html_head_alter().
+ *
+ * Remove default favicon
+ */
+function openstack_bootstrap_html_head_alter(&$head_elements) {
+  // Remove existing favicon location
+  $favicon = theme_get_setting('favicon');
+  $default_favicon_element = 'drupal_add_html_head_link:shortcut icon:' . $favicon;
+  unset($head_elements[$default_favicon_element]);
 }
 
 /**
