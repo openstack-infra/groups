@@ -44,7 +44,7 @@ function groups_homepage_block_view($delta='') {
   $block = array();
   switch ($delta) {
     case 'groups_homepage_welcome':
-      $block['content'] = variable_get('groups_welcome_body', "Can't find one nearby? Want to start one? The <a href='https://wiki.openstack.org/wiki/Teams#Community_team'>OpenStack International Community team</a> is your main contact point. Join the <a href='http://lists.openstack.org/cgi-bin/mailman/listinfo/community'>mailing list</a> and read the <a href='https://wiki.openstack.org/wiki/OpenStackUserGroups/HowTo'>HowTo page</a> if you are hosting or want to start a user group with meetups, hackathons and other social events talking about OpenStack and free/libre open source software for the cloud.");
+      $block['content'] = variable_get('groups_welcome_body', "Can't find one nearby? Want to start one? The <a href='https://wiki.openstack.org/wiki/Teams#Community_team'>OpenStack International Community team</a> is your main contact point. Join the <a href='http://lists.openstack.org/cgi-bin/mailman/listinfo/community'>mailing list</a> and read the <a href='https://groups.openstack.org/tips'>HowTo page</a> if you are hosting or want to start a user group with meetups, hackathons and other social events talking about OpenStack and free/libre open source software for the cloud.");
       $block['subject'] = variable_get('groups_welcome_title', 'Welcome to OpenStack User Groups!');
       break;
     case 'groups_community_map':
