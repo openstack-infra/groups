@@ -1,0 +1,9 @@
+Code-Review+1: Tom Fifield <tom@openstack.org>
+Code-Review+2: Marton Kiss <marton.kiss@gmail.com>
+Workflow+1: Marton Kiss <marton.kiss@gmail.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Fri, 21 Apr 2017 08:15:53 +0000
+Reviewed-on: https://review.openstack.org/441589
+Project: openstack-infra/groups
+Branch: refs/heads/master
