@@ -1,0 +1,11 @@
+--- commons.orig/drupal-org.make	2017-04-25 21:45:20.000000000 +0200
++++ commons/drupal-org.make	2017-04-25 21:45:41.000000000 +0200
+@@ -218,7 +218,7 @@
+
+ projects[media][type] = "module"
+ projects[media][subdir] = "contrib"
+-projects[media][version] = "2.x-dev"
++projects[media][version] = "2.0"
+
+ projects[media_oembed][type] = "module"
+ projects[media_oembed][subdir] = "contrib"
