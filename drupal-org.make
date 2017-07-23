@@ -116,7 +116,7 @@ projects[markdown][version] = "1.2"
 
 projects[smtp][type] = "module"
 projects[smtp][subdir] = "contrib"
-projects[smtp][version] = "1.2"
+projects[smtp][version] = "1.7"
 
 projects[potx][version] = 3.x-dev
 projects[potx][type] = "module"
