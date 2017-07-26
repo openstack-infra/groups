@@ -12,17 +12,20 @@ if [ ! -z "$1" ]; then
 fi
 
 # build core
-drush make drupal-org-core.make $TARGET_DIR
+echo "=== Build Drupal Core ==="
+drush make -v drupal-org-core.make $TARGET_DIR
 
 # build drupal commons
-drush make --no-core --no-cache commons.make $TARGET_DIR.commons
+echo "=== Build Drupal Commons ==="
+drush make -v --no-core --no-cache commons.make $TARGET_DIR.commons
 rsync -a $TARGET_DIR.commons/* $TARGET_DIR/
 rm -rf $TARGET_DIR.commons
 
 # build groups custom modules
+echo "=== Build Custom Modules ==="
 mkdir -p $TARGET_DIR/profiles/$PROFILE_NAME
 rsync -a --exclude=$TARGET_DIR --exclude=drush . $TARGET_DIR/profiles/$PROFILE_NAME/
-drush make --no-core --no-cache --contrib-destination=profiles/$PROFILE_NAME drupal-org.make $TARGET_DIR.contrib
+drush make -v --no-core --no-cache --contrib-destination=profiles/$PROFILE_NAME drupal-org.make $TARGET_DIR.contrib
 rsync -a $TARGET_DIR.contrib/* $TARGET_DIR/
 rm -rf $TARGET_DIR.contrib
 
