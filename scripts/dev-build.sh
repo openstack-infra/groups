@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -x
+#!/usr/bin/env bash -xe
 
 # Build groups distribution from local filesystem instead of fetching
 # directly from git
