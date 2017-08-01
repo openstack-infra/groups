@@ -185,3 +185,12 @@ function groups_directory_filter_form_clear_filters($form, &$form_state) {
   $path=$GLOBALS['base_url'].strtok($_SERVER["REQUEST_URI"],'?');
   drupal_goto($path);
 }
+
+/**
+ * Implements hook_leaflet_map_prebuild_alter()
+ *
+ * Add custom map js to override marker hover and popup balloon behavior.
+ */
+function groups_directory_leaflet_map_prebuild_alter(&$vars) {
+  drupal_add_js(drupal_get_path('module', 'groups_directory') . '/js/groups_directory_map.js');
+}
