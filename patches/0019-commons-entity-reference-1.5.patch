@@ -1,0 +1,15 @@
+--- commons.orig/drupal-org.make	2017-08-30 16:20:25.000000000 +0200
++++ commons/drupal-org.make	2017-08-30 16:29:53.000000000 +0200
+@@ -131,11 +131,7 @@
+
+ projects[entityreference][type] = "module"
+ projects[entityreference][subdir] = "contrib"
+-projects[entityreference][version] = "1.1"
+-
+-; Autocomplete widgets cannot reference a single entity result.
+-; https://drupal.org/node/1959624#comment-8451891
+-projects[entityreference][patch][] = "https://drupal.org/files/issues/entityreference-autocomplete-widget-single-entity-1959624-6.patch"
++projects[entityreference][version] = "1.5"
+
+ projects[entityreference_prepopulate][type] = "module"
+ projects[entityreference_prepopulate][subdir] = "contrib"
