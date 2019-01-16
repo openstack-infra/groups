@@ -19,7 +19,7 @@ modules only, that are located under modules/groups directory.
         ...
         translations/
           templates/                     - translation template files (.pot)
-          <langcode>/                    - directory with langauge specific .po files
+          <langcode>/                    - directory with language specific .po files
             groups_<name>-<version>.po  - translated module resources
         scripts/
           pot-extract.sh
