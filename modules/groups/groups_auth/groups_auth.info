@@ -1,7 +1,0 @@
-name = Groups Authentication
-description = Authentication integration for Openstack auth provider
-core = 7.x
-package = Groups - Authentication
-version = 7.x-1.0
-project = groups_auth
-dependencies[] = openid

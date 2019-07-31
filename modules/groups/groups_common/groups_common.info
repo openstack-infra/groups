@@ -1,6 +1,0 @@
-name = Groups Common
-description = Common hooks and settings for Groups project
-core = 7.x
-package = Groups - Common
-version = 7.x-1.0
-project = groups_common

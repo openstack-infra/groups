@@ -1,5 +1,0 @@
-name = Groups Social Link
-description = "Add a formatter to url fields that allows Admins to determine how links will be displayed"
-package = groups
-core = 7.x
-files[] = groups_social_link.module

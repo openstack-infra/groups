@@ -1,9 +1,0 @@
-<?php
-
-/**
- * Implements hook_enable()
- */
-function groups_pages_enable() {
-  // Enable node_view page required for panelizer
-  variable_set('page_manager_node_view_disabled', FALSE);
-}

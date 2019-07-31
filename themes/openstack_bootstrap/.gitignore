@@ -1,6 +1,0 @@
-# Ignore paths that contain sass-generated content.
-.bundle
-.idea
-.sass-cache
-css
-images/rgbapng

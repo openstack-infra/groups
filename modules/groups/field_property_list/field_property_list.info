@@ -1,7 +1,0 @@
-name = Property List field
-description = A key/value field where the key is selectable from a drop-down list.
-core = 7.x
-package = Fields
-
-; Information added by drupal.org packaging script on 2013-09-03
-version = "7.x-1.x-dev"

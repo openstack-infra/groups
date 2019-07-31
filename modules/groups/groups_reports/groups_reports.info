@@ -1,8 +1,0 @@
-name = Groups Reports
-description = Groups reports building blocks
-core = 7.x
-package = Groups - Building Blocks
-version = 7.x-1.0
-project = groups_reports
-dependencies[] = elysia_cron
-dependencies[] = chartjs

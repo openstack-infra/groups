@@ -1,6 +1,0 @@
-name = groups language switcher
-description = Language switcher utility link extension.
-core = 7.x
-package = groups
-version = 7.x-1.0
-project = groups_language_switcher
